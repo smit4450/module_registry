@@ -1,6 +1,6 @@
-// Code to validate a URL input from the command line
 // Import necessary modules
 import { URL } from 'url';
+import promptSync from 'prompt-sync';
 
 // Function to validate if the input is a valid URL
 function isValidUrl(input: string): boolean {
@@ -12,16 +12,13 @@ function isValidUrl(input: string): boolean {
     }
 }
 
-// Main function to handle URL input from command line
+// Main function to handle URL input from the command line
 function main() {
-    // Get the URL from the command-line arguments (process.argv[2] is the first argument after 'node' and the script name)
-    const urlInput = process.argv[2];
-    console.log('URL input:', urlInput)
+    // Create an instance of prompt-sync
+    const prompt = promptSync();
 
-    if (!urlInput) {
-        console.error('Error: Please provide a URL as an argument.');
-        process.exit(1);  // Exit the process with an error code
-    }
+    // Prompt the user for a URL
+    const urlInput = prompt('Please enter a URL: ');
 
     // Validate the URL
     if (isValidUrl(urlInput)) {
@@ -31,9 +28,8 @@ function main() {
         process.exit(1);  // Exit the process with an error code
     }
 
-    console.log('URL validation successful.')
+    console.log('URL validation successful.');
 }
 
 // Run the main function
 main();
-
