@@ -1,6 +1,6 @@
+// Code to validate a URL input from the command line
 // Import necessary modules
 import { URL } from 'url';
-import promptSync from "prompt-sync";
 
 // Function to validate if the input is a valid URL
 function isValidUrl(input: string): boolean {
