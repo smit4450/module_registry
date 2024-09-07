@@ -16,6 +16,7 @@ function isValidUrl(input: string): boolean {
 function main() {
     // Get the URL from the command-line arguments (process.argv[2] is the first argument after 'node' and the script name)
     const urlInput = process.argv[2];
+    console.log('URL input:', urlInput)
 
     if (!urlInput) {
         console.error('Error: Please provide a URL as an argument.');
