@@ -27,6 +27,8 @@
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
+    "@types/node": "^22.5.4",
+    "@types/prompt-sync": "^4.2.3",
     "@types/minimist": "^1.2.5",
     "typescript": "^5.5.4"
   }
