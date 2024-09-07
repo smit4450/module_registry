@@ -1,5 +1,6 @@
 // Import necessary modules
 import { URL } from 'url';
+import promptSync from "prompt-sync";
 
 // Function to validate if the input is a valid URL
 function isValidUrl(input: string): boolean {
