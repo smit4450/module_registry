@@ -29,6 +29,8 @@ function main() {
         console.error('Error: Invalid URL format.');
         process.exit(1);  // Exit the process with an error code
     }
+
+    console.log('URL validation successful.')
 }
 
 // Run the main function
