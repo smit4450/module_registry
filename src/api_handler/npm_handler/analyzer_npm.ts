@@ -6,18 +6,27 @@ import minimist = require('minimist');
 
 const args = minimist(process.argv.slice(2));
 
-// 3. Inside the "readDependencies" function:
-async function read_dependencies(package_url: string) {
-    // a. Read the package.json file from the given path.
-    const packageJson = await fs.promises.readFile(package_url, 'utf-8');
+//extract package name from url
+async function get_package_name (package_url: string) {
+    const package_name = package_url.split('/').pop();
+    return package_name;
+}
+// read dependencies from package
+async function read_dependencies(extracted_package: string) {
+    const endpoint = `https://registry.npmjs.org/${extracted_package}`;
+
+    const res = await fetch(endpoint);
+    const dependencies = await res.json();
+    // // a. Read the package.json file from the given path.
+    // const packageJson = await fs.promises.readlink(package_url, 'utf-8');
     
-    // b. Parse the contents of the package.json file into a JSON object.
-    const packageData = JSON.parse(packageJson);
+    // // b. Parse the contents of the package.json file into a JSON object.
+    // const packageData = JSON.parse(packageJson);
     
-    // c. Access the "dependencies" property of the JSON object to get the list of dependencies.
-    const dependencies = packageData.dependencies;
+    // // c. Access the "dependencies" property of the JSON object to get the list of dependencies.
+    // const dependencies = packageData.dependencies;
     
-    // 4. Return the list of dependencies.
+    // // 4. Return the list of dependencies.
     return dependencies;
 }
 //     a. Read the package.json file from the given path.
@@ -40,12 +49,19 @@ async function read_dependencies(package_url: string) {
 
 
 const commands = {
-    hello: () => {
-        const dependencies = read_dependencies('https://www.npmjs.com/package/browserify');
-        console.log('Hello, world!');
-        console.log(dependencies);
+    test_dependencies: async () => {
+        try {
+            const package_url = 'https://www.npmjs.com/package/browserify';
+            const package_name = await get_package_name(package_url);
+            const dependencies = await read_dependencies(String(package_name));
+            console.log(package_name);
+            console.log(dependencies);
+        }
+        catch (error) {
+            console.error('An error occurred:', error);
+        }
     },
-    greet: () => {
+    dummy_test: () => {
         const name = args._[1] || 'Anonymous';
         console.log(`Hello, ${name}!`);
     },
