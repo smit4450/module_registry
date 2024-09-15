@@ -6,7 +6,8 @@
   "_version": "20.1.0",
   "compilerOptions": {
     "lib": [
-      "es2023"
+      "es2022",
+      "dom"
     ],
     "outDir": "dist",
     "module": "node16",
