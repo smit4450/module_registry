@@ -16,3 +16,5 @@ class metrics {
 
 
 }
+
+// for metric fork count, are you able to get the number of forks created in the last 30 days from github graphql api?
