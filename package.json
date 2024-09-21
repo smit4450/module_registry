@@ -9,7 +9,8 @@
     "start": "node dist/index.js",
     "dev": "npm run build && npm run start",
     "path": "node dist/api_handler/npm_handler/analyzer_npm.js",
-    "test": "npm run build && jest"
+    "test": "npm run build && npm run path test_data",
+    "new": "jest"
   },
   "keywords": [],
   "debug": "false",
@@ -17,17 +18,23 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.7",
+    "browserify": "^17.0.0",
+    "discord.js": "^14.16.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "fs": "^0.0.1-security",
+    "hello": "^0.6.2",
     "https": "^1.0.0",
+    "lodash": "^4.17.21",
     "minimist": "^1.2.8",
     "node": "^22.8.0",
     "prompt-sync": "^4.2.0",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "wasm-grate": "^0.3.2"
   },
   "devDependencies": {
     "@types/jest": "^29.5.13",
+    "@types/minimist": "^1.2.5",
     "jest": "^29.7.0",
     "ts-jest": "^29.2.5",
     "typescript": "^5.5.4"

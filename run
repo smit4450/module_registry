@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ "$1" == "install" ]; then
+    npm install
+
+elif [ "$1" == "test" ]; then
+    npm run test
+
+else
+    tsc 
+    node dist/index.js $1
+
+fi
+
