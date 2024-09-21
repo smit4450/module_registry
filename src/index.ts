@@ -4,9 +4,6 @@ import { analyzeNpm } from './api_handler/npm_handler/analyzer_npm.js';
 import { analyzeGraphQL } from './api_handler/graphql_handler/analyzer_graphql.js';
 import * as readline from 'readline';
 import * as fs from 'fs';
-// import { TextMetrics } from './metrics/text_metrics.js';
-// import * as git_metrics from './metrics/git_metrics.js';
-// import * as npm_metrics from './metrics/npm_metrics.js';
 import { Metrics } from './metrics/metrics.js';
 // Function to validate if the input is a valid URL
 function isValidUrl(input: string): boolean {
