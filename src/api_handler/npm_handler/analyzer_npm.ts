@@ -1,8 +1,24 @@
-//Used github copilot to write guideline in pseudocode
+/*
+NPM Analyzer: utilities for analyzing NPM packages
+Contributors/Sources: 
+    GitHub copilot for guidline/syntax issues
+    https://github.com/npm/registry/blob/main/docs/REGISTRY-API.md (NPM API documentation)
+    https://www.edoardoscibona.com/exploring-the-npm-registry-api (More notes on reading metadata)
+
+To do:
+- Score calculations
+- main function for scores
+- finding data 
+*/
+
+
 // call npm api token from .env file
 
 import minimist = require('minimist');
 import dotenv = require('dotenv');
+import { StringLiteral } from 'typescript';
+import { read } from 'fs';
+import axios = require('axios');
 
 dotenv.config();
 
@@ -15,10 +31,12 @@ const headers = {
 const args = minimist(process.argv.slice(2));
 
 interface Metadata {
-    description:string;
+    description: string;
     time: string;
     dependencies: string;
-    versions: string
+    versions: Record<string, string>; // Add this line
+    license: string;
+    homepage: string;
 }
 //extract package name from url
 async function get_package_name (package_url: string) {
@@ -43,43 +61,69 @@ async function read_downloads(extracted_package: string) {
     const downloads= await res.json();
     return downloads;
 }
+//4. responsive maintainer
 
+//5. licensing
+async function read_license(license: string) {
+    if(license){
+        return 1;}
+    return 0;
+}
 
-//     a. Read the package.json file from the given path.
-//     b. Parse the contents of the package.json file into a JSON object.
-//     c. Access the "dependencies" property of the JSON object to get the list of dependencies.
+async function getGitHubRepoUrl(package_name: string) {
+    try {
+      const response = await axios.get(`https://registry.npmjs.org/${package_name}`);
+      const latest_version = response.data['dist-tags'].latest; //get latest version of package
+      const repository = response.data.versions[latest_version].repository; //get the repository URL
+      if (repository && repository.url) {
+        // Clean up the repository URL (remove "git+" and ".git" if present)
+        var gitUrl = repository.url.replace(/^git\+/, '').replace(/\.git$/, '');
+        if (gitUrl.startsWith('ssh://git@')) {
+            //some urls start with the ssh://git@ prefix 
+            console.log("Clean up ssh URL:")
+            gitUrl = gitUrl.replace('ssh://git@', 'https://');
+          }        
+        console.log(`GitHub URL for ${package_name}: ${gitUrl}`);
+        return gitUrl;
+      } else {
+        console.log(`No repository URL found for ${package_name}`);
+        return null;
+      }
+    } catch (error) {
+      console.error(`Error fetching package data for ${package_name}:`, error);
+    }
+  }
 
-// 4. Return the list of dependencies.
+  
+/*async function retu */
+// async function read_homepage(extracted_package: string) {
+//     const endpoint = `https://registry.npmjs.org/${extracted_package}`;
+//     const res = await fetch(endpoint);
+//     const metadata = await res.json();
 
-// 5. Call the "readDependencies" function with the path to the npm module as an argument.
+//     const gitUrl = repository.url.replace(/^git\+/, '').replace(/\.git$/, '');
 
-// 6. Store the returned list of dependencies in a variable for further processing or display.
-
-// 7. Handle any errors that may occur during the process, such as file not found or invalid JSON format.
-
-// 8. Optionally, you can perform additional operations on the list of dependencies, such as filtering, sorting, or displaying them in a specific format.
-
-// 9. End the program or continue with other tasks as needed.
-
-//test read_dependencies with sample package
-
-
+//     return homepage;
+// }
 const commands = {
     test_data: async () => {
         try {
-            const package_url = 'https://www.npmjs.com/package/browserify';
+            const package_url = 'https://www.npmjs.com/package/lodash';
             const package_name = await get_package_name(package_url);
+            getGitHubRepoUrl(String(package_name));
             const metadata = await read_data(String(package_name));
-            const downloads = await read_downloads(String(package_name))
+            const downloads = await read_downloads(String(package_name));
             const access_metadata = metadata as Metadata;
+            const versionKeys = Object.keys(access_metadata.versions);
+            const mostRecentVersion = versionKeys[versionKeys.length - 1];
+            const repository = access_metadata.versions[mostRecentVersion];
+           // const gitUrl = repository.url.replace(/^git\+/, '').replace(/\.git$/, '');
 
+            //const issues = await read_homepage(String(package_name));
 
-        
-            console.log(package_name);
-            console.log(downloads)
-            console.log(access_metadata.versions);
-            
-            
+            console.log(access_metadata.homepage);
+            console.log(await read_license(access_metadata.license));
+            console.log(mostRecentVersion);
         }
         catch (error) {
             console.error('An error occurred:', error);
