@@ -9,7 +9,7 @@
     "start": "node dist/analyzer_npm.js",
     "dev": "npm run build && npm run start",
     "analyze": "node dist/api_handler/npm_handler/analyzer_npm.js",
-    "test": "npm run build && npm run analyze test_data"
+    "test": "npm run build && npm run analyze test_data",
     "path": "node dist/api_handler/npm_handler/analyzer_npm.js",
     "new": "jest"
   },

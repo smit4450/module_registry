@@ -1,10 +1,13 @@
 import { URL } from 'url';
 import { url_interface } from './metrics/interfaces.js'; 
-import { analyzeNpm } from './api_handler/npm_handler/analyzer_npm.js';
-import { analyzeGraphQL } from './api_handler/graphql_handler/analyzer_graphql.js';
+// import { analyzeNpm } from './api_handler/npm_handler/analyzer_npm.js';
+// import { analyzeGraphQL } from './api_handler/graphql_handler/analyzer_graphql.js';
 import * as readline from 'readline';
 import * as fs from 'fs';
 import { Metrics } from './metrics/metrics.js';
+import axios = require('axios');
+import { error } from 'console';
+
 // Function to validate if the input is a valid URL
 function isValidUrl(input: string): boolean {
     try {
@@ -14,6 +17,42 @@ function isValidUrl(input: string): boolean {
         return false;
     }
 }
+
+async function get_package_name (package_url: string) {
+    const package_name = package_url.split('/').pop();
+    return package_name;
+}
+
+async function getGitHubRepoUrl(package_name: string) {
+    try {
+      const response = await axios.get(`https://registry.npmjs.org/${package_name}`);
+      const latest_version = response.data['dist-tags'].latest; //get latest version of package
+      const repository = response.data.versions[latest_version].repository; //get the repository URL
+      if (repository && repository.url) {
+        // Clean up the repository URL (remove "git+" and ".git" if present)
+        var gitUrl = repository.url.replace(/^git\+/, '').replace(/\.git$/, '');
+        if (gitUrl.startsWith('ssh://git@')) {
+            //some urls start with the ssh://git@ prefix 
+            console.log("Clean up ssh URL:")
+            gitUrl = gitUrl.replace('ssh://git@', 'https://');
+          }        
+        console.log(`GitHub URL for ${package_name}: ${gitUrl}`);
+        return gitUrl;
+      } else {
+        console.log(`No repository URL found for ${package_name}`);
+        return null;
+      }
+    } catch (error) {
+      console.error(`Error fetching package data for ${package_name}:`, error);
+    }
+  }
+
+async function fetchRepoUrl(package_url: string) {
+    const package_name = await get_package_name(package_url);
+    const gitHubUrl = await getGitHubRepoUrl(String(package_name));  // Output is assigned to gitHubUrl
+    return gitHubUrl;
+}
+  
 
 async function readLinesFromFile(file_path: string) {
     const fileStream = fs.createReadStream(file_path);
@@ -28,6 +67,7 @@ async function readLinesFromFile(file_path: string) {
     }
 }
 
+
 // Logger function to output analysis results
 function logger(message: string) {
     console.log(`[LOG]: ${message}`);
@@ -35,8 +75,8 @@ function logger(message: string) {
 
 function github_url():url_interface {
     console.log("This is a GitHub link.");
-    const graphqlResult = analyzeGraphQL();
-    console.log(graphqlResult);
+    // const graphqlResult = analyzeGraphQL();
+    // console.log(graphqlResult);
 
     //dummy data for now. Values must be read based on analyzeGraphQL function's logic
     const contributors:number = 1;
@@ -88,8 +128,11 @@ function calculate_factors(urlInput:string) {
     else if (urlInput.includes("npmjs.com/package")) {
         //find eqvivalent github link and then call analyzeGraphQL();
         console.log("This is an npm link.");
+
         // const npmResult = analyzeNpm();
         // console.log(npmResult);
+        urlInput = String(fetchRepoUrl(urlInput))
+
 
         // // parse through the URL and get data
         // // fake data for now:
@@ -110,13 +153,13 @@ function calculate_factors(urlInput:string) {
 
 }
 // Main function to handle URL input from command line
-function main() {
+async function main() {
     // Create an interface for input and output streams
 
     // Prompt user for URL input
     const file_path = process.argv[2];
     readLinesFromFile(file_path)
-
+    
 
     // Validate the URL
     
