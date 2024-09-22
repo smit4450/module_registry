@@ -1,7 +1,7 @@
 //token protections
 import { error } from 'console';
 import * as dotenv from 'dotenv'; 
-import { moveSyntheticComments } from 'typescript';
+import { ListFormat, moveSyntheticComments } from 'typescript';
 dotenv.config();
 export interface queries {
     years:number
@@ -99,6 +99,18 @@ export interface Response {
             licenseInfo: {
                 name: String;
             }
+            license: {
+                text: String;
+            }
+            license2: {
+                text: String;
+            }
+            readme: {
+                text: String;
+            }
+            readme2: {
+                text: String;
+            }
         }
         rateLimit: {
             cost: number;
@@ -118,10 +130,8 @@ export const GRAPHQL_URL = 'https://api.github.com/graphql';
 //input url processing
 const mod = input.substring(19);
 const sep = mod.indexOf('/');
-const info = {
-    owner: mod.substring(0, sep),
-    name: mod.substring(sep+1)
-};
+const owner = mod.substring(0, sep);
+const name = mod.substring(sep+1);
 
 //query parameters
 export const query = `
@@ -131,9 +141,9 @@ query {
     remaining
     resetAt
   }
-	repository(owner: "${info.owner}", name: "${info.name}") {
+	repository(owner: "${owner}", name: "${name}") {
     diskUsage
-    mentionableUsers(first: 5) {
+    mentionableUsers(first: 10) {
       totalCount
       nodes {
         contributionsCollection {
@@ -165,7 +175,7 @@ query {
     icount: issues {
       totalCount
     }
-    issues(last: 10) {
+    issues(last: 20) {
       nodes {
         participants {
           totalCount
@@ -182,7 +192,7 @@ query {
     prcount: pullRequests {
       totalCount
     }
-    pullRequests(last: 5) {
+    pullRequests(last: 10) {
       nodes {
         publishedAt
       }
@@ -196,6 +206,26 @@ query {
     }
     licenseInfo {
       name
+    }
+    readme: object(expression: "main:README.md") {
+      ... on Blob {
+        text
+      }
+    }
+    readme2: object(expression: "master:README.md") {
+      ... on Blob {
+        text
+      }
+    }
+    license: object(expression: "main:LICENSE") {
+      ... on Blob {
+        text
+      }
+    }
+    license2: object(expression: "master:LICENSE") {
+      ... on Blob {
+        text
+      }
     } 
   }
 }
@@ -223,6 +253,15 @@ export async function fetch_repo(GRAPHQL_URL:string, headers: HeadersInit,query:
         if(data) {
             //casting as prerecorded interface
             const info = data as Response;
+            
+            //checking for rate limit and ensuring warnings are issued and information is provided
+            if(info.data && info.data.rateLimit) {
+                const rate = info.data.rateLimit;
+                if(rate.remaining <= rate.cost) {
+                    console.log('WARNING: You have reached the rate limit. To get more information, please wait until: ${rate.resetAt}');
+                }
+            }
+
             //getting the metrics from the response
             if(info.data && info.data.repository) {
                 const metrics = info.data.repository;
@@ -314,14 +353,6 @@ export async function fetch_repo(GRAPHQL_URL:string, headers: HeadersInit,query:
             }
             else {
                 throw new Error("Repository data info not found.");
-                console.log("Error, package could not be accessed.")
-            }
-            //checking for rate limit and ensuring warnings are issued and information is provided
-            if(info.data && info.data.rateLimit) {
-                const rate = info.data.rateLimit;
-                if(rate.remaining <= rate.cost) {
-                    console.log('WARNING: You have reached the rate limit. To get more information, please wait until: ${rate.resetAt}');
-                }
             }
         }
         else {
@@ -364,20 +395,20 @@ export async function fetch_repo(GRAPHQL_URL:string, headers: HeadersInit,query:
 //     console.log(bus);
 //     return [bus, depend_m];
 // }
-function correctness(info: Response, start: Date, update: Date, open: number): [number, number] {
-    const metrics = info.data.repository;
-    const COR_TOTAL = 65 + 55 + 70;
+// function correctness(info: Response, start: Date, update: Date, open: number): [number, number] {
+//     const metrics = info.data.repository;
+//     const COR_TOTAL = 65 + 55 + 70;
 
-    var vul = exists(metrics.vulnerabilityAlerts.totalCount);
-    vul /= metrics.diskUsage;
-    var open_m = ver_bounds(open / 20);
-    var update_m = ver_bounds(1 - (daysbetween(update, start) / 30));
-    var vul_m = ver_bounds(1 - (vul / 0.001));
+//     var vul = exists(metrics.vulnerabilityAlerts.totalCount);
+//     vul /= metrics.diskUsage;
+//     var open_m = ver_bounds(open / 20);
+//     var update_m = ver_bounds(1 - (daysbetween(update, start) / 30));
+//     var vul_m = ver_bounds(1 - (vul / 0.001));
     
-    var cor = (open_m * 65 + update_m * 55 + vul_m * 70) / COR_TOTAL;
-    console.log(cor);
-    return [cor, update_m];
-}
+//     var cor = (open_m * 65 + update_m * 55 + vul_m * 70) / COR_TOTAL;
+//     console.log(cor);
+//     return [cor, update_m];
+// }
 // function rampup(info: Response, years: number, update_m: number): number {
 //     const metrics = info.data.repository;
 //     const RAM_TOTAL = 65 + 65 + 55 + 35 + 45 + 65;
@@ -466,6 +497,15 @@ export function exists(metric: any): number {
         return 0;
     }
     return metric;
+}
+export function checkcompatible(text: String, lictext: any, lic: number) {
+    var i;
+    for(i in lictext) {
+        if(text.includes(lictext[i])) {
+            return 1;
+        }
+    }
+    return lic;
 }
 
 // let parameters:queries;

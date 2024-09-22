@@ -6,6 +6,7 @@ import { ver_bounds } from '../api_handler/graphql_handler/analyzer_graphql.js';
 import { str_exists } from '../api_handler/graphql_handler/analyzer_graphql.js';
 import { daysbetween } from '../api_handler/graphql_handler/analyzer_graphql.js';
 import { latency_calc } from '../api_handler/graphql_handler/analyzer_graphql.js';
+import { checkcompatible } from '../api_handler/graphql_handler/analyzer_graphql.js';
 
 const NUM = 10;
 
@@ -125,6 +126,61 @@ export class Metrics {
         return res;
     }
 
+    calc_license (): number {
+        const mitn = "mit license";
+        const exn = "expat license";
+        const gnu2n = "gnu general public license";
+        const gnuan = "gnu all-permissive license";
+        const artn = "artistic license 2";
+        const bsdn = "bsd license";
+        const cec2n = "cecill version 2";
+        const crypn = "cryptix general license";
+        const econ = "ecos license version 2";
+        const eun = "eu datagrid software";
+        const hisn = "historical permission notice and disclaimer";
+        const iman = "imatix standard";
+        const imln = "imlib2";
+        const jpen = "independent jpeg group license";
+        const zlibn = "zlib";
+        const zopen = "zope public license";
+        const x11n = "x11 license";
+        const wxwn = "wxwidgets library license";
+        const webn = "webm";
+        const unin = "unilicense";
+        const unipn = "universal permissive";
+        const unicn = "license agreement for data files and software";
+        const njn = "standard ml of new jersey"
+        const uin = "ncsa/university of illinois open source";
+        const mon = "mozilla public license version 2";
+        const iscn = "isc license";
+        const inn = "intel open source";
+        const lictext = [mitn, exn, x11n, gnu2n, gnuan, artn, bsdn, inn, iscn, mon, uin, njn, cec2n, econ, eun, hisn, iman, imln, jpen, zlibn, zopen, wxwn, webn, unin, unipn, unicn, crypn];
+    
+        const metrics = this.parameters.info.data.repository;
+        const LIC_TOTAL = 50 + 70;
+    
+        var lic = 0;
+        if(metrics.licenseInfo) {
+            if(metrics.licenseInfo.name) {
+                console.log(metrics.licenseInfo.name);
+                lic = checkcompatible(metrics.licenseInfo.name.toLocaleLowerCase(), lictext, lic);
+            }
+        }
+        if(metrics.license && metrics.license.text) {
+            lic = checkcompatible(metrics.license.text.toLocaleLowerCase(), lictext, lic);
+        }
+        if(metrics.license2 && metrics.license2.text) {
+            lic = checkcompatible(metrics.license2.text.toLocaleLowerCase(), lictext, lic);
+        }
+        if(metrics.readme && metrics.readme.text) {
+            lic = checkcompatible(metrics.readme.text.toLocaleLowerCase(), lictext, lic);
+        }
+        if(metrics.readme2 && metrics.readme2.text) {
+            lic = checkcompatible(metrics.readme2.text.toLocaleLowerCase(), lictext, lic);
+        }
+        return lic;
+    }
+
     calc_net_score() {
         var net = (this.url.bus_factor + this.url.correctness + this.url.ramp_up + this.url.responsive_maintainer * 2 + this.url.license) / 6.
         var end = new Date();
@@ -136,7 +192,3 @@ export class Metrics {
 
 
 }
-
-
-
-
