@@ -1,6 +1,3 @@
-import '../index.ts';
-import 'Phase1/Group15/src/api_handler/graphql_handler/analyzer_graphql.ts';
-
 // GitHub URL validation test
 describe('GitHub GraphQL URL Validation', () => {
     const GITHUB_GRAPHQL_URL_PATTERN = /^https:\/\/api\.github\.com\/graphql$/;
@@ -343,3 +340,43 @@ type Repository = {
         }
     };
 }
+
+// tests for dataset objects written above
+// Test cases using Jest
+describe('Repository Tests', () => {
+  test('Big Repo Properties', () => {
+      expect(big_repo.data.repository.diskUsage).toBe(100000);
+      expect(big_repo.data.repository.mentionableUsers.totalCount).toBe(100);
+      expect(big_repo.data.repository.icount.totalCount).toBe(100);
+      expect(big_repo.data.repository.prcount.totalCount).toBe(100);
+      expect(big_repo.data.repository.fcount.totalCount).toBe(3000);
+      expect(big_repo.data.repository.stargazerCount).toBe(50);
+      expect(big_repo.data.repository.hasWikiEnabled).toBe(true);
+      expect(big_repo.data.repository.vulnerabilityAlerts.totalCount).toBe(1);
+  });
+
+  test('New Repo Properties', () => {
+      expect(new_repo.data.repository.diskUsage).toBe(0);
+      expect(new_repo.data.repository.mentionableUsers.totalCount).toBe(0);
+      expect(new_repo.data.repository.icount.totalCount).toBe(0);
+      expect(new_repo.data.repository.prcount.totalCount).toBe(0);
+      expect(new_repo.data.repository.fcount.totalCount).toBe(0);
+      expect(new_repo.data.repository.stargazerCount).toBe(0);
+      expect(new_repo.data.repository.hasWikiEnabled).toBe(false);
+      expect(new_repo.data.repository.vulnerabilityAlerts.totalCount).toBe(0);
+  });
+
+  test('Contributing Guidelines', () => {
+      expect(big_repo.data.repository.contributingGuidelines.body).toBe("This is a sample contributing guideline.");
+  });
+
+  test('Code of Conduct', () => {
+      expect(big_repo.data.repository.codeOfConduct.body).toBe("This is a sample code of conduct.");
+  });
+
+  test('Issues Count in Big Repo', () => {
+      expect(big_repo.data.repository.issues.nodes.length).toBe(1);
+      expect(big_repo.data.repository.issues.nodes[0].participants.totalCount).toBe(50);
+      expect(big_repo.data.repository.issues.nodes[0].closed).toBe(true);
+  });
+});
