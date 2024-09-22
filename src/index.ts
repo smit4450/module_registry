@@ -5,9 +5,13 @@ import { url_interface } from './metrics/interfaces.js';
 import * as readline from 'readline';
 import * as fs from 'fs';
 import { Metrics } from './metrics/metrics.js';
-import axios = require('axios');
+import axios from 'axios';
 import { error } from 'console';
-
+import {log} from './logger.js'
+import { fetch_repo, queries } from './api_handler/graphql_handler/analyzer_graphql.js';
+import { headers } from './api_handler/graphql_handler/analyzer_graphql.js';
+import { query } from './api_handler/graphql_handler/analyzer_graphql.js';
+import { GRAPHQL_URL } from './api_handler/graphql_handler/analyzer_graphql.js';
 // Function to validate if the input is a valid URL
 function isValidUrl(input: string): boolean {
     try {
@@ -56,7 +60,6 @@ async function fetchRepoUrl(package_url: string) {
 
 async function readLinesFromFile(file_path: string) {
     const fileStream = fs.createReadStream(file_path);
-
     const rl = readline.createInterface({
         input: fileStream,
         crlfDelay: Infinity,
@@ -69,33 +72,67 @@ async function readLinesFromFile(file_path: string) {
 
 
 // Logger function to output analysis results
-function logger(message: string) {
-    console.log(`[LOG]: ${message}`);
-}
 
-function github_url():url_interface {
+
+async function get_url_interface(urlInput:string):Promise<url_interface> {
     console.log("This is a GitHub link.");
     // const graphqlResult = analyzeGraphQL();
-    // console.log(graphqlResult);
-
-    //dummy data for now. Values must be read based on analyzeGraphQL function's logic
-    const contributors:number = 1;
-    const activity: number=1;
-    const documentation: number =1;
-    const dependencies: number = 1;
-
     let url:url_interface;
-    url = {bus_factor:0,responsive_maintainer:0,ramp_up:0,correctness:0,license:0,net_score:0};
-    const metrics = new Metrics(url,contributors,activity,documentation,dependencies)
+    let parameters:queries |undefined;
+    let metrics:Metrics | undefined;
+    
+    url = {
+        bus_factor:0,
+        bus_factor_latency:0,
+        responsive_maintainer:0,
+        responsive_maintainer_latency:0,
+        ramp_up:0,
+        ramp_up_latency:0,
+        correctness:0,
+        correctness_latency:0,
+        license:0,
+        license_latency:0,
+        net_score:0,
+        net_score_latency:0
 
-    // analyze the data
-    metrics.calculate_bus_factor();
-    console.log(`Calculated Bus Factor: ${url.bus_factor.toFixed(2)}`);
-    return url;
+    };
+    try {
+        // Call the fetchRepo function
+        parameters = await fetch_repo(GRAPHQL_URL, headers, query, 10);
+        if (parameters) {
+            metrics = new Metrics(url,parameters,);
+        }
+        else {
+            console.log("Parameters Not Found")
+        }
+    
+        // analyze the data
+        if (metrics) {
+            metrics.calculate_bus_factor();
+            metrics.calculate_correctness();
+            metrics.calculate_rampup();
+            metrics.calc_responsive_maintainer();
+            metrics.calc_net_score();
+            console.log(`Calculated Bus Factor: ${url.bus_factor.toFixed(2)}`);
+    
+        }
+        else {
+            console.log("Metrics not found")
+        }
+        return url;
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error("Error calling fetchRepo:", error.message); // Log only the error message
+        } else {
+            console.error("An unknown error occurred."); // Fallback if error is not an instance of Error
+        }
+    }
+    return url
+
 
 }
 
-function calculate_factors(urlInput:string) {
+async function calculate_factors(urlInput:string) {
     console.log(1);
     if (isValidUrl(urlInput)) {
         //console.log(`The URL you provided is valid: ${urlInput}`);
@@ -111,14 +148,29 @@ function calculate_factors(urlInput:string) {
 
         // This if else statement checks if the link is a github link or a npm link, then calls the appropriate analyze functions.  Then it outputs the result.
     if(urlInput.includes("github.com")){
-        var url:url_interface = github_url();
-        let data ={
-            URL:urlInput,
-            NetScore: url.net_score,
-            RampUP:url.ramp_up,
-            Correctness: url.correctness,
-            BusFactor : url.bus_factor,
-            License: url.license,
+        let url:url_interface | undefined;
+        url = await get_url_interface(urlInput);
+        let data;
+        // console.log("getting url")
+        if (url) {
+            data ={
+                URL:urlInput,
+                NetScore: url.net_score,
+                NetScoreLatency: url.net_score_latency,
+                RampUP:url.ramp_up,
+                RampUpLatency: url.ramp_up_latency,
+                Correctness: url.correctness,
+                Correctness_latency: url.correctness_latency,
+                BusFactor : url.bus_factor,
+                BusFactorLatency : url.bus_factor_latency,
+                License: url.license,
+                License_latency: url.license_latency,
+                ResponsiveMaintainer : url.responsive_maintainer,
+                ResponsiveMaintainerLicese :url.responsive_maintainer_latency
+            }
+        }
+        else {
+            data = {}
         }
         const output = JSON.stringify(data);
         console.log(output);
@@ -131,18 +183,29 @@ function calculate_factors(urlInput:string) {
 
         // const npmResult = analyzeNpm();
         // console.log(npmResult);
+        let url:url_interface | undefined;
         urlInput = String(fetchRepoUrl(urlInput))
+        url = await get_url_interface(urlInput);
+        let data;
+        // console.log("getting url")
+        if (url) {
+            data ={
+                URL:urlInput,
+                NetScore: url.net_score,
+                RampUP:url.ramp_up,
+                Correctness: url.correctness,
+                BusFactor : url.bus_factor,
+                BusFactorLatency : url.bus_factor_latency,
+                License: url.license,
+            }
+        }
+        else {
+            data = {}
+        }
+        const output = JSON.stringify(data);
+        console.log(output);
 
 
-        // // parse through the URL and get data
-        // // fake data for now:
-        // var m:Metrics = new Metrics()
-        // const metrics = new Metrics()
-
-        // // analyze the data
-        // const npmMetrics = new NpmMetrics("https://example-npm-package.com");
-        // const busFactorValue = npm_metrics.calculateBusFactor(5, 4, 30);
-        // console.log(`Calculated NPM Bus Factor: ${busFactorValue.toFixed(2)}`);
     }
     else {
         console.log("This is neither a GitHub nor an npm link.");
@@ -153,14 +216,13 @@ function calculate_factors(urlInput:string) {
 
 }
 // Main function to handle URL input from command line
-async function main() {
+function main() {
     // Create an interface for input and output streams
 
     // Prompt user for URL input
     const file_path = process.argv[2];
     readLinesFromFile(file_path)
     
-
     // Validate the URL
     
 }

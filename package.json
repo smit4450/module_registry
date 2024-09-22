@@ -10,8 +10,9 @@
     "dev": "npm run build && npm run start",
     "analyze": "node dist/api_handler/npm_handler/analyzer_npm.js",
     "test": "npm run build && npm run analyze test_data",
-    "path": "node dist/api_handler/npm_handler/analyzer_npm.js",
-    "new": "jest"
+    "path": "node dist/api_handler/graphql_handler/analyzer_graphql.js",
+    "path2": "node dist/logger.js",
+    "test2": "npm run build && npm run path"
   },
   "keywords": [],
   "debug": "false",
