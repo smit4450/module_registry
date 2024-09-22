@@ -4,15 +4,12 @@ import { moveSyntheticComments } from 'typescript';
 dotenv.config();
 
 const NUM = 10;
-//object structuring for response from query
 
-interface Reponse {
+//object structuring for response from query
+interface Response {
     data: {
         repository: {
             diskUsage: number;
-            isDisabled: boolean;
-            isArchived: boolean;
-            isLocked: boolean;
             mentionableUsers: {
                 totalCount: number;
                 nodes: [
@@ -78,27 +75,12 @@ interface Reponse {
             fcount: {
                 totalCount: number;
             }
-            forks: {
-                nodes: [
-                    {
-                        createdAt: String;
-                    }
-                ]
-            }
             stargazerCount: number;
             watchers: {
                 totalCount: number;
             }
             licenseInfo: {
-                pseudoLicense: boolean;
-                body: String;
-                limitations: {
-                    label: String;
-                }
-                implementation: String;
-                conditions: {
-                    description: String;
-                }
+                name: String;
             }
         }
         rateLimit: {
@@ -109,8 +91,10 @@ interface Reponse {
     };
 }
 
+const start = new Date();
+
 //url and token handling
-const input = "https://github.com/lodash/lodash";
+const input = "https://github.com/cloudinary/cloudinary_npm";
 const TOKEN = process.env.TOKEN;
 const GRAPHQL_URL = 'https://api.github.com/graphql';
 
@@ -132,10 +116,7 @@ query {
   }
 	repository(owner: "lodash", name: "lodash") {
     diskUsage
-    isDisabled
-    isArchived
-    isLocked
-    mentionableUsers(first: 10) {
+    mentionableUsers(first: 5) {
       totalCount
       nodes {
         contributionsCollection {
@@ -167,7 +148,7 @@ query {
     icount: issues {
       totalCount
     }
-    issues(last: 20) {
+    issues(last: 10) {
       nodes {
         participants {
           totalCount
@@ -184,7 +165,7 @@ query {
     prcount: pullRequests {
       totalCount
     }
-    pullRequests(last:10) {
+    pullRequests(last: 5) {
       nodes {
         publishedAt
       }
@@ -192,25 +173,12 @@ query {
     fcount: forks {
       totalCount
     }
-    forks (last: 10) {
-      nodes {
-        createdAt
-      }
-    }
     stargazerCount
     watchers {
       totalCount
     }
     licenseInfo {
-      body
-      pseudoLicense
-      limitations {
-        label
-      }
-      implementation 
-      conditions {
-        description
-      }
+      name
     } 
   }
 }
@@ -223,6 +191,7 @@ const headers = {
     'Content-Type': 'application/json',
 };
 
+
 //action item
 fetch(GRAPHQL_URL, {
     method: 'POST',
@@ -234,136 +203,87 @@ fetch(GRAPHQL_URL, {
     //handling information recieved from API
     if(data) {
         //casting as prerecorded interface
-        const info = data as Reponse;
+        const info = data as Response;
         //getting the metrics from the response
         if(info.data && info.data.repository) {
             const metrics = info.data.repository;
-            var contr = metrics.mentionableUsers.totalCount;
-            var update = new Date(metrics.updatedAt);
+
+            //for all numbers, refer to GraphQL decision matrices
             var now = new Date();
-            var vul = metrics.vulnerabilityAlerts.totalCount / metrics.diskUsage;
+            var update = new Date(metrics.updatedAt);
             var create = new Date(metrics.createdAt);
             var years = daysbetween(create, update) / 365.0;
-            var is = metrics.icount.totalCount;
-            var prs = metrics.prcount.totalCount;
-            var fs = metrics.fcount.totalCount;
-            var stars = metrics.stargazerCount;
-            var ws = metrics.watchers.totalCount;
-            var len_i = metrics.issues.nodes.length - 1;
-
-            var len_pr = metrics.pullRequests.nodes.length - 1;
-            var issue_time = new Date(metrics.issues.nodes[len_i].updatedAt);
-            var pr_time = new Date(metrics.pullRequests.nodes[len_pr].publishedAt); 
             
-            var sum = 0;
             var depend = 0;
             var open = 0;
             var partic = 0;
-            for(let i = 0; i < NUM; i++) {
-                //estimating contributions per repository
-                sum += (metrics.mentionableUsers.nodes[i].contributionsCollection.totalIssueContributions + metrics.mentionableUsers.nodes[i].contributionsCollection.totalPullRequestReviewContributions + metrics.mentionableUsers.nodes[i].contributionsCollection.totalPullRequestContributions);
+            var len_i = metrics.issues.nodes.length - 1;
+            for(let i = 0; i <= len_i; i++) {
                 //participants in issues
                 partic += metrics.issues.nodes[i].participants.totalCount;
                 
                 //calculating open issues
                 if(!metrics.issues.nodes[i].closed) {
                     open += 1;
-                }   
-                if(!metrics.issues.nodes[i+10].closed) {
-                    open += 1;
-                }       
+                }         
             }
+
             for(let i = 0; i < metrics.dependencyGraphManifests.edges.length; i++) {
                 depend += metrics.dependencyGraphManifests.edges[i].node.dependenciesCount;
             }
-            var c_act = sum / NUM;
             depend /= metrics.diskUsage;
             partic /= NUM * 2;
+            var end = new Date();
+            var calclat = latency_calc(now, end);
 
-
-            //for all numbers, refer to GraphQL decision matrices
             //bus factor
-            
-            const BUS_TOTAL = 45 + 60 + 50 + 35;
-
-            var contr_m = ver_bounds((contr/years)/40);;
-            var cact_m = ver_bounds(c_act/100);
-            var doc = 0;
-            doc = str_exists(metrics.contributingGuidelines, doc, true);
-            doc = str_exists(metrics.codeOfConduct, doc, true);
-            doc = str_exists(metrics.description, doc, false);
-            var doc_m = (doc / 10000) * 0.75;
-            if(metrics.hasWikiEnabled) {
-                doc_m += 0.25;
-            }
-            doc_m = ver_bounds(doc_m);
-            var depend_m = ver_bounds(depend/0.01);
-
-            var bus = (contr_m * 45 + cact_m * 60 + doc_m * 50 + depend_m * 35) / BUS_TOTAL;
-            console.log(bus);
+            var bus, depend_m;
+            [bus, depend_m] = busfactor(info, years, depend); 
+            var end = new Date();
+            var buslat = latency_calc(now, end);
 
             //correctness
-            const COR_TOTAL = 65 + 55 + 70;
-
-            var open_m = ver_bounds(open / 20);
-            var update_m = ver_bounds(1 - (daysbetween(update, now) / 30));
-            var vul_m = ver_bounds(1 - (vul / 0.001));
-            
-            var cor = (open_m * 65 + update_m * 55 + vul_m * 70) / COR_TOTAL;
-            console.log(cor);
+            var cor, update_m;
+            [cor, update_m] = correctness(info, start, update, open);
+            end = new Date();
+            var corlat = latency_calc(now, end) - buslat + calclat;
 
             //ramp up
-            const RAM_TOTAL = 65 + 65 + 55 + 35 + 45 + 65;
-
-            var icount_m = ver_bounds((is/years) / 730);
-            var prcount_m = ver_bounds((prs/years) / 365);
-            var fcount_m = ver_bounds((fs/years) / 1000);
-            var scount_m = ver_bounds((stars/years) / 10000);
-            var wcount_m = ver_bounds((ws/years) / 100);
-            
-            var ram = (icount_m * 65 + prcount_m * 65 + fcount_m * 55 + scount_m * 35 + wcount_m * 45 + update_m * 65) / RAM_TOTAL;
-            console.log(ram);
+            var ram = rampup(info, years, update_m);
+            end = new Date();
+            var ramlat = latency_calc(now, end) - corlat + calclat;
             
             //responsive maintainer
-            const RES_TOTAL = 50 + 55 + 45 + 45 + 35;
-
-            var ipar_m = ver_bounds(partic / 5);
-            var itime_m = ver_bounds(1 - ((daysbetween(issue_time, now) - 10) / 365));
-            var prtime_m = ver_bounds(1 - ((daysbetween(pr_time, now) - 10) / 365));
-            
-            var res = (ipar_m * 50 + itime_m * 55 + prtime_m * 45 + update_m * 45 + depend_m * 35) / RES_TOTAL;
-            console.log(res);
+            var res = responsive(info, partic, len_i, update_m, depend_m);
+            end = new Date();
+            var reslat = latency_calc(now, end) - ramlat + calclat;
 
             //licensing
-            const LIC_TOTAL = 50 + 70;
-
-            var lic_info = 0;
-            var body = 0;
-            if(metrics.licenseInfo.pseudoLicense && metrics.licenseInfo.body) {
-                if(metrics.licenseInfo.limitations) {
-                    lic_info = str_exists(metrics.licenseInfo.limitations.label, lic_info, false);
-                }
-                if(metrics.licenseInfo.conditions) {
-                    lic_info = str_exists(metrics.licenseInfo.conditions.description, lic_info, false);
-                }
-                lic_info = str_exists(metrics.licenseInfo.implementation, lic_info, false);
-                body = str_exists(metrics.licenseInfo.body, lic_info, false);
-            }
-            var licinfo_m = ver_bounds(lic_info / 300);
-            var body_m = ver_bounds(body / 200);
-
-            var lic = (licinfo_m * 50 + body_m * 70) / LIC_TOTAL;
-            console.log(lic);
-            //latency
+            var lic = license(info);
+            end = new Date();
+            var liclat = latency_calc(now, end) - corlat;
 
             //netscore
-            
+            var net = (bus + cor + ram + res * 2 + lic) / 6;
+            end = new Date();
+            var netlat = latency_calc(start, end);
+
+            console.log(net);
+            console.log(netlat);
+            console.log(buslat);
+            console.log(corlat);
+            console.log(ramlat);
+            console.log(reslat);
+            console.log(liclat);
+        }
+        else {
+            console.log("Error, package could not be accessed.")
         }
         //checking for rate limit and ensuring warnings are issued and information is provided
         if(info.data && info.data.rateLimit) {
             const rate = info.data.rateLimit;
             if(rate.remaining <= rate.cost) {
-                console.log("WARNING: You have reached the rate limit. To get more information, please wait until ", rate.resetAt);
+                console.log('WARNING: You have reached the rate limit. To get more information, please wait until: ${rate.resetAt}');
             }
         }
     }
@@ -372,9 +292,113 @@ fetch(GRAPHQL_URL, {
     console.error('Error making the request:', error);
 });
 
+function busfactor(info: Response, years: number, depend: number): [number, number] {
+    const metrics = info.data.repository;
+    const BUS_TOTAL = 45 + 60 + 50 + 35;
+
+    var contr = exists(metrics.mentionableUsers.totalCount);
+    var contr_i = metrics.mentionableUsers.nodes.length - 1;
+    var sum = 0;
+    for(let i = 0; i <= contr_i; i++) {
+        //estimating contributions per repository
+        sum += (metrics.mentionableUsers.nodes[i].contributionsCollection.totalIssueContributions + metrics.mentionableUsers.nodes[i].contributionsCollection.totalPullRequestReviewContributions + metrics.mentionableUsers.nodes[i].contributionsCollection.totalPullRequestContributions);   
+    }
+    var c_act = sum / NUM;
+    var contr_m = ver_bounds((contr/years)/40);
+    var cact_m = ver_bounds(c_act/100);
+    var doc = 0;
+    doc = str_exists(metrics.contributingGuidelines, doc, true);
+    doc = str_exists(metrics.codeOfConduct, doc, true);
+    doc = str_exists(metrics.description, doc, false);
+    var doc_m = (doc / 10000) * 0.75;
+    if(metrics.hasWikiEnabled) {
+        doc_m += 0.25;
+    }
+    doc_m = ver_bounds(doc_m);
+    var depend_m = ver_bounds(depend/0.01);
+
+    var bus = (contr_m * 45 + cact_m * 60 + doc_m * 50 + depend_m * 35) / BUS_TOTAL;
+    console.log(bus);
+    return [bus, depend_m];
+}
+function correctness(info: Response, start: Date, update: Date, open: number): [number, number] {
+    const metrics = info.data.repository;
+    const COR_TOTAL = 65 + 55 + 70;
+
+    var vul = exists(metrics.vulnerabilityAlerts.totalCount);
+    vul /= metrics.diskUsage;
+    var open_m = ver_bounds(open / 20);
+    var update_m = ver_bounds(1 - (daysbetween(update, start) / 30));
+    var vul_m = ver_bounds(1 - (vul / 0.001));
+    
+    var cor = (open_m * 65 + update_m * 55 + vul_m * 70) / COR_TOTAL;
+    console.log(cor);
+    return [cor, update_m];
+}
+function rampup(info: Response, years: number, update_m: number): number {
+    const metrics = info.data.repository;
+    const RAM_TOTAL = 65 + 65 + 55 + 35 + 45 + 65;
+
+    var is = exists(metrics.icount.totalCount);
+    var prs = exists(metrics.prcount.totalCount);
+    var fs = exists(metrics.fcount.totalCount);
+    var stars = exists(metrics.stargazerCount);
+    var ws = exists(metrics.watchers.totalCount);
+    var icount_m = ver_bounds((is/years) / 730);
+    var prcount_m = ver_bounds((prs/years) / 365);
+    var fcount_m = ver_bounds((fs/years) / 1000);
+    var scount_m = ver_bounds((stars/years) / 10000);
+    var wcount_m = ver_bounds((ws/years) / 100);
+    
+    var ram = (icount_m * 65 + prcount_m * 65 + fcount_m * 55 + scount_m * 35 + wcount_m * 45 + update_m * 65) / RAM_TOTAL;
+    console.log(ram);
+    return ram;
+}
+function responsive(info: Response, partic: number, len_i: number, update_m: number, depend_m: number): number {
+    const metrics = info.data.repository;
+    const RES_TOTAL = 50 + 55 + 45 + 45 + 35;
+
+    var len_pr = metrics.pullRequests.nodes.length - 1;
+    var issue_time;
+    var pr_time;
+    if(len_i != -1) {
+        issue_time = new Date(metrics.issues.nodes[len_i].updatedAt);
+    }
+    if(len_pr != -1) {
+        pr_time = new Date(metrics.pullRequests.nodes[len_pr].publishedAt);
+    }
+    var ipar_m = ver_bounds(partic / 5);
+    var itime_m = 0;
+    if(issue_time) {
+        itime_m = ver_bounds(1 - ((daysbetween(issue_time, start) - 10) / 365));
+    }
+    var prtime_m = 0;
+    if(pr_time) {
+        prtime_m = ver_bounds(1 - ((daysbetween(pr_time, start) - 10) / 365));
+    }
+    
+    var res = (ipar_m * 50 + itime_m * 55 + prtime_m * 45 + update_m * 45 + depend_m * 35) / RES_TOTAL;
+    console.log(res);
+    return res;
+}
+function license(info: Response): number {
+    const metrics = info.data.repository;
+    const LIC_TOTAL = 50 + 70;
+
+    var lic = 0;
+    if(metrics.licenseInfo.name) {
+        lic = 1;
+    }
+    console.log(lic);
+    return lic;
+}
+
 function daysbetween(before: Date, after: Date): number {
     //gets difference in milliseconds, then converts to days
     return (after.getTime() - before.getTime()) / (1000 * 60 * 60 * 24);
+}
+function latency_calc(before: Date, after: Date): number {
+    return (after.getTime() - before.getTime()) / (1000);
 }
 function str_exists(metric: any, adjust: number, body: boolean): number {
     if(metric && body) {
@@ -393,4 +417,10 @@ function ver_bounds(m: any): number {
         return 1;
     }
     return m;
+}
+function exists(metric: any): number {
+    if(!metric) {
+        return 0;
+    }
+    return metric;
 }
