@@ -5,6 +5,7 @@
   "display": "Node LTS",
   "_version": "20.1.0",
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "lib": [
       "es2022",
       "dom"

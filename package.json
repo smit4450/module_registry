@@ -6,12 +6,12 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/analyzer_npm.js",
+    "start": "node dist/index.js",
     "dev": "npm run build && npm run start",
     "analyze": "node dist/api_handler/npm_handler/analyzer_npm.js",
     "test": "npm run build && npm run analyze test_data",
     "path": "node dist/api_handler/npm_handler/analyzer_npm.js",
-    "new": "jest"
+    "new": "npm run build && jest"
   },
   "keywords": [],
   "debug": "false",
