@@ -100,7 +100,7 @@ async function get_url_interface(urlInput:string):Promise<url_interface> {
         // Call the fetchRepo function
         parameters = await fetch_repo(GRAPHQL_URL, headers, query, 10);
         if (parameters) {
-            metrics = new Metrics(url,parameters,);
+            metrics = new Metrics(url,parameters);
         }
         else {
             console.log("Parameters Not Found")
@@ -113,6 +113,7 @@ async function get_url_interface(urlInput:string):Promise<url_interface> {
             metrics.calculate_rampup();
             metrics.calc_responsive_maintainer();
             metrics.calc_net_score();
+            metrics.calc_license()
             console.log(`Calculated Bus Factor: ${url.bus_factor.toFixed(2)}`);
     
         }

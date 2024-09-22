@@ -11,11 +11,6 @@ export interface url_interface {
     license_latency:number
     net_score:number;
     net_score_latency:number
-<<<<<<< Updated upstream
 
-
-
-=======
->>>>>>> Stashed changes
 }
 

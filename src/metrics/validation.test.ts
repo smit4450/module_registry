@@ -1,4 +1,11 @@
 import { Response } from "../api_handler/graphql_handler/analyzer_graphql"; 
+import { daysbetween } from "../api_handler/graphql_handler/analyzer_graphql";
+import { latency_calc } from "../api_handler/graphql_handler/analyzer_graphql";
+import { queries } from "../api_handler/graphql_handler/analyzer_graphql";
+import { url_interface } from "./interfaces";
+import { Metrics } from "./metrics";
+
+const NUM = 10;
 // GitHub URL validation test
 describe('GitHub GraphQL URL Validation', () => {
     const GITHUB_GRAPHQL_URL_PATTERN = /^https:\/\/api\.github\.com\/graphql$/;
@@ -363,3 +370,83 @@ describe('Repository Tests', () => {
       expect(big_repo.data.repository.issues.nodes[0].closed).toBe(true);
   });
 });
+
+function get_parameters(info:Response) {
+    const metrics = info.data.repository;
+    var now = new Date();
+    var update = new Date(metrics.updatedAt);
+    var create = new Date(metrics.createdAt);
+    var years = daysbetween(create, update) / 365.0;
+    
+    var depend = 0;
+    var open = 0;
+    var partic = 0;
+    var len_i = metrics.issues.nodes.length - 1;
+    for(let i = 0; i <= len_i; i++) {
+        //participants in issues
+        partic += metrics.issues.nodes[i].participants.totalCount;
+        
+        //calculating open issues
+        if(!metrics.issues.nodes[i].closed) {
+            open += 1;
+        }         
+    }
+
+    for(let i = 0; i < metrics.dependencyGraphManifests.edges.length; i++) {
+        depend += metrics.dependencyGraphManifests.edges[i].node.dependenciesCount;
+    }
+    depend /= metrics.diskUsage;
+    partic /= NUM * 2;
+    var end = new Date();
+    var calclat = latency_calc(now, end);
+
+    const parameters:queries = {
+        years:years,
+        open:open,
+        partic:partic,
+        len_i:len_i,
+        info:info,
+        depend_m:-1,
+        update_m:-1,
+        depend:depend,
+        now :now,
+        start:new Date(),
+        update:update,
+        calclat:calclat
+
+    }
+    return parameters
+}
+
+function get_factors(parameters:queries):url_interface {
+    const url:url_interface
+     = {
+        bus_factor:0,
+        bus_factor_latency:0,
+        responsive_maintainer:0,
+        responsive_maintainer_latency:0,
+        ramp_up:0,
+        ramp_up_latency:0,
+        correctness:0,
+        correctness_latency:0,
+        license:0,
+        license_latency:0,
+        net_score:0,
+        net_score_latency:0
+    };
+    const metrics = new Metrics(url,parameters);
+    metrics.calculate_bus_factor();
+    metrics.calculate_correctness();
+    metrics.calculate_rampup();
+    metrics.calc_responsive_maintainer();
+    metrics.calc_license();
+    metrics.calc_net_score();
+    return url;
+
+}
+
+function test_case1() {
+    const parameters:queries = get_parameters(big_repo);
+    const url:url_interface = get_factors(parameters);
+    
+}
