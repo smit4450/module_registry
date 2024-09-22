@@ -222,11 +222,12 @@ function main() {
     // Prompt user for URL input
     const file_path = process.argv[2];
     readLinesFromFile(file_path)
+    console.log(5);
     
-    // Validate the URL
     
 }
 
-// Run the main function
-main();
+main()
+
+
 
