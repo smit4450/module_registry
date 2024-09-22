@@ -508,16 +508,3 @@ export function checkcompatible(text: String, lictext: any, lic: number) {
     return lic;
 }
 
-// let parameters:queries;
-// (async () => {
-//     try {
-//         // Call the fetchRepo function
-//         parameters = await fetch_repo(GRAPHQL_URL, headers, query, 10);
-//     } catch (error) {
-//         if (error instanceof Error) {
-//             console.error("Error calling fetchRepo:", error.message); // Log only the error message
-//         } else {
-//             console.error("An unknown error occurred."); // Fallback if error is not an instance of Error
-//         }
-//     }
-// })();
