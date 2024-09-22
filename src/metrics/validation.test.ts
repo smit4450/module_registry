@@ -1,3 +1,4 @@
+import { Response } from "../api_handler/graphql_handler/analyzer_graphql"; 
 // GitHub URL validation test
 describe('GitHub GraphQL URL Validation', () => {
     const GITHUB_GRAPHQL_URL_PATTERN = /^https:\/\/api\.github\.com\/graphql$/;
@@ -59,7 +60,7 @@ test('Output Data is Correct', () => {
 
 
 //test developed and regularly updated repo
-const big_repo: Repository = {
+const big_repo: Response = {
     data: {
         repository: {
             diskUsage: 100000,
@@ -133,16 +134,7 @@ const big_repo: Repository = {
                 totalCount: 50
             },
             licenseInfo: {
-                name : "MIT License",
-                pseudoLicense: false,
-                body: "This is a sample license.",
-                limitations: {
-                    label: "This is a sample limitation."
-                },
-                implementation: "This is a sample implementation.",
-                conditions: {
-                    description: "This is a sample condition."
-                }
+                name : "MIT License"
             }
         },
         rateLimit: {
@@ -153,7 +145,7 @@ const big_repo: Repository = {
     }
 };
 //test new repository 
-const new_repo: Repository = {
+const new_repo: Response = {
     data: {
         repository: {
             diskUsage: 0,
@@ -228,15 +220,6 @@ const new_repo: Repository = {
             },
             licenseInfo: {
                 name : "MIT License",
-                pseudoLicense: false,
-                body: "This is a sample license.",
-                limitations: {
-                    label: "This is a sample limitation."
-                },
-                implementation: "This is a sample implementation.",
-                conditions: {
-                    description: "This is a sample condition."
-                }
             }
         },
         rateLimit: {
@@ -247,99 +230,99 @@ const new_repo: Repository = {
     }
 };
 
-type Repository = {
-    data: {
-        repository: {
-            diskUsage: number;
-            mentionableUsers: {
-                totalCount: number;
-                nodes: [
-                    {
-                        contributionsCollection: {
-                            totalIssueContributions: number;
-                            totalPullRequestContributions: number;
-                            totalPullRequestReviewContributions: number;
-                            totalRepositoryContributions: number;
-                        }
-                    }   
-                ]
-            }
-            contributingGuidelines: {
-                body: String;
-            }
-            codeOfConduct: {
-                body: String;
-            }
-            description: String;
-            hasWikiEnabled: boolean;
-            dependencyGraphManifests: {
-                edges: [
-                    {
-                        node: {
-                            dependencies: {
-                                totalCount: number;
-                            }
-                            dependenciesCount: number;
-                        }
-                    }
-                ]
-            }
-            icount: {
-                totalCount: number;
-            }
-            issues: {
-                nodes: [
-                    {
-                        participants: {
-                            totalCount: number;
-                        }
-                        closed: boolean;
-                        updatedAt: Date;
-                    }
-                ]
-            }
-            createdAt: Date;
-            updatedAt: Date;
-            vulnerabilityAlerts: {
-                totalCount: number
-            }
-            prcount: {
-                totalCount: number;
-            }
-            pullRequests: {
-                nodes: [
-                    { 
-                        publishedAt: Date,
-                    }
-                ]
-            }
-            fcount: {
-                totalCount: number;
-            }
-            stargazerCount: number;
-            watchers: {
-                totalCount: number;
-            }
-            licenseInfo: {
-                name: String;
-                pseudoLicense: boolean;
-                body: String;
-                limitations: {
-                    label: String;
-                }
-                implementation: String;
-                conditions: {
-                    description: String;
-                }
-            }
-        }
-        rateLimit: {
-            cost: number;
-            remaining: number;
-            resetAt: Date;
-        }
-    };
-}
+// type Repository = {
+//     data: {
+//         repository: {
+//             diskUsage: number;
+//             mentionableUsers: {
+//                 totalCount: number;
+//                 nodes: [
+//                     {
+//                         contributionsCollection: {
+//                             totalIssueContributions: number;
+//                             totalPullRequestContributions: number;
+//                             totalPullRequestReviewContributions: number;
+//                             totalRepositoryContributions: number;
+//                         }
+//                     }   
+//                 ]
+//             }
+//             contributingGuidelines: {
+//                 body: String;
+//             }
+//             codeOfConduct: {
+//                 body: String;
+//             }
+//             description: String;
+//             hasWikiEnabled: boolean;
+//             dependencyGraphManifests: {
+//                 edges: [
+//                     {
+//                         node: {
+//                             dependencies: {
+//                                 totalCount: number;
+//                             }
+//                             dependenciesCount: number;
+//                         }
+//                     }
+//                 ]
+//             }
+//             icount: {
+//                 totalCount: number;
+//             }
+//             issues: {
+//                 nodes: [
+//                     {
+//                         participants: {
+//                             totalCount: number;
+//                         }
+//                         closed: boolean;
+//                         updatedAt: Date;
+//                     }
+//                 ]
+//             }
+//             createdAt: Date;
+//             updatedAt: Date;
+//             vulnerabilityAlerts: {
+//                 totalCount: number
+//             }
+//             prcount: {
+//                 totalCount: number;
+//             }
+//             pullRequests: {
+//                 nodes: [
+//                     { 
+//                         publishedAt: Date,
+//                     }
+//                 ]
+//             }
+//             fcount: {
+//                 totalCount: number;
+//             }
+//             stargazerCount: number;
+//             watchers: {
+//                 totalCount: number;
+//             }
+//             licenseInfo: {
+//                 name: String;
+//                 pseudoLicense: boolean;
+//                 body: String;
+//                 limitations: {
+//                     label: String;
+//                 }
+//                 implementation: String;
+//                 conditions: {
+//                     description: String;
+//                 }
+//             }
+//         }
+//         rateLimit: {
+//             cost: number;
+//             remaining: number;
+//             resetAt: Date;
+//         }
+//     };
+// }
 
 // tests for dataset objects written above
 // Test cases using Jest

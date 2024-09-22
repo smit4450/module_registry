@@ -5,19 +5,14 @@
   "display": "Node LTS",
   "_version": "20.1.0",
   "compilerOptions": {
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
-    "lib": [
-      "es2022",
-      "dom"
-    ],
+    "lib": ["es2021", "dom"],
     "outDir": "dist",
-    "module": "node16",
-    "target": "es2022",
+    "module": "ESNext",
+    "target": "es2021",
     "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "moduleResolution": "node16"
+    "moduleResolution": "node"
   }
 }
