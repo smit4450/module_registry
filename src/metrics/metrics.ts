@@ -125,7 +125,11 @@ export class Metrics {
         this.url.responsive_maintainer_latency = reslat;
     }
 
+<<<<<<< Updated upstream
     calc_net_score() {
+=======
+    calc_net_score(): void {
+>>>>>>> Stashed changes
         var net = (this.url.bus_factor + this.url.correctness + this.url.ramp_up + this.url.responsive_maintainer * 2 + this.url.license) / 6.
         var end = new Date();
         var netlat = latency_calc(this.parameters.start, end);
