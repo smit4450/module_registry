@@ -12,7 +12,5 @@ export interface url_interface {
     net_score:number;
     net_score_latency:number
 
-
-
 }
 

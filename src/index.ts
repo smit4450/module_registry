@@ -74,13 +74,13 @@ async function readLinesFromFile(file_path: string) {
 // Logger function to output analysis results
 
 
-async function get_url_interface(urlInput:string):Promise<url_interface> {
+export async function get_url_interface(urlInput:string):Promise<url_interface> {
     console.log("This is a GitHub link.");
     // const graphqlResult = analyzeGraphQL();
     let url:url_interface;
     let parameters:queries |undefined;
     let metrics:Metrics | undefined;
-    
+    console.log("Starting analysis...");
     url = {
         bus_factor:0,
         bus_factor_latency:0,
@@ -96,9 +96,12 @@ async function get_url_interface(urlInput:string):Promise<url_interface> {
         net_score_latency:0
 
     };
+    console.log("Fetching repository data...");
     try {
         // Call the fetchRepo function
         parameters = await fetch_repo(GRAPHQL_URL, headers, query, 10);
+        console.log("Repository data fetched successfully.");
+
         if (parameters) {
             metrics = new Metrics(url,parameters);
         }
@@ -133,7 +136,7 @@ async function get_url_interface(urlInput:string):Promise<url_interface> {
 
 }
 
-async function calculate_factors(urlInput:string) {
+export async function calculate_factors(urlInput:string) {
     console.log(1);
     if (isValidUrl(urlInput)) {
         //console.log(`The URL you provided is valid: ${urlInput}`);

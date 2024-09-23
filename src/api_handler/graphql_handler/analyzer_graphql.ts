@@ -242,12 +242,13 @@ export const headers = {
 //action item
 export async function fetch_repo(GRAPHQL_URL:string, headers: HeadersInit,query:string, NUM:number):Promise<queries> {
     try {
+        console.log("Fetching repository data...");
         const response = await fetch(GRAPHQL_URL, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify({ query })
         });
-        
+        console.log("Repository data fetched successfully.");
 
         const data = await response.json();
         if(data) {
