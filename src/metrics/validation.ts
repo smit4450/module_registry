@@ -363,6 +363,14 @@ async function run_test_suite(): Promise<void>{
         console.log("Test #8 Failed! Correctness is less than expected value of 0.5.");
     }
 
+    console.log("Test Case 9: Calculate correctness of old repository");
+    const correctness_old = test_correctness_factor(old_repo);
+    if(correctness_old > 0.5 ){
+        console.log("Test #9 Passed! Correctness is less than expected value of 0.5.");
+    }
+    else{
+        console.log("Test #9 Failed! Correctness is greater than expected value of 0.5.");
+
     //Test cases 12-16: calculate rampup factor
     console.log("Test Case 12: Calculate rampup factor of new repository");
     const rampup_new = test_rampup_factor(new_repo);
@@ -380,6 +388,15 @@ async function run_test_suite(): Promise<void>{
     }
     else{
         console.log("Test #13 Failed! Rampup is less than expected value of 0.5.");
+    }
+
+    console.log("Test Case 14: Calculate rampup factor of old repository");
+    const rampup_old = test_rampup_factor(old_repo);
+    if(rampup_old > 0.5 ){
+        console.log("Test #14 Passed! Rampup is less than expected value of 0.5.");
+    }
+    else{
+        console.log("Test #14 Failed! Rampup is greater than expected value of 0.5.");
     }
 
     //Test cases 17-21: calculate responsive maintainer factor
@@ -401,6 +418,15 @@ async function run_test_suite(): Promise<void>{
     else{
         console.log("Test #18 Failed! Responsive Maintainer is less than expected value of 0.5.");
     }
+
+    console.log("Test Case 19: Calculate responsive maintainer factor of old repository");
+    const resmaintainer_old = test_resmaintainer_factor(old_repo);
+    if(resmaintainer_old > 0.5 ){
+        console.log("Test #19 Passed! Responsive Maintainer is less than expected value of 0.5.");
+    }
+    else{
+        console.log("Test #19 Failed! Responsive Maintainer is greater than expected value of 0.5.");
+    }
     // console.log("Test Case 4: Bus Factor Calculation using Data for Lodash");
     // const repository_info =await get_url_interface("https://github.com/lodash/lodash");
     // console.log(repository_info);
@@ -410,7 +436,7 @@ async function run_test_suite(): Promise<void>{
     //     console.log("Test #4 Passed! Bus Factor is greater than expected value of 0.6.");
     // }
     //test_bus_factor(repository_info.bus_factor);
-
+    }
 }
 run_test_suite();
 
