@@ -58,8 +58,9 @@ const new_repo: Response = {
                         participants: {
                             totalCount: 0
                         },
-                        closed: true,
-                        updatedAt: new Date() //current date and time
+                        closed: true,   
+                                 
+                        updatedAt: new Date()// 24 hours in milliseconds //current date and time
                     }
                 ]
             },
@@ -325,18 +326,81 @@ async function run_test_suite(): Promise<void>{
 
     const bus_factor_big = test_bus_factor(big_repo);
     console.log("Test Case 4: Bus Factor Calculation using Dummy Data for Big/Older/Still Currently Updated Repository");
-    if (bus_factor_new > 0.6){
+    if (bus_factor_big > 0.6){
         console.log("Test #4 Passed! Bus Factor for a big repo is greater than expected value of 0.6.");
     }
     else{
         console.log("Test #4 Failed! Bus Factor for a big repo is less than expected value of 0.6.");
     }
+    
+    const bus_factor_old = test_bus_factor(old_repo);
+    console.log("Test Case 5: Bus Factor Calculation using Dummy Data for Older Abandoned Repository");
+    if (bus_factor_old > 0.6){
+        console.log("Test #5 Passed! Bus Factor for a old repo is greater than expected value of 0.6.");
+    }
+    else{
+        console.log("Test #5 Failed! Bus Factor for a old repo is less than expected value of 0.6.");
+    }
 
 
     //Test cases 7-11: calculate correctness of code
     
-    console.log("Test Case 7: calculate correctness of code");
+    console.log("Test Case 7: Calculate correctness of new repository");
+    const correctness_new = test_correctness_factor(new_repo);
+    if(correctness_new < 0.3 ){
+        console.log("Test #7 Passed! Correctness is less than expected value of 0.3.");
+    }
+    else{
+        console.log("Test #7 Failed! Correctness is greater than expected value of 0.3.");
+    }
     
+    console.log("Test Case 8: Calculate correctness of big repository");
+    const correctness_big = test_correctness_factor(big_repo);
+    if(correctness_big > 0.5 ){
+        console.log("Test #8 Passed! Correctness is greater than expected value of 0.5.");
+    }
+    else{
+        console.log("Test #8 Failed! Correctness is less than expected value of 0.5.");
+    }
+
+    //Test cases 12-16: calculate rampup factor
+    console.log("Test Case 12: Calculate rampup factor of new repository");
+    const rampup_new = test_rampup_factor(new_repo);
+    if(rampup_new < 0.3 ){
+        console.log("Test #12 Passed! Rampup is less than expected value of 0.3.");
+    }
+    else{
+        console.log("Test #12 Failed! Rampup is greater than expected value of 0.3.");
+    }
+
+    console.log("Test Case 13: Calculate rampup factor of big repository");
+    const rampup_big = test_rampup_factor(big_repo);
+    if(rampup_big > 0.5 ){
+        console.log("Test #13 Passed! Rampup is greater than expected value of 0.5.");
+    }
+    else{
+        console.log("Test #13 Failed! Rampup is less than expected value of 0.5.");
+    }
+
+    //Test cases 17-21: calculate responsive maintainer factor
+    console.log("Test Case 17: Calculate responsive maintainer factor of new repository");
+    const resmaintainer_new = test_resmaintainer_factor(new_repo);
+
+    if(resmaintainer_new < 0.3 ){
+        console.log("Test #17 Passed! Responsive Maintainer is less than expected value of 0.3.");
+    }
+    else{
+        console.log("Test #17 Failed! Responsive Maintainer is greater than expected value of 0.3.");
+    }
+
+    console.log("Test Case 18: Calculate responsive maintainer factor of big repository");
+    const resmaintainer_big = test_resmaintainer_factor(big_repo);
+    if(resmaintainer_big > 0.5 ){
+        console.log("Test #18 Passed! Responsive Maintainer is greater than expected value of 0.5.");
+    }
+    else{
+        console.log("Test #18 Failed! Responsive Maintainer is less than expected value of 0.5.");
+    }
     // console.log("Test Case 4: Bus Factor Calculation using Data for Lodash");
     // const repository_info =await get_url_interface("https://github.com/lodash/lodash");
     // console.log(repository_info);
@@ -350,14 +414,38 @@ async function run_test_suite(): Promise<void>{
 }
 run_test_suite();
 
+//test res maintainer calculation
+function test_resmaintainer_factor(repository:Response):number{
+    const parameters:queries = get_parameters(repository);
+    const url:url_interface = get_factors(parameters);
+    const metrics = new Metrics(url,parameters);
+    metrics.calc_responsive_maintainer();
+    return url.responsive_maintainer;
+}
+
+//test rampup calculation
+function test_rampup_factor(repository:Response):number{
+    const parameters:queries = get_parameters(repository);
+    const url:url_interface = get_factors(parameters);
+    const metrics = new Metrics(url,parameters);
+    metrics.calculate_rampup();
+    return url.ramp_up;
+}
+//test correctness calculation
+function test_correctness_factor(repository:Response):number{
+    const parameters:queries = get_parameters(repository);
+    const url:url_interface = get_factors(parameters);
+    const metrics = new Metrics(url,parameters);
+    metrics.calculate_correctness();
+    return url.correctness;
+}
+
 //test bus factor calculation
 function test_bus_factor(repository:Response):number {
     const parameters:queries = get_parameters(repository);
     const url:url_interface = get_factors(parameters);
     const metrics = new Metrics(url,parameters);
-    console.log(metrics);
     metrics.calculate_bus_factor();
-    // metrics.calculate_correctness();
     // metrics.calculate_rampup();
     // metrics.calc_responsive_maintainer();
     // metrics.calc_license();
@@ -474,6 +562,5 @@ function get_parameters(info:Response) {
         calclat:calclat,
         disk:disk,
     }
-    console.log("These are the parameters" ,parameters);
     return parameters
 }

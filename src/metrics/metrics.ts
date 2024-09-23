@@ -142,8 +142,11 @@ export class Metrics {
         }
         var issue_time;
         var pr_time;
-        if(metrics.issues.nodes.length > 0) {
+        if(metrics.issues.nodes.length > 1) {
             issue_time = new Date(metrics.issues.nodes[this.parameters.len_i].updatedAt);
+        }
+        else if(metrics.issues.nodes.length > 0) {
+            issue_time = new Date(metrics.issues.nodes[0].updatedAt);
         }
         if(len_pr != -1) {
             pr_time = new Date(metrics.pullRequests.nodes[len_pr].publishedAt);

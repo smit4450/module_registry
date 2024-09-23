@@ -293,6 +293,7 @@ export async function fetch_repo(GRAPHQL_URL:string, headers: HeadersInit,query:
                         }         
                     }
                 }
+                
                 if(metrics.dependencyGraphManifests && metrics.dependencyGraphManifests.edges) {
                     for(let i = 0; i < metrics.dependencyGraphManifests.edges.length; i++) {
                         depend += metrics.dependencyGraphManifests.edges[i].node.dependenciesCount;
