@@ -121,7 +121,7 @@ export interface Response {
     };
 }
 
-const start = new Date();
+
 
 //url and token handling
 const TOKEN = process.env.TOKEN;
@@ -141,7 +141,7 @@ export const headers = {
 
 
 //action item
-export async function fetch_repo(GRAPHQL_URL:string, headers: HeadersInit,urlInput:string, NUM:number):Promise<queries> {
+export async function fetch_repo(GRAPHQL_URL:string, headers: HeadersInit,urlInput:string, start:Date):Promise<queries> {
     var query = set_query(urlInput);
   try {
         log("Fetching repository data...",1,"INFO")

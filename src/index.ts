@@ -97,7 +97,8 @@ export async function get_url_interface(urlInput:string):Promise<url_interface> 
     };
     try {
         // Call the fetchRepo function
-        parameters = await fetch_repo(GRAPHQL_URL, headers, urlInput, 10);
+        var start = new Date();
+        parameters = await fetch_repo(GRAPHQL_URL, headers, urlInput, start);
         if (parameters) {
             metrics = new Metrics(url,parameters);
         }
@@ -145,7 +146,6 @@ export async function calculate_factors(urlInput:string) {
         let url:url_interface | undefined;
         url = await get_url_interface(urlInput);
         let data;
-        // console.log("getting url")
         if (url) {
             data ={
                 URL:urlInput,
@@ -168,29 +168,34 @@ export async function calculate_factors(urlInput:string) {
         }
         const output = JSON.stringify(data);
         console.log(output);
+    
 
         
     }
     else if (urlInput.includes("npmjs.com/package")) {
         //find eqvivalent github link and then call analyzeGraphQL();
         log("Link is an NPM URL",1,"INFO");
-
         // const npmResult = analyzeNpm();
         // console.log(npmResult);
         let url:url_interface | undefined;
-        urlInput = String(fetchRepoUrl(urlInput))
+        urlInput = String(await fetchRepoUrl(urlInput))
         url = await get_url_interface(urlInput);
         let data;
-        // console.log("getting url")
         if (url) {
             data ={
                 URL:urlInput,
                 NetScore: url.net_score,
+                NetScore_Latency: url.net_score_latency,
                 RampUP:url.ramp_up,
+                RampUp_Latency: url.ramp_up_latency,
                 Correctness: url.correctness,
+                Correctness_Latency: url.correctness_latency,
                 BusFactor : url.bus_factor,
-                BusFactorLatency : url.bus_factor_latency,
+                BusFactor_Latency : url.bus_factor_latency,
+                ResponsiveMaintainer : url.responsive_maintainer,
+                ResponsiveMaintainer_Latency :url.responsive_maintainer_latency,
                 License: url.license,
+                License_Latency: url.license_latency,
             }
         }
         else {
@@ -198,7 +203,6 @@ export async function calculate_factors(urlInput:string) {
         }
         const output = JSON.stringify(data);
         console.log(output);
-
 
     }
     else {

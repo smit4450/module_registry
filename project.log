@@ -1,2 +1,20 @@
-[INFO] 2024-09-23T03:43:38.913Z - Starting Process
-[ERROR] 2024-09-23T03:43:38.917Z - Error during processing: ENOENT: no such file or directory, open 'one-url.txt'
+[INFO] 2024-09-23T05:04:04.257Z - Starting Process
+[INFO] 2024-09-23T05:04:04.264Z - URL validation successful
+[INFO] 2024-09-23T05:04:04.264Z - Starting Analysis
+[INFO] 2024-09-23T05:04:04.265Z - Link is a GitHub URL
+[INFO] 2024-09-23T05:04:04.266Z - Fetching repository data...
+[INFO] 2024-09-23T05:04:07.631Z - Parameters Found
+[INFO] 2024-09-23T05:04:07.632Z - Calculating metrics
+[INFO] 2024-09-23T05:04:07.633Z - URL validation successful
+[INFO] 2024-09-23T05:04:07.634Z - Starting Analysis
+[INFO] 2024-09-23T05:04:07.635Z - Link is a GitHub URL
+[INFO] 2024-09-23T05:04:07.636Z - Fetching repository data...
+[INFO] 2024-09-23T05:04:10.748Z - Parameters Found
+[INFO] 2024-09-23T05:04:10.749Z - Calculating metrics
+[INFO] 2024-09-23T05:04:10.750Z - URL validation successful
+[INFO] 2024-09-23T05:04:10.751Z - Starting Analysis
+[INFO] 2024-09-23T05:04:10.751Z - Link is a GitHub URL
+[INFO] 2024-09-23T05:04:10.752Z - Fetching repository data...
+[INFO] 2024-09-23T05:04:13.690Z - Parameters Found
+[INFO] 2024-09-23T05:04:13.691Z - Calculating metrics
+[INFO] 2024-09-23T05:04:13.692Z - All analyses complete

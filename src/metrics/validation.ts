@@ -1,13 +1,11 @@
 /*FINAL Validation Test Suite */
 
-import { TestContext } from "node:test";
 import { Response } from "../api_handler/graphql_handler/analyzer_graphql.js"; 
 import { daysbetween } from "../api_handler/graphql_handler/analyzer_graphql.js";
 import { latency_calc } from "../api_handler/graphql_handler/analyzer_graphql.js";
 import { queries } from "../api_handler/graphql_handler/analyzer_graphql.js";
 import { url_interface } from "./interfaces";
 import { Metrics } from "./metrics.js";
-import { calculate_factors, get_url_interface } from "../index.js";
 
 //dummy data modeling a newly made repository
 
