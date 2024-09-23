@@ -133,6 +133,7 @@ export class Metrics {
         this.url.net_score_latency = netlat;
 
     }
+    
     calc_license (): void {
         const mitn = "mit license";
         const exn = "expat license";

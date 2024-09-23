@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/138</span>
+                <span class='fraction'>0/140</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/137</span>
+                <span class='fraction'>0/139</span>
             </div>
         
             
@@ -257,7 +257,10 @@
 <a name='L192'></a><a href='#L192'>192</a>
 <a name='L193'></a><a href='#L193'>193</a>
 <a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -382,7 +385,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -391,6 +393,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -437,11 +448,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -548,7 +554,7 @@ const NUM = <span class="cstat-no" title="statement not covered" >10;</span>
 &nbsp;
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    calc_responsive_maintainer(</span>): number {
+<span class="fstat-no" title="function not covered" >    calc_responsive_maintainer(</span>): void {
         const metrics = <span class="cstat-no" title="statement not covered" >this.parameters.info.data.repository;</span>
         const RES_TOTAL = <span class="cstat-no" title="statement not covered" >50 + 55 + 45 + 45 + 35;</span>
 &nbsp;
@@ -576,10 +582,18 @@ const NUM = <span class="cstat-no" title="statement not covered" >10;</span>
         var end = <span class="cstat-no" title="statement not covered" >new Date();</span>
         var reslat = <span class="cstat-no" title="statement not covered" >latency_calc(this.parameters.now, end) - this.url.ramp_up_latency + this.parameters.calclat;</span>
 <span class="cstat-no" title="statement not covered" >        this.url.responsive_maintainer_latency = reslat;</span>
-<span class="cstat-no" title="statement not covered" >        return res;</span>
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    calc_license </span>(): number {
+<span class="fstat-no" title="function not covered" >    calc_net_score(</span>): void {
+        var net = <span class="cstat-no" title="statement not covered" >(this.url.bus_factor + this.url.correctness + this.url.ramp_up + this.url.responsive_maintainer * 2 + this.url.license) / 6.</span>
+        var end = <span class="cstat-no" title="statement not covered" >new Date();</span>
+        var netlat = <span class="cstat-no" title="statement not covered" >latency_calc(this.parameters.start, end);</span>
+<span class="cstat-no" title="statement not covered" >        this.url.net_score = net;</span>
+<span class="cstat-no" title="statement not covered" >        this.url.net_score_latency = netlat;</span>
+&nbsp;
+    }
+    
+<span class="fstat-no" title="function not covered" >    calc_license </span>(): void {
         const mitn = <span class="cstat-no" title="statement not covered" >"mit license";</span>
         const exn = <span class="cstat-no" title="statement not covered" >"expat license";</span>
         const gnu2n = <span class="cstat-no" title="statement not covered" >"gnu general public license";</span>
@@ -631,15 +645,10 @@ const NUM = <span class="cstat-no" title="statement not covered" >10;</span>
 <span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if(metrics.readme2 &amp;&amp; metrics.readme2.text) {</span>
 <span class="cstat-no" title="statement not covered" >            lic = checkcompatible(metrics.readme2.text.toLocaleLowerCase(), lictext, lic);</span>
         }
-<span class="cstat-no" title="statement not covered" >        return lic;</span>
-    }
-&nbsp;
-<span class="fstat-no" title="function not covered" >    calc_net_score(</span>) {
-        var net = <span class="cstat-no" title="statement not covered" >(this.url.bus_factor + this.url.correctness + this.url.ramp_up + this.url.responsive_maintainer * 2 + this.url.license) / 6.</span>
         var end = <span class="cstat-no" title="statement not covered" >new Date();</span>
-        var netlat = <span class="cstat-no" title="statement not covered" >latency_calc(this.parameters.start, end);</span>
-<span class="cstat-no" title="statement not covered" >        this.url.net_score = net;</span>
-<span class="cstat-no" title="statement not covered" >        this.url.net_score_latency = netlat;</span>
+<span class="cstat-no" title="statement not covered" >        this.url.license=lic</span>
+        var liclat = <span class="cstat-no" title="statement not covered" >latency_calc(this.parameters.now, end) - this.url.correctness_latency;</span>
+<span class="cstat-no" title="statement not covered" >        this.url.license_latency = liclat;</span>
 &nbsp;
     }
 &nbsp;
@@ -652,7 +661,7 @@ const NUM = <span class="cstat-no" title="statement not covered" >10;</span>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-22T22:23:46.786Z
+                at 2024-09-22T22:59:09.845Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
