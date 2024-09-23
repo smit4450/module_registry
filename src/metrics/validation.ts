@@ -309,37 +309,63 @@ const NUM = 10;
 async function run_test_suite(): Promise<void>{
     const valid_url = "https://api.github.com/graphql";
     const invalid_url = "https://api.github.com/rest";
-
+    var pass_count = 0;
+    var fail_count = 0;
     //Test case 1, 2
-    console.log("Test Case 1,2: Validating URLs");
-    test_url(valid_url, invalid_url);
+    console.log("Test Case 1 Valid URL");
+
+    if(test_url(valid_url)){
+        console.log("Test #1 Passed! Valid URL is valid.");
+        pass_count++;
+    }
+    else{
+        console.log("Test #1 Failed! Valid URL is invalid.");
+        fail_count++;
+    }
+
+    console.log("Test Case 2 Invalid URL");
+    if(test_url(invalid_url)){
+        console.log("Test #2 Failed! Invalid URL is valid.");
+        fail_count++;
+    }
+    else{
+        console.log("Test #2 Passed! Invalid URL is invalid.");
+        pass_count++;
+    }
+
 
     //Test cases 3-6: - bus factors for different types of repositories
     console.log("Test Case 3: Bus Factor Calculation using Dummy Data for New Repository");
     const bus_factor_new = test_bus_factor(new_repo);
     if (bus_factor_new < 0.1){
         console.log("Test #3 Passed! Bus Factor for a new repo is less than expected value of 0.1.");
+        pass_count++;
     }
     else{
         console.log("Test #3 Failed! Bus Factor for a new repo is greater than expected value of 0.1.");
+        fail_count++;
     }
 
     const bus_factor_big = test_bus_factor(big_repo);
     console.log("Test Case 4: Bus Factor Calculation using Dummy Data for Big/Older/Still Currently Updated Repository");
     if (bus_factor_big > 0.6){
         console.log("Test #4 Passed! Bus Factor for a big repo is greater than expected value of 0.6.");
+        pass_count++;
     }
     else{
         console.log("Test #4 Failed! Bus Factor for a big repo is less than expected value of 0.6.");
+        fail_count++;   
     }
     
     const bus_factor_old = test_bus_factor(old_repo);
     console.log("Test Case 5: Bus Factor Calculation using Dummy Data for Older Abandoned Repository");
     if (bus_factor_old > 0.6){
         console.log("Test #5 Passed! Bus Factor for a old repo is greater than expected value of 0.6.");
+        pass_count++;
     }
     else{
         console.log("Test #5 Failed! Bus Factor for a old repo is less than expected value of 0.6.");
+        fail_count++;
     }
 
 
@@ -349,54 +375,67 @@ async function run_test_suite(): Promise<void>{
     const correctness_new = test_correctness_factor(new_repo);
     if(correctness_new < 0.3 ){
         console.log("Test #7 Passed! Correctness is less than expected value of 0.3.");
+        pass_count++;
     }
     else{
         console.log("Test #7 Failed! Correctness is greater than expected value of 0.3.");
+        fail_count++;
     }
     
     console.log("Test Case 8: Calculate correctness of big repository");
     const correctness_big = test_correctness_factor(big_repo);
     if(correctness_big > 0.5 ){
         console.log("Test #8 Passed! Correctness is greater than expected value of 0.5.");
+        pass_count++;
     }
     else{
         console.log("Test #8 Failed! Correctness is less than expected value of 0.5.");
+        fail_count++;
     }
 
     console.log("Test Case 9: Calculate correctness of old repository");
     const correctness_old = test_correctness_factor(old_repo);
     if(correctness_old > 0.5 ){
         console.log("Test #9 Passed! Correctness is less than expected value of 0.5.");
+        pass_count++;
     }
     else{
         console.log("Test #9 Failed! Correctness is greater than expected value of 0.5.");
+        fail_count++;
+    }
 
     //Test cases 12-16: calculate rampup factor
     console.log("Test Case 12: Calculate rampup factor of new repository");
     const rampup_new = test_rampup_factor(new_repo);
     if(rampup_new < 0.3 ){
         console.log("Test #12 Passed! Rampup is less than expected value of 0.3.");
+        pass_count++;
     }
     else{
         console.log("Test #12 Failed! Rampup is greater than expected value of 0.3.");
+        fail_count++;
     }
 
     console.log("Test Case 13: Calculate rampup factor of big repository");
     const rampup_big = test_rampup_factor(big_repo);
     if(rampup_big > 0.5 ){
         console.log("Test #13 Passed! Rampup is greater than expected value of 0.5.");
+        pass_count++;
     }
     else{
         console.log("Test #13 Failed! Rampup is less than expected value of 0.5.");
+        fail_count++;
     }
 
     console.log("Test Case 14: Calculate rampup factor of old repository");
     const rampup_old = test_rampup_factor(old_repo);
     if(rampup_old > 0.5 ){
         console.log("Test #14 Passed! Rampup is less than expected value of 0.5.");
+        pass_count++;
     }
     else{
         console.log("Test #14 Failed! Rampup is greater than expected value of 0.5.");
+        fail_count++;   
     }
 
     //Test cases 17-21: calculate responsive maintainer factor
@@ -405,40 +444,80 @@ async function run_test_suite(): Promise<void>{
 
     if(resmaintainer_new < 0.3 ){
         console.log("Test #17 Passed! Responsive Maintainer is less than expected value of 0.3.");
+        pass_count++;
     }
     else{
         console.log("Test #17 Failed! Responsive Maintainer is greater than expected value of 0.3.");
+        fail_count++;
     }
 
     console.log("Test Case 18: Calculate responsive maintainer factor of big repository");
     const resmaintainer_big = test_resmaintainer_factor(big_repo);
     if(resmaintainer_big > 0.5 ){
         console.log("Test #18 Passed! Responsive Maintainer is greater than expected value of 0.5.");
+        pass_count++;
     }
     else{
         console.log("Test #18 Failed! Responsive Maintainer is less than expected value of 0.5.");
+        fail_count++;
     }
 
     console.log("Test Case 19: Calculate responsive maintainer factor of old repository");
     const resmaintainer_old = test_resmaintainer_factor(old_repo);
     if(resmaintainer_old > 0.5 ){
         console.log("Test #19 Passed! Responsive Maintainer is less than expected value of 0.5.");
+        pass_count++;
     }
     else{
         console.log("Test #19 Failed! Responsive Maintainer is greater than expected value of 0.5.");
+        fail_count++;
     }
-    // console.log("Test Case 4: Bus Factor Calculation using Data for Lodash");
-    // const repository_info =await get_url_interface("https://github.com/lodash/lodash");
-    // console.log(repository_info);
-    // // console.log(repository_info);
-    // console.log("Bus Factor: ", repository_info.bus_factor);
-    // if (repository_info.bus_factor > 0.6) {
-    //     console.log("Test #4 Passed! Bus Factor is greater than expected value of 0.6.");
-    // }
-    //test_bus_factor(repository_info.bus_factor);
+    
+    //Test cases 22-26: calculate license factor
+    console.log("Test Case 22: Calculate license factor of new repository");
+    const license_new = test_license_factor(new_repo);
+    if(license_new < 0.3 ){
+        console.log("Test #22 Passed! License is less than expected value of 0.5.");
+        pass_count++;
     }
+    else{
+        console.log("Test #22 Failed! License is greater than expected value of 0.3.");
+        fail_count++;
+    }
+
+    console.log("Test Case 23: Calculate license factor of big repository");
+    const license_big = test_license_factor(big_repo);
+    if(license_big > 0.5 ){
+        console.log("Test #23 Passed! License is greater than expected value of 0.5.");
+        pass_count++;
+    }
+    else{
+        console.log("Test #23 Failed! License is less than expected value of 0.5.");
+        fail_count++;
+    }
+
+    console.log("Test Case 24: Calculate license factor of old repository");
+    const license_old = test_license_factor(old_repo);
+    if(license_old > 0.5 ){
+        console.log("Test #24 Passed! License is less than expected value of 0.5.");
+        pass_count++;
+    }
+    else{
+        console.log("Test #24 Failed! License is greater than expected value of 0.5.");
+        fail_count++;
+    }
+
 }
 run_test_suite();
+
+//test license calculation
+function test_license_factor(repository:Response):number{
+    const parameters:queries = get_parameters(repository);
+    const url:url_interface = get_factors(parameters);
+    const metrics = new Metrics(url,parameters);
+    metrics.calc_license();
+    return url.license;
+}
 
 //test res maintainer calculation
 function test_resmaintainer_factor(repository:Response):number{
@@ -481,21 +560,21 @@ function test_bus_factor(repository:Response):number {
 }
 
 //testing URL validation
-function test_url(valid_url:string, invalid_url: string):void {
+function test_url(url:string):boolean{ {
     const url_pattern = /^https:\/\/api\.github\.com\/graphql$/;
-
-    if(url_pattern.test(valid_url)){
-        console.log("Testing Valid_URL: Passed!");
-    }
-    else{
-        console.log("Testing Valid_URL: Failed!");
-    }
-    if(url_pattern.test(invalid_url)){
-        console.log("Testing Invalid URL: Failed!");
-    }
-    else{
-        console.log("Testing Invalid_URL: Passed!");
-    }
+    return url_pattern.test(url);
+    // if(url_pattern.test(valid_url)){
+    //     console.log("Testing Valid_URL: Passed!");
+    // }
+    // else{
+    //     console.log("Testing Valid_URL: Failed!");
+    // }
+    // if(url_pattern.test(invalid_url)){
+    //     console.log("Testing Invalid URL: Failed!");
+    // }
+    // else{
+    //     console.log("Testing Invalid_URL: Passed!");
+    // }
 
 }   
 
