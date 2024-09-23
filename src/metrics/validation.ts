@@ -560,7 +560,7 @@ function test_bus_factor(repository:Response):number {
 }
 
 //testing URL validation
-function test_url(url:string):boolean{ {
+function test_url(url:string):boolean{
     const url_pattern = /^https:\/\/api\.github\.com\/graphql$/;
     return url_pattern.test(url);
     // if(url_pattern.test(valid_url)){
