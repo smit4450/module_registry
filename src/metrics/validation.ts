@@ -396,11 +396,11 @@ async function run_test_suite(): Promise<void>{
     console.log("Test Case 8: Calculate correctness of old repository");
     const correctness_old = test_correctness_factor(old_repo);
     if(correctness_old > 0.5 ){
-        console.log("Test #8 Passed! Correctness is less than expected value of 0.5.");
+        console.log("Test #8 Passed! Correctness is greater than expected value of 0.5.");
         pass_count++;
     }
     else{
-        console.log("Test #8 Failed! Correctness is greater than expected value of 0.5.");
+        console.log("Test #8 Failed! Correctness is less than expected value of 0.5.");
         fail_count++;
     }
 
@@ -430,11 +430,11 @@ async function run_test_suite(): Promise<void>{
     console.log("Test Case 11: Calculate rampup factor of old repository");
     const rampup_old = test_rampup_factor(old_repo);
     if(rampup_old > 0.5 ){
-        console.log("Test #11 Passed! Rampup is less than expected value of 0.5.");
+        console.log("Test #11 Passed! Rampup is greater than expected value of 0.5.");
         pass_count++;
     }
     else{
-        console.log("Test #11 Failed! Rampup is greater than expected value of 0.5.");
+        console.log("Test #11 Failed! Rampup is less than expected value of 0.5.");
         fail_count++;   
     }
 
@@ -465,11 +465,11 @@ async function run_test_suite(): Promise<void>{
     console.log("Test Case 14: Calculate responsive maintainer factor of old repository");
     const resmaintainer_old = test_resmaintainer_factor(old_repo);
     if(resmaintainer_old > 0.5 ){
-        console.log("Test #14 Passed! Responsive Maintainer is less than expected value of 0.5.");
+        console.log("Test #14 Passed! Responsive Maintainer is greater than expected value of 0.5.");
         pass_count++;
     }
     else{
-        console.log("Test #14 Failed! Responsive Maintainer is greater than expected value of 0.5.");
+        console.log("Test #14 Failed! Responsive Maintainer is less than expected value of 0.5.");
         fail_count++;
     }
     
@@ -499,11 +499,11 @@ async function run_test_suite(): Promise<void>{
     console.log("Test Case 17: Calculate license factor of old repository");
     const license_old = test_license_factor(old_repo);
     if(license_old > 0.5 ){
-        console.log("Test #17 Passed! License is less than expected value of 0.5.");
+        console.log("Test #17 Passed! License is greater than expected value of 0.5.");
         pass_count++;
     }
     else{
-        console.log("Test #17 Failed! License is greater than expected value of 0.5.");
+        console.log("Test #17 Failed! License is less than expected value of 0.5.");
         fail_count++;
     }
 
@@ -532,11 +532,11 @@ async function run_test_suite(): Promise<void>{
     console.log("Test Case 20: Calculate net score of old repository");
     const net_score_old = test_net_score(old_repo);
     if(net_score_old > 0.5 ){
-        console.log("Test #20 Passed! Net Score is less than expected value of 0.5.");
+        console.log("Test #20 Passed! Net Score is greater than expected value of 0.5.");
         pass_count++;
     }
     else{
-        console.log("Test #20 Failed! Net Score is greater than expected value of 0.5.");
+        console.log("Test #20 Failed! Net Score is less than expected value of 0.5.");
         fail_count++;
     }
 
