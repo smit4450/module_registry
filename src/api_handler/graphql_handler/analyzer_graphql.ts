@@ -279,7 +279,7 @@ export async function fetch_repo(GRAPHQL_URL:string, headers: HeadersInit,urlInp
         }
     }
     catch(error) {
-        throw new Error("Hel")
+        throw error
     }
 }
 
