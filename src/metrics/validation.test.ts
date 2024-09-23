@@ -1,3 +1,4 @@
+/*NOT IN USE: j-unit test causing error due to file paths */
 import { Response } from "../api_handler/graphql_handler/analyzer_graphql"; 
 import { daysbetween } from "../api_handler/graphql_handler/analyzer_graphql";
 import { latency_calc } from "../api_handler/graphql_handler/analyzer_graphql";
@@ -63,6 +64,21 @@ test('Output Data is Correct', () => {
     const expectedOutput = "correctOutput";
     expect(fetchOutputData()).toBe(expectedOutput);
 });
+});
+
+
+//test bus factor 
+describe('Bus Factor Validation', () => {
+    function obtain_bus_factor(): number {
+        const parameters:queries = get_parameters(big_repo);
+        const url:url_interface = get_factors(parameters);
+        return url.bus_factor;
+    }
+
+    test('Check Bus Factor', () => {
+        const bus_factor = obtain_bus_factor();
+        expect(bus_factor).toBe(0.5);
+    });
 });
 
 
@@ -142,6 +158,18 @@ const big_repo: Response = {
             },
             licenseInfo: {
                 name : "MIT License"
+            },
+            license: {
+                text: "null"
+            },
+            license2: {
+                text: "null"
+            },
+            readme: {
+                text: "null"
+            },
+            readme2: {
+                text: "null"
             }
         },
         rateLimit: {
@@ -227,6 +255,18 @@ const new_repo: Response = {
             },
             licenseInfo: {
                 name : "MIT License",
+            },
+            license: {
+                text: "null"
+            },
+            license2: {
+                text: "null"
+            },
+            readme: {
+                text: "null"
+            },
+            readme2: {
+                text: "null"
             }
         },
         rateLimit: {
@@ -237,140 +277,8 @@ const new_repo: Response = {
     }
 };
 
-// type Repository = {
-//     data: {
-//         repository: {
-//             diskUsage: number;
-//             mentionableUsers: {
-//                 totalCount: number;
-//                 nodes: [
-//                     {
-//                         contributionsCollection: {
-//                             totalIssueContributions: number;
-//                             totalPullRequestContributions: number;
-//                             totalPullRequestReviewContributions: number;
-//                             totalRepositoryContributions: number;
-//                         }
-//                     }   
-//                 ]
-//             }
-//             contributingGuidelines: {
-//                 body: String;
-//             }
-//             codeOfConduct: {
-//                 body: String;
-//             }
-//             description: String;
-//             hasWikiEnabled: boolean;
-//             dependencyGraphManifests: {
-//                 edges: [
-//                     {
-//                         node: {
-//                             dependencies: {
-//                                 totalCount: number;
-//                             }
-//                             dependenciesCount: number;
-//                         }
-//                     }
-//                 ]
-//             }
-//             icount: {
-//                 totalCount: number;
-//             }
-//             issues: {
-//                 nodes: [
-//                     {
-//                         participants: {
-//                             totalCount: number;
-//                         }
-//                         closed: boolean;
-//                         updatedAt: Date;
-//                     }
-//                 ]
-//             }
-//             createdAt: Date;
-//             updatedAt: Date;
-//             vulnerabilityAlerts: {
-//                 totalCount: number
-//             }
-//             prcount: {
-//                 totalCount: number;
-//             }
-//             pullRequests: {
-//                 nodes: [
-//                     { 
-//                         publishedAt: Date,
-//                     }
-//                 ]
-//             }
-//             fcount: {
-//                 totalCount: number;
-//             }
-//             stargazerCount: number;
-//             watchers: {
-//                 totalCount: number;
-//             }
-//             licenseInfo: {
-//                 name: String;
-//                 pseudoLicense: boolean;
-//                 body: String;
-//                 limitations: {
-//                     label: String;
-//                 }
-//                 implementation: String;
-//                 conditions: {
-//                     description: String;
-//                 }
-//             }
-//         }
-//         rateLimit: {
-//             cost: number;
-//             remaining: number;
-//             resetAt: Date;
-//         }
-//     };
-// }
-
 // tests for dataset objects written above
-// Test cases using Jest
-describe('Repository Tests', () => {
-  test('Big Repo Properties', () => {
-      expect(big_repo.data.repository.diskUsage).toBe(100000);
-      expect(big_repo.data.repository.mentionableUsers.totalCount).toBe(100);
-      expect(big_repo.data.repository.icount.totalCount).toBe(100);
-      expect(big_repo.data.repository.prcount.totalCount).toBe(100);
-      expect(big_repo.data.repository.fcount.totalCount).toBe(3000);
-      expect(big_repo.data.repository.stargazerCount).toBe(50);
-      expect(big_repo.data.repository.hasWikiEnabled).toBe(true);
-      expect(big_repo.data.repository.vulnerabilityAlerts.totalCount).toBe(1);
-  });
-
-  test('New Repo Properties', () => {
-      expect(new_repo.data.repository.diskUsage).toBe(0);
-      expect(new_repo.data.repository.mentionableUsers.totalCount).toBe(0);
-      expect(new_repo.data.repository.icount.totalCount).toBe(0);
-      expect(new_repo.data.repository.prcount.totalCount).toBe(0);
-      expect(new_repo.data.repository.fcount.totalCount).toBe(0);
-      expect(new_repo.data.repository.stargazerCount).toBe(0);
-      expect(new_repo.data.repository.hasWikiEnabled).toBe(false);
-      expect(new_repo.data.repository.vulnerabilityAlerts.totalCount).toBe(0);
-  });
-
-  test('Contributing Guidelines', () => {
-      expect(big_repo.data.repository.contributingGuidelines.body).toBe("This is a sample contributing guideline.");
-  });
-
-  test('Code of Conduct', () => {
-      expect(big_repo.data.repository.codeOfConduct.body).toBe("This is a sample code of conduct.");
-  });
-
-  test('Issues Count in Big Repo', () => {
-      expect(big_repo.data.repository.issues.nodes.length).toBe(1);
-      expect(big_repo.data.repository.issues.nodes[0].participants.totalCount).toBe(50);
-      expect(big_repo.data.repository.issues.nodes[0].closed).toBe(true);
-  });
-});
-
+// Test cases using Je
 function get_parameters(info:Response) {
     const metrics = info.data.repository;
     var now = new Date();
@@ -450,3 +358,42 @@ function test_case1() {
     const url:url_interface = get_factors(parameters);
     
 }
+
+// test('Contributing Guidelines', () => {
+//     expect(big_repo.data.repository.contributingGuidelines.body).toBe("This is a sample contributing guideline.");
+// });
+
+// test('Code of Conduct', () => {
+//     expect(big_repo.data.repository.codeOfConduct.body).toBe("This is a sample code of conduct.");
+// });
+
+// test('Issues Count in Big Repo', () => {
+//     expect(big_repo.data.repository.issues.nodes.length).toBe(1);
+//     expect(big_repo.data.repository.issues.nodes[0].participants.totalCount).toBe(50);
+//     expect(big_repo.data.repository.issues.nodes[0].closed).toBe(true);
+// });
+// });
+
+// describe('Repository Tests', () => {
+//     test('Big Repo Properties', () => {
+//         expect(big_repo.data.repository.diskUsage).toBe(100000);
+//         expect(big_repo.data.repository.mentionableUsers.totalCount).toBe(100);
+//         expect(big_repo.data.repository.icount.totalCount).toBe(100);
+//         expect(big_repo.data.repository.prcount.totalCount).toBe(100);
+//         expect(big_repo.data.repository.fcount.totalCount).toBe(3000);
+//         expect(big_repo.data.repository.stargazerCount).toBe(50);
+//         expect(big_repo.data.repository.hasWikiEnabled).toBe(true);
+//         expect(big_repo.data.repository.vulnerabilityAlerts.totalCount).toBe(1);
+//     });
+  
+//     test('New Repo Properties', () => {
+//         expect(new_repo.data.repository.diskUsage).toBe(0);
+//         expect(new_repo.data.repository.mentionableUsers.totalCount).toBe(0);
+//         expect(new_repo.data.repository.icount.totalCount).toBe(0);
+//         expect(new_repo.data.repository.prcount.totalCount).toBe(0);
+//         expect(new_repo.data.repository.fcount.totalCount).toBe(0);
+//         expect(new_repo.data.repository.stargazerCount).toBe(0);
+//         expect(new_repo.data.repository.hasWikiEnabled).toBe(false);
+//         expect(new_repo.data.repository.vulnerabilityAlerts.totalCount).toBe(0);
+//     });
+  
