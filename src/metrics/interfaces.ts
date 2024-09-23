@@ -10,7 +10,7 @@ export interface url_interface {
     license:number
     license_latency:number
     net_score:number;
-    net_score_latency:number
-
+    net_score_latency:number,
+    disk: number,
 }
 

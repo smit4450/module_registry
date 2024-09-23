@@ -93,7 +93,8 @@ export async function get_url_interface(urlInput:string):Promise<url_interface> 
         license:0,
         license_latency:0,
         net_score:0,
-        net_score_latency:0
+        net_score_latency:0,
+        disk:0
 
     };
     console.log("Fetching repository data...");

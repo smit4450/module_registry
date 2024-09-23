@@ -29,16 +29,18 @@ export class Metrics {
         if(metrics.mentionableUsers) {
             contr = exists(metrics.mentionableUsers.totalCount);
             if(metrics.mentionableUsers.nodes) {
-                contr_i = metrics.mentionableUsers.nodes.length - 1;
+                contr_i = metrics.mentionableUsers.nodes.length;
                 
-                for(let i = 0; i <= contr_i; i++) {
+                for(let i = 0; i < contr_i; i++) {
                     //estimating contributions per repository
                     sum += (metrics.mentionableUsers.nodes[i].contributionsCollection.totalIssueContributions + metrics.mentionableUsers.nodes[i].contributionsCollection.totalPullRequestReviewContributions + metrics.mentionableUsers.nodes[i].contributionsCollection.totalPullRequestContributions);   
                 }
             }
         }
         
+        
         var c_act = sum / contr_i;
+        
         var contr_m = ver_bounds((contr/this.parameters.years)/40);
         var cact_m = ver_bounds(c_act/100);
         var doc = 0;
@@ -57,6 +59,12 @@ export class Metrics {
         }
         doc_m = ver_bounds(doc_m);
         var depend_m = ver_bounds(this.parameters.depend/0.01);
+        
+        console.log("depend_m:", depend_m);
+        console.log("doc_m:", doc_m);
+        console.log("contr_m:", contr_m);
+        console.log("cact_m:", cact_m);
+
 
         var bus = (contr_m * 45 + cact_m * 60 + doc_m * 50 + depend_m * 35) / BUS_TOTAL;
         console.log(bus);
@@ -65,6 +73,7 @@ export class Metrics {
         var end = new Date();
         var buslat = latency_calc(this.parameters.now, end) + this.parameters.calclat;
         this.url.bus_factor_latency = buslat;
+        
         console.log("Bus factor latency: ", buslat);
     }
 

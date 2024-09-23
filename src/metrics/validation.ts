@@ -104,7 +104,7 @@ const new_repo: Response = {
         rateLimit: {
             cost: 0,
             remaining: 5000,
-            resetAt: new Date()
+            resetAt: new Date() 
         }
     }
 };
@@ -113,7 +113,7 @@ const big_repo: Response = {
         repository: {
             diskUsage: 100000,
             mentionableUsers: {
-                totalCount: 100,
+                totalCount: 500,
                 nodes: [
                     {
                         contributionsCollection: {
@@ -212,14 +212,38 @@ async function run_test_suite(): Promise<void>{
     const valid_url = "https://api.github.com/graphql";
     const invalid_url = "https://api.github.com/rest";
 
+    //Test case 1, 2
+    console.log("Test Case 1,2: Validating URLs");
     test_url(valid_url, invalid_url);
 
-    // console.log("Test Case 3: Bus Factor Calculation using Dummy Data for New Repository");
-    // test_bus_factor(new_repo);
+    //Test cases 3-6: - bus factors for different types of repositories
+    console.log("Test Case 3: Bus Factor Calculation using Dummy Data for New Repository");
+    const bus_factor_new = test_bus_factor(new_repo);
+    if (bus_factor_new < 0.1){
+        console.log("Test #3 Passed! Bus Factor for a new repo is less than expected value of 0.1.");
+    }
+    else{
+        console.log("Test #3 Failed! Bus Factor for a new repo is greater than expected value of 0.1.");
+    }
 
-    console.log("Test Case 4: Bus Factor Calculation using Data for Lodash");
-    const repository_info = await get_url_interface("https://github.com/lodash/lodash");
+    const bus_factor_big = test_bus_factor(big_repo);
+    console.log("Test Case 4: Bus Factor Calculation using Dummy Data for Big/Older/Still Currently Updated Repository");
+    if (bus_factor_new > 0.6){
+        console.log("Test #4 Passed! Bus Factor for a big repo is greater than expected value of 0.6.");
+    }
+    else{
+        console.log("Test #4 Failed! Bus Factor for a big repo is less than expected value of 0.6.");
+    }
+
+
+    //Test cases 7-11: calculate correctness of code
+    
+    console.log("Test Case 7: calculate correctness of code");
+    
+    // console.log("Test Case 4: Bus Factor Calculation using Data for Lodash");
+    // const repository_info =await get_url_interface("https://github.com/lodash/lodash");
     // console.log(repository_info);
+    // // console.log(repository_info);
     // console.log("Bus Factor: ", repository_info.bus_factor);
     // if (repository_info.bus_factor > 0.6) {
     //     console.log("Test #4 Passed! Bus Factor is greater than expected value of 0.6.");
@@ -230,11 +254,11 @@ async function run_test_suite(): Promise<void>{
 run_test_suite();
 
 //test bus factor calculation
-function test_bus_factor(repository:Response):void {
+function test_bus_factor(repository:Response):number {
     const parameters:queries = get_parameters(repository);
-    console.log(parameters);
     const url:url_interface = get_factors(parameters);
     const metrics = new Metrics(url,parameters);
+    console.log(metrics);
     metrics.calculate_bus_factor();
     // metrics.calculate_correctness();
     // metrics.calculate_rampup();
@@ -242,11 +266,11 @@ function test_bus_factor(repository:Response):void {
     // metrics.calc_license();
     // metrics.calc_net_score();
     console.log(`Calculated Bus Factor: ${url.bus_factor}`);
+    return url.bus_factor;
 }
 
 //testing URL validation
 function test_url(valid_url:string, invalid_url: string):void {
-    console.log("Test Case 1,2: Validating URLs");
     const url_pattern = /^https:\/\/api\.github\.com\/graphql$/;
 
     if(url_pattern.test(valid_url)){
@@ -279,7 +303,8 @@ function get_factors(parameters:queries):url_interface {
         license:0,
         license_latency:0,
         net_score:0,
-        net_score_latency:0
+        net_score_latency:0,
+        disk:0
     };
     return url;
 
@@ -287,32 +312,55 @@ function get_factors(parameters:queries):url_interface {
 
 function get_parameters(info:Response) {
     const metrics = info.data.repository;
+    //for all numbers, refer to GraphQL decision matrices
+
+    //no need to error check these dates due to being nonnullable
     var now = new Date();
     var update = new Date(metrics.updatedAt);
     var create = new Date(metrics.createdAt);
     var years = daysbetween(create, update) / 365.0;
     
+    if(years < 1) {
+        years = 1;
+    }
+    
     var depend = 0;
     var open = 0;
     var partic = 0;
-    var len_i = metrics.issues.nodes.length - 1;
-    for(let i = 0; i <= len_i; i++) {
-        //participants in issues
-        partic += metrics.issues.nodes[i].participants.totalCount;
-        
-        //calculating open issues
-        if(!metrics.issues.nodes[i].closed) {
-            open += 1;
-        }         
+    var len_i = 0;
+    if(metrics.issues && metrics.issues.nodes) {
+        len_i = metrics.issues.nodes.length - 1;
+        for(let i = 0; i <= len_i; i++) {
+            //participants in issues
+            partic += metrics.issues.nodes[i].participants.totalCount;
+            //calculating open issues
+            if(!metrics.issues.nodes[i].closed) {
+                open += 1;
+            }         
+        }
     }
-    for(let i = 0; i < metrics.dependencyGraphManifests.edges.length; i++) {
+    if(metrics.dependencyGraphManifests && metrics.dependencyGraphManifests.edges) {
+        for(let i = 0; i < metrics.dependencyGraphManifests.edges.length; i++) {
+            depend += metrics.dependencyGraphManifests.edges[i].node.dependenciesCount;
+        }
+    }
+    
+    var disk = metrics.diskUsage;
+    if(metrics.diskUsage < 1) {
+        disk = 1;
+    }
 
-        depend += metrics.dependencyGraphManifests.edges[i].node.dependenciesCount;
+    depend /= disk;
+    if(len_i < 1) {
+        len_i = 1;
     }
-    depend /= metrics.diskUsage;
-    partic /= NUM * 2;
+    partic /= len_i;
+    
+
     var end = new Date();
     var calclat = latency_calc(now, end);
+    
+
 
     const parameters:queries = {
         years:years,
@@ -326,9 +374,10 @@ function get_parameters(info:Response) {
         now :now,
         start:new Date(),
         update:update,
-        calclat:calclat
-
+        calclat:calclat,
+        disk:disk,
     }
+    console.log("These are the parameters" ,parameters);
     return parameters
 }
 
