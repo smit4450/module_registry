@@ -261,7 +261,7 @@ const old_repo: Response = {
             createdAt: new Date(1998, 5, 15),
             updatedAt: new Date(2005, 5, 20), //current date and time
             vulnerabilityAlerts: {
-                totalCount: 1
+                totalCount: 20
             },
             prcount: {
                 totalCount: 5
