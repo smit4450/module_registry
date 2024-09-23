@@ -205,6 +205,103 @@ const big_repo: Response = {
         }
     }
 };
+const old_repo: Response = {
+    data: {
+        repository: {
+            diskUsage: 100000,
+            mentionableUsers: {
+                totalCount: 5000,
+                nodes: [
+                    {
+                        contributionsCollection: {
+                            totalIssueContributions: 9000,
+                            totalPullRequestContributions: 12000,
+                            totalPullRequestReviewContributions: 9500,
+                            totalRepositoryContributions: 8700,
+                        }
+                    }   
+                ]
+            },
+            contributingGuidelines: {
+                body: "This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline.This is a long sample contributing guideline."
+            },
+            codeOfConduct: {
+                body: "This is a sample code of conduct."
+            },
+            description: "This is a sample description.",
+            hasWikiEnabled: true,
+            dependencyGraphManifests: {
+                edges: [
+                    {
+                        node: {
+                            dependencies: {
+                                totalCount: 100
+                            },
+                            dependenciesCount: 100
+                        }
+                    }
+                ]
+            },
+            icount: {
+                totalCount: 5
+            },
+            issues: {
+                nodes: [
+                    {
+                        participants: {
+                            totalCount: 10
+                        },
+                        closed: true,
+                        updatedAt: new Date(2005, 5, 20) //current date and time
+                    }
+                ]
+            },
+            //march 2012 date
+            createdAt: new Date(1998, 5, 15),
+            updatedAt: new Date(2005, 5, 20), //current date and time
+            vulnerabilityAlerts: {
+                totalCount: 1
+            },
+            prcount: {
+                totalCount: 5
+            },
+            pullRequests: {
+                nodes: [
+                    { 
+                        publishedAt: new Date(2002, 7, 30),
+                    }
+                ]
+            },
+            fcount: {
+                totalCount: 6000
+            },
+            stargazerCount: 800,
+            watchers: {
+                totalCount: 4000
+            },
+            licenseInfo: {
+                name : "MIT License"
+            },
+            license: {
+                text: "null"
+            },
+            license2: {
+                text: "null"
+            },
+            readme: {
+                text: "null"
+            },
+            readme2: {
+                text: "null"
+            }
+        },
+        rateLimit: {
+            cost: 2500,
+            remaining: 2500,
+            resetAt: new Date(2005, 5, 20)
+        }
+    }
+};
 
 const NUM = 10;
 // GitHub URL validation test
@@ -380,5 +477,3 @@ function get_parameters(info:Response) {
     console.log("These are the parameters" ,parameters);
     return parameters
 }
-
-

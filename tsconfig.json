@@ -8,7 +8,7 @@
     "lib": ["es2021", "dom"],
     "outDir": "dist",
     "module": "ESNext",
-    "target": "es2021",
+    "target": "ESNext",
     "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -17,4 +17,5 @@
     
   },
   "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
