@@ -1,0 +1,8 @@
+[INFO] 2024-09-23T07:56:02.816Z - Starting Process
+[INFO] 2024-09-23T07:56:02.821Z - URL validation successful
+[INFO] 2024-09-23T07:56:02.821Z - Starting Analysis
+[INFO] 2024-09-23T07:56:02.821Z - Link is a GitHub URL
+[INFO] 2024-09-23T07:56:02.821Z - Fetching repository data...
+[INFO] 2024-09-23T07:56:03.238Z - Parameters Found
+[INFO] 2024-09-23T07:56:03.239Z - Calculating metrics
+[INFO] 2024-09-23T07:56:03.243Z - All analyses complete

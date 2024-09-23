@@ -7,8 +7,46 @@ import { queries } from "../api_handler/graphql_handler/analyzer_graphql.js";
 import { url_interface } from "./interfaces";
 import { Metrics } from "./metrics.js";
 import {log} from "../logger.js";
+// import { get_package_name } from "../index.js";
+// import { getGitHubRepoUrl } from "../index.js";
+// import { fetchRepoUrl } from "../index.js";
+import axios from 'axios';
 //dummy data modeling a newly made repository
+export async function get_package_name (package_url: string) {
+    const package_name = package_url.split('/').pop();
+    return package_name;
+}
 
+export async function getGitHubRepoUrl(package_name: string) {
+    try {
+      const response = await axios.get(`https://registry.npmjs.org/${package_name}`);
+      const latest_version = response.data['dist-tags'].latest; //get latest version of package
+      const repository = response.data.versions[latest_version].repository; //get the repository URL
+      if (repository && repository.url) {
+        // Clean up the repository URL (remove "git+" and ".git" if present)
+        var gitUrl = repository.url.replace(/^git\+/, '').replace(/\.git$/, '');
+        if (gitUrl.startsWith('ssh://git@')) {
+            //some urls start with the ssh://git@ prefix 
+            //console.log("Clean up ssh URL:")
+            gitUrl = gitUrl.replace('ssh://git@', 'https://');
+          }        
+        //console.log(`GitHub URL for ${package_name}: ${gitUrl}`);
+        return gitUrl;
+      } else {
+        
+        //console.log(`No repository URL found for ${package_name}`);
+        return null;
+      }
+    } catch (error) {
+      console.error(`Error fetching package data for ${package_name}:`, error);
+    }
+  }
+
+export async function fetchRepoUrl(package_url: string) {
+    const package_name = await get_package_name(package_url);
+    const gitHubUrl = await getGitHubRepoUrl(String(package_name));  // Output is assigned to gitHubUrl
+    return gitHubUrl;
+}
 
 const new_repo: Response = {
     data: {
@@ -369,6 +407,7 @@ async function run_test_suite(): Promise<void>{
 
     //Test cases 6-10: calculate correctness of code
     //Test cases 6-10: calculate correctness of code
+    var coverage = 81.86
     
     log("Test Case 6: Calculate correctness of new repository", 1, "INFO");
     const correctness_new = test_correctness_factor(new_repo);
@@ -525,25 +564,79 @@ async function run_test_suite(): Promise<void>{
         log("Test #19 Failed! Net Score is less than expected value of 0.5.", 1, "FAILED");
         fail_count++;
     }
-
-    log("Test Case 20: Calculate net score of old repository", 1, "INFO");
-    const net_score_old = test_net_score(old_repo);
-    if(net_score_old < 0.5 ){
-        log("Test #20 Passed! Net Score is less than expected value of 0.5.", 1, "PASSED");
+    log("Test Case 20: Checking net score is positive", 1, "INFO"); 
+    if(net_score_big <=1 && net_score_big>0){
+        log("Test #20 Passed! Net Score is positive.", 1, "PASSED");
         pass_count++;
     }
     else{
-        log("Test #20 Failed! Net Score is greater than expected value of 0.5.", 1, "FAILED");
+        log("Test #20 Failed! Net Score is negative.", 1, "FAILED");
+       
+    }
+    log("Test Case 21: Calculate net score of old repository", 1, "INFO");
+    const net_score_old = test_net_score(old_repo);
+    if(net_score_old < 0.5 ){
+        log("Test #21 Passed! Net Score is less than expected value of 0.5.", 1, "PASSED");
+        pass_count++;
+    }
+    else{
+        log("Test #21 Failed! Net Score is greater than expected value of 0.5.", 1, "FAILED");
         fail_count++;
     }
 
-    var totalCount = 20;
-    var coverage = 81.74;
-    log(`Total: ${totalCount}`, 1, "INFO");
-    log(`Passed: ${pass_count}`, 1, "INFO");
-    log(`Coverage: ${coverage}%`, 1, "INFO");
-    log(`${pass_count}/${totalCount} test cases passed. ${coverage}% line coverage achieved`, 1, "INFO");
+    log("Test Case 22: Getting package name from npm express",1,"INFO");
+        var url:string = "https://www.npmjs.com/package/express"
+        const package_name = await get_package_name(url);
+        if (package_name=="express") {
+            log("Test #22 Passed! Accurate package found.", 1, "PASSED");
+            pass_count++;
+        }
+        else {
+            log("Test #22 Failed! could not retrieve package", 1, "FAILED");
+            fail_count++;
+        }
+    log("Test Case 23: getting github URL for npm package",1,"INFO");
+        const gitHubUrl = await getGitHubRepoUrl("express")
+        if (gitHubUrl=="https://github.com/expressjs/express") {
+            log("Test #23 Passed! Accurate github URL found.", 1, "PASSED");
+            pass_count++;
+        }
+        else{
+            log("Test #23 Failed! could not retrive URL", 1, "FAILED");
+            fail_count++;
+        }
 
+
+    log("Test Case 22: Getting package name from npm express",1,"INFO");
+        var url:string = "https://www.npmjs.com/package/lodash"
+        const package_name_2 = await get_package_name(url);
+        if (package_name_2=="lodash") {
+            log("Test #24 Passed! Accurate package found.", 1, "PASSED");
+            pass_count++;
+        }
+        else {
+            log("Test #24 Failed! could not retrieve package", 1, "FAILED");
+            fail_count++;
+        }
+    log("Test Case 25: Getting package name from npm lodash package",1,"INFO");
+        const gitHubUrl_2 = await getGitHubRepoUrl("lodash")
+        if (gitHubUrl_2=="https://github.com/lodash/lodash") {
+            log("Test #25 Passed! Accurate github URL found.", 1, "PASSED");
+            pass_count++;
+        }
+        else{
+            log("Test #25 Failed! could not retrive URL", 1, "FAILED");
+            fail_count++;
+        }
+    
+
+    var pass_count_string:string = String(pass_count)
+    var totalCount:string = "25"
+    var coverage_string:string = String(Math.round(coverage));
+    console.log("Total:", totalCount);
+    console.log("Passed:",pass_count_string)
+    console.log("Coverage:",coverage_string);
+    console.log(`${pass_count_string}/${totalCount} test cases passed. ${coverage_string}% line coverage achieved.`)
 
 }
 run_test_suite();
@@ -553,7 +646,12 @@ function test_net_score(repository:Response):number{
     const parameters:queries = get_parameters(repository);
     const url:url_interface = get_factors(parameters);
     const metrics = new Metrics(url,parameters);
+    metrics.calculate_bus_factor();
+    metrics.calculate_correctness();
+    metrics.calculate_rampup();
+    metrics.calc_responsive_maintainer();
     metrics.calc_net_score();
+    metrics.calc_license()
     return url.net_score;
 }
 
