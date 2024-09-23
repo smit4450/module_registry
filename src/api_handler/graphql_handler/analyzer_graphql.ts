@@ -16,7 +16,7 @@ export interface queries {
     now : Date,
     update: Date,
     calclat : number
-
+    disk: number
 }
 
 
@@ -267,30 +267,50 @@ export async function fetch_repo(GRAPHQL_URL:string, headers: HeadersInit,query:
             if(info.data && info.data.repository) {
                 const metrics = info.data.repository;
                 //for all numbers, refer to GraphQL decision matrices
+
+                //no need to error check these dates due to being nonnullable
                 var now = new Date();
                 var update = new Date(metrics.updatedAt);
                 var create = new Date(metrics.createdAt);
                 var years = daysbetween(create, update) / 365.0;
                 
+                if(years < 1) {
+                    years = 1;
+                }
+                
                 var depend = 0;
                 var open = 0;
                 var partic = 0;
-                var len_i = metrics.issues.nodes.length - 1;
-                for(let i = 0; i <= len_i; i++) {
-                    //participants in issues
-                    partic += metrics.issues.nodes[i].participants.totalCount;
-                    
-                    //calculating open issues
-                    if(!metrics.issues.nodes[i].closed) {
-                        open += 1;
-                    }         
+                var len_i = 0;
+                if(metrics.issues && metrics.issues.nodes) {
+                    len_i = metrics.issues.nodes.length - 1;
+                    for(let i = 0; i <= len_i; i++) {
+                        //participants in issues
+                        partic += metrics.issues.nodes[i].participants.totalCount;
+                        //calculating open issues
+                        if(!metrics.issues.nodes[i].closed) {
+                            open += 1;
+                        }         
+                    }
+                }
+                if(metrics.dependencyGraphManifests && metrics.dependencyGraphManifests.edges) {
+                    for(let i = 0; i < metrics.dependencyGraphManifests.edges.length; i++) {
+                        depend += metrics.dependencyGraphManifests.edges[i].node.dependenciesCount;
+                    }
+                }
+                
+                var disk = metrics.diskUsage;
+                if(metrics.diskUsage < 1) {
+                    disk = 1;
                 }
 
-                for(let i = 0; i < metrics.dependencyGraphManifests.edges.length; i++) {
-                    depend += metrics.dependencyGraphManifests.edges[i].node.dependenciesCount;
+                depend /= disk;
+                if(len_i < 1) {
+                    len_i = 1;
                 }
-                depend /= metrics.diskUsage;
-                partic /= NUM * 2;
+                partic /= len_i;
+                
+
                 var end = new Date();
                 var calclat = latency_calc(now, end);
                 
@@ -340,8 +360,8 @@ export async function fetch_repo(GRAPHQL_URL:string, headers: HeadersInit,query:
                     now :now,
                     start:start,
                     update:update,
-                    calclat:calclat
-
+                    calclat:calclat,
+                    disk: disk,
                 }
                 return parameters
                 // console.log(net);
