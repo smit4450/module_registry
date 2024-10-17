@@ -124,7 +124,7 @@ export interface Response {
 
 
 //url and token handling
-const TOKEN = process.env.TOKEN;
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 export const GRAPHQL_URL = 'https://api.github.com/graphql';
 
 //input url processing
@@ -135,7 +135,7 @@ export const GRAPHQL_URL = 'https://api.github.com/graphql';
 
 //request headers
 export const headers = {
-    Authorization: `bearer ${TOKEN}`,
+    Authorization: `bearer ${GITHUB_TOKEN}`,
     'Content-Type': 'application/json',
 };
 

@@ -150,18 +150,18 @@ export async function calculate_factors(urlInput:string) {
         if (url) {
             data ={
                 URL:urlInput,
-                NetScore: url.net_score ||  0,
-                NetScore_Latency: url.net_score_latency || 0,
-                RampUP:url.ramp_up || 0 ,
-                RampUp_Latency: url.ramp_up_latency || 0 ,
-                Correctness: url.correctness || 0 ,
-                Correctness_Latency: url.correctness_latency || 0 ,
-                BusFactor : url.bus_factor || 0 ,
-                BusFactor_Latency : url.bus_factor_latency || 0 ,
-                ResponsiveMaintainer : url.responsive_maintainer || 0 ,
-                ResponsiveMaintainer_Latency :url.responsive_maintainer_latency || 0 ,
-                License: url.license || 0 ,
-                License_Latency: url.license_latency || 0 ,
+                NetScore: url.net_score.toFixed(3) ||  0,
+                NetScore_Latency: url.net_score_latency.toFixed(3) || 0,
+                RampUP:url.ramp_up.toFixed(3) || 0 ,
+                RampUp_Latency: url.ramp_up_latency.toFixed(3) || 0 ,
+                Correctness: url.correctness.toFixed(3) || 0 ,
+                Correctness_Latency: url.correctness_latency.toFixed(3) || 0 ,
+                BusFactor : url.bus_factor.toFixed(3) || 0 ,
+                BusFactor_Latency : url.bus_factor_latency.toFixed(3) || 0 ,
+                ResponsiveMaintainer : url.responsive_maintainer.toFixed(3) || 0 ,
+                ResponsiveMaintainer_Latency :url.responsive_maintainer_latency.toFixed(3) || 0 ,
+                License: url.license.toFixed(3) || 0 ,
+                License_Latency: url.license_latency.toFixed(3) || 0 ,
             }
         }
         else {
@@ -185,18 +185,18 @@ export async function calculate_factors(urlInput:string) {
         if (url) {
             data ={
                 URL:urlInput,
-                NetScore: url.net_score ||  0,
-                NetScore_Latency: url.net_score_latency || 0,
-                RampUP:url.ramp_up || 0 ,
-                RampUp_Latency: url.ramp_up_latency || 0 ,
-                Correctness: url.correctness || 0 ,
-                Correctness_Latency: url.correctness_latency || 0 ,
-                BusFactor : url.bus_factor || 0 ,
-                BusFactor_Latency : url.bus_factor_latency || 0 ,
-                ResponsiveMaintainer : url.responsive_maintainer || 0 ,
-                ResponsiveMaintainer_Latency :url.responsive_maintainer_latency || 0 ,
-                License: url.license || 0 ,
-                License_Latency: url.license_latency || 0 ,
+                NetScore: url.net_score.toFixed(3) ||  0,
+                NetScore_Latency: url.net_score_latency.toFixed(3) || 0,
+                RampUP:url.ramp_up.toFixed(3) || 0 ,
+                RampUp_Latency: url.ramp_up_latency.toFixed(3) || 0 ,
+                Correctness: url.correctness.toFixed(3) || 0 ,
+                Correctness_Latency: url.correctness_latency.toFixed(3) || 0 ,
+                BusFactor : url.bus_factor.toFixed(3) || 0 ,
+                BusFactor_Latency : url.bus_factor_latency.toFixed(3) || 0 ,
+                ResponsiveMaintainer : url.responsive_maintainer.toFixed(3) || 0 ,
+                ResponsiveMaintainer_Latency :url.responsive_maintainer_latency.toFixed(3) || 0 ,
+                License: url.license.toFixed(3) || 0 ,
+                License_Latency: url.license_latency.toFixed(3) || 0 ,
             }
         }
         else {
