@@ -1,22 +1,20 @@
 //token protections
-import { error } from 'console';
-import * as dotenv from 'dotenv'; 
-import { ListFormat, moveSyntheticComments } from 'typescript';
-import{log} from '../../logger.js'
+import * as dotenv from 'dotenv';
+import { log } from '../../logger.js'
 dotenv.config();
 export interface queries {
-    years:number
-    open:number
-    partic:number
-    len_i:number
-    info:Response
-    depend_m:number,
-    update_m:number
-    depend:number
-    start : Date,
-    now : Date,
+    years: number
+    open: number
+    partic: number
+    len_i: number
+    info: Response
+    depend_m: number,
+    update_m: number
+    depend: number
+    start: Date,
+    now: Date,
     update: Date,
-    calclat : number
+    calclat: number
     disk: number
 }
 
@@ -38,7 +36,7 @@ export interface Response {
                             totalPullRequestReviewContributions: number;
                             totalRepositoryContributions: number;
                         }
-                    }   
+                    }
                 ]
             }
             contributingGuidelines: {
@@ -85,7 +83,7 @@ export interface Response {
             }
             pullRequests: {
                 nodes: [
-                    { 
+                    {
                         publishedAt: Date,
                     }
                 ]
@@ -141,33 +139,33 @@ export const headers = {
 
 
 //action item
-export async function fetch_repo(GRAPHQL_URL:string, headers: HeadersInit,urlInput:string, start:Date):Promise<queries> {
+export async function fetch_repo(GRAPHQL_URL: string, headers: HeadersInit, urlInput: string, start: Date): Promise<queries> {
     var query = set_query(urlInput);
-  try {
-        log("Fetching repository data...",1,"INFO")
+    try {
+        log("Fetching repository data...", 1, "INFO")
         // console.log("Fetching repository data...");
         const response = await fetch(GRAPHQL_URL, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify({ query })
         });
-        
+
         const data = await response.json();
-        if(data) {
+        if (data) {
             //casting as prerecorded interface
             const info = data as Response;
             //console.log(data);
-            
+
             //checking for rate limit and ensuring warnings are issued and information is provided
-            if(info.data && info.data.rateLimit) {
+            if (info.data && info.data.rateLimit) {
                 const rate = info.data.rateLimit;
-                if(rate.remaining <= rate.cost) {
-                    log('You have reached the rate limit. To get more information, please wait until: ${rate.resetAt}', 2,"WARNING")
+                if (rate.remaining <= rate.cost) {
+                    log('You have reached the rate limit. To get more information, please wait until: ${rate.resetAt}', 2, "WARNING")
                 }
             }
 
             //getting the metrics from the response
-            if(info.data && info.data.repository) {
+            if (info.data && info.data.repository) {
                 const metrics = info.data.repository;
                 //for all numbers, refer to GraphQL decision matrices
 
@@ -176,48 +174,48 @@ export async function fetch_repo(GRAPHQL_URL:string, headers: HeadersInit,urlInp
                 var update = new Date(metrics.updatedAt);
                 var create = new Date(metrics.createdAt);
                 var years = daysbetween(create, update) / 365.0;
-                
-                if(years < 1) {
+
+                if (years < 1) {
                     years = 1;
                 }
-                
+
                 var depend = 0;
                 var open = 0;
                 var partic = 0;
                 var len_i = 0;
-                if(metrics.issues && metrics.issues.nodes) {
+                if (metrics.issues && metrics.issues.nodes) {
                     len_i = metrics.issues.nodes.length - 1;
-                    for(let i = 0; i <= len_i; i++) {
+                    for (let i = 0; i <= len_i; i++) {
                         //participants in issues
                         partic += metrics.issues.nodes[i].participants.totalCount;
                         //calculating open issues
-                        if(!metrics.issues.nodes[i].closed) {
+                        if (!metrics.issues.nodes[i].closed) {
                             open += 1;
-                        }         
+                        }
                     }
                 }
-                
-                if(metrics.dependencyGraphManifests && metrics.dependencyGraphManifests.edges) {
-                    for(let i = 0; i < metrics.dependencyGraphManifests.edges.length; i++) {
+
+                if (metrics.dependencyGraphManifests && metrics.dependencyGraphManifests.edges) {
+                    for (let i = 0; i < metrics.dependencyGraphManifests.edges.length; i++) {
                         depend += metrics.dependencyGraphManifests.edges[i].node.dependenciesCount;
                     }
                 }
-                
+
                 var disk = metrics.diskUsage;
-                if(metrics.diskUsage < 1) {
+                if (metrics.diskUsage < 1) {
                     disk = 1;
                 }
 
                 depend /= disk;
-                if(len_i < 1) {
+                if (len_i < 1) {
                     len_i = 1;
                 }
                 partic /= len_i;
-                
+
 
                 var end = new Date();
                 var calclat = latency_calc(now, end);
-                
+
 
                 // bus factor
                 // var bus, depend_m;
@@ -236,7 +234,7 @@ export async function fetch_repo(GRAPHQL_URL:string, headers: HeadersInit,urlInp
                 // var ram = rampup(info, years, update_m);
                 // end = new Date();
                 // var ramlat = latency_calc(now, end) - corlat + calclat;
-                
+
                 //responsive maintainer
                 // var res = responsive(info, partic, len_i, update_m, depend_m);
                 // end = new Date();
@@ -252,23 +250,23 @@ export async function fetch_repo(GRAPHQL_URL:string, headers: HeadersInit,urlInp
                 // end = new Date();
                 // var netlat = latency_calc(start, end);
 
-                const parameters:queries = {
-                    years:years,
-                    open:open,
-                    partic:partic,
-                    len_i:len_i,
-                    info:info,
-                    depend_m:-1,
-                    update_m:-1,
-                    depend:depend,
-                    now :now,
-                    start:start,
-                    update:update,
-                    calclat:calclat,
+                const parameters: queries = {
+                    years: years,
+                    open: open,
+                    partic: partic,
+                    len_i: len_i,
+                    info: info,
+                    depend_m: -1,
+                    update_m: -1,
+                    depend: depend,
+                    now: now,
+                    start: start,
+                    update: update,
+                    calclat: calclat,
                     disk: disk,
                 }
                 return parameters
-    
+
             }
             else {
                 throw new Error("Repository data info not found.");
@@ -278,7 +276,7 @@ export async function fetch_repo(GRAPHQL_URL:string, headers: HeadersInit,urlInp
             throw new Error("Repository data not found.");
         }
     }
-    catch(error) {
+    catch (error) {
         throw error
     }
 }
@@ -294,45 +292,45 @@ export function latency_calc(before: Date, after: Date): number {
     return (after.getTime() - before.getTime()) / (1000);
 }
 export function str_exists(metric: any, adjust: number, body: boolean): number {
-    if(metric && body) {
+    if (metric && body) {
         adjust += metric.body.length;
     }
-    else if(metric) {
+    else if (metric) {
         adjust += metric.length;
     }
     return adjust;
 }
 export function ver_bounds(m: any): number {
-    if(m == null || m < 0) {
+    if (m == null || m < 0) {
         return 0;
     }
-    if(m > 1) {
+    if (m > 1) {
         return 1;
     }
     return m;
 }
 export function exists(metric: any): number {
-    if(!metric) {
+    if (!metric) {
         return 0;
     }
     return metric;
 }
 export function checkcompatible(text: String, lictext: any, lic: number) {
     var i;
-    for(i in lictext) {
-        if(text.includes(lictext[i])) {
+    for (i in lictext) {
+        if (text.includes(lictext[i])) {
             return 1;
         }
     }
     return lic;
 }
 
-function set_query(input:string) {
+function set_query(input: string) {
     const mod = input.substring(19);
-const sep = mod.indexOf('/');
-const owner = mod.substring(0, sep);
-const name = mod.substring(sep+1);
-  const query = `
+    const sep = mod.indexOf('/');
+    const owner = mod.substring(0, sep);
+    const name = mod.substring(sep + 1);
+    const query = `
 query {
   rateLimit {
     cost
@@ -428,5 +426,5 @@ query {
   }
 }
 `
-return query
+    return query
 }
