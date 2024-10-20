@@ -4,10 +4,10 @@ if [ "$1" == "install" ]; then
     npm install
 
 elif [ "$1" == "test" ]; then
-    npm run test
+    npm run test --silent
 
 else
-    tsc 
+    tsc > /dev/null 2>&1
     node dist/index.js $1
 
 fi

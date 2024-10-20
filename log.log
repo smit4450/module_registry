@@ -1,0 +1,14 @@
+[INFO] 2024-10-17T00:13:14.954Z - Starting Process
+[INFO] 2024-10-17T00:13:14.960Z - URL validation successful
+[INFO] 2024-10-17T00:13:14.960Z - Starting Analysis
+[INFO] 2024-10-17T00:13:14.961Z - Link is an NPM URL
+[INFO] 2024-10-17T00:13:15.055Z - Fetching repository data...
+[INFO] 2024-10-17T00:13:19.122Z - Parameters Found
+[INFO] 2024-10-17T00:13:19.122Z - Calculating metrics
+[INFO] 2024-10-17T00:13:19.124Z - URL validation successful
+[INFO] 2024-10-17T00:13:19.124Z - Starting Analysis
+[INFO] 2024-10-17T00:13:19.125Z - Link is a GitHub URL
+[INFO] 2024-10-17T00:13:19.125Z - Fetching repository data...
+[INFO] 2024-10-17T00:13:24.560Z - Parameters Found
+[INFO] 2024-10-17T00:13:24.560Z - Calculating metrics
+[INFO] 2024-10-17T00:13:24.561Z - All analyses complete

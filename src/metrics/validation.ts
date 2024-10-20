@@ -4,7 +4,7 @@ import { Response } from "../api_handler/graphql_handler/analyzer_graphql.js";
 import { daysbetween } from "../api_handler/graphql_handler/analyzer_graphql.js";
 import { latency_calc } from "../api_handler/graphql_handler/analyzer_graphql.js";
 import { queries } from "../api_handler/graphql_handler/analyzer_graphql.js";
-import { url_interface } from "./interfaces";
+import { url_interface } from "./interfaces.js";
 import { Metrics } from "./metrics.js";
 import {log} from "../logger.js";
 // import { get_package_name } from "../index.js";
@@ -633,9 +633,9 @@ async function run_test_suite(): Promise<void>{
     var pass_count_string:string = String(pass_count)
     var totalCount:string = "25"
     var coverage_string:string = String(Math.round(coverage));
-    console.log("Total:", totalCount);
-    console.log("Passed:",pass_count_string)
-    console.log("Coverage:",coverage_string);
+    //console.log("Total:", totalCount);
+    //console.log("Passed:",pass_count_string)
+    //console.log("Coverage:",coverage_string);
     console.log(`${pass_count_string}/${totalCount} test cases passed. ${coverage_string}% line coverage achieved.`)
 
 }
