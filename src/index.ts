@@ -88,6 +88,10 @@ export async function get_url_interface(urlInput: string): Promise<url_interface
         correctness_latency: 0,
         license: 0,
         license_latency: 0,
+        depends: 0,
+        depends_latency: 0,
+        pull: 0,
+        pull_latency: 0,
         net_score: 0,
         net_score_latency: 0,
         disk: 0
@@ -113,7 +117,9 @@ export async function get_url_interface(urlInput: string): Promise<url_interface
         metrics.calculate_rampup();
         metrics.calc_responsive_maintainer();
         metrics.calc_net_score();
-        metrics.calc_license()
+        metrics.calc_license();
+        metrics.calculate_depends();
+        metrics.calculate_pull();
 
     } catch (error) {
         if (error instanceof Error) {
@@ -160,6 +166,10 @@ export async function calculate_factors(urlInput: string) {
                 ResponsiveMaintainer_Latency: url.responsive_maintainer_latency.toFixed(3) || 0,
                 License: url.license.toFixed(3) || 0,
                 License_Latency: url.license_latency.toFixed(3) || 0,
+                Depends: url.depends.toFixed(3) || 0,
+                Depends_Latency: url.depends_latency.toFixed(3) || 0,
+                Pull: url.pull.toFixed(3) || 0,
+                Pull_Latency: url.pull_latency.toFixed(3) || 0,
             }
         }
         else {
@@ -195,6 +205,10 @@ export async function calculate_factors(urlInput: string) {
                 ResponsiveMaintainer_Latency: url.responsive_maintainer_latency.toFixed(3) || 0,
                 License: url.license.toFixed(3) || 0,
                 License_Latency: url.license_latency.toFixed(3) || 0,
+                Depends: url.depends.toFixed(3) || 0,
+                Depends_Latency: url.depends_latency.toFixed(3) || 0,
+                Pull: url.pull.toFixed(3) || 0,
+                Pull_Latency: url.pull_latency.toFixed(3) || 0,
             }
         }
         else {

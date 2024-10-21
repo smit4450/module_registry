@@ -110,6 +110,24 @@ export interface Response {
             readme2: {
                 text: String;
             }
+            requirements: {
+                text: String;
+            }
+            requirements2: {
+                text: String;
+            }
+            package: {
+                text: String;
+            }
+            package2: {
+                text: String;
+            }
+            gem: {
+                text: String;
+            }
+            gem2: {
+                text: String;
+            }
         }
         rateLimit: {
             cost: number;
@@ -325,6 +343,41 @@ export function checkcompatible(text: String, lictext: any, lic: number) {
     return lic;
 }
 
+
+export function checkRequirementsTxt(text: String) {
+    const lines = text.split('\n');
+    return lines.map(line => {
+        const matches = line.matchAll(/([a-zA-Z0-9_-]+)([~=<>!]*)([^,\s]*)/g);
+        return Array.from(matches).map(match => {
+            const [, name, prefix, version] = match;
+            return { name, prefix, version };
+        });
+    }).flat().filter(Boolean);
+}
+
+export function checkPackageJson(text: String) {
+    const json = JSON.parse(text as string);
+    const dependencies = { ...json.dependencies, ...json.devDependencies };
+    return Object.entries(dependencies).map(([name, version]) => {
+        const matches = (version as string).matchAll(/([~^]?)([^,\s]*)/g);
+        return Array.from(matches).map(match => {
+            const [, prefix, version] = match;
+            return { name, prefix, version };
+        });
+    }).flat().filter(Boolean);
+}
+
+export function checkGemfile(text: String) {
+    const lines = text.split('\n');
+    return lines.map(line => {
+        const matches = line.matchAll(/^gem ['"](.+)['"], ['"]([~^]?)(.+)['"]$/g);
+        return Array.from(matches).map(match => {
+            const [, name, prefix, version] = match;
+            return { name, prefix, version };
+        });
+    }).flat().filter(Boolean);
+}
+
 function set_query(input: string) {
     const mod = input.substring(19);
     const sep = mod.indexOf('/');
@@ -423,6 +476,36 @@ query {
         text
       }
     } 
+    requirements: object(expression: "main:requirements.txt") {
+      ... on Blob {
+        text
+      }
+    }
+    requirements2: object(expression: "master:requirements.txt") {
+      ... on Blob {
+        text
+      }
+    }
+    package: object(expression: "main:package.json") {
+      ... on Blob {
+        text
+      }
+    }
+    package2: object(expression: "master:package.json") {
+      ... on Blob {
+        text
+      }
+    }
+    gem: object(expression: "main:Gemfile") {
+      ... on Blob {
+        text
+      }
+    }
+    gem2: object(expression: "master:Gemfile") {
+      ... on Blob {
+        text
+      }
+    }
   }
 }
 `

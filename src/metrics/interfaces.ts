@@ -9,8 +9,11 @@ export interface url_interface {
     correctness_latency :number;
     license:number
     license_latency:number
+    depends: number;
+    depends_latency:number;
+    pull: number;
+    pull_latency:number;
     net_score:number;
     net_score_latency:number,
     disk: number,
 }
-

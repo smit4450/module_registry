@@ -136,6 +136,24 @@ const new_repo: Response = {
             },
             readme2: {
                 text: "null"
+            },
+            requirements: {
+                text: "null"
+            },
+            requirements2: {
+                text: "null"
+            },
+            package: {
+                text: "null"
+            },
+            package2: {
+                text: "null"
+            },
+            gem: {
+                text: "null"
+            },
+            gem2: {
+                text: "null"
             }
         },
         rateLimit: {
@@ -233,6 +251,24 @@ const big_repo: Response = {
             },
             readme2: {
                 text: "null"
+            },
+            requirements: {
+                text: "null"
+            },
+            requirements2: {
+                text: "null"
+            },
+            package: {
+                text: "null"
+            },
+            package2: {
+                text: "null"
+            },
+            gem: {
+                text: "null"
+            },
+            gem2: {
+                text: "null"
             }
         },
         rateLimit: {
@@ -329,6 +365,24 @@ const old_repo: Response = {
                 text: "null"
             },
             readme2: {
+                text: "null"
+            },
+            requirements: {
+                text: "null"
+            },
+            requirements2: {
+                text: "null"
+            },
+            package: {
+                text: "null"
+            },
+            package2: {
+                text: "null"
+            },
+            gem: {
+                text: "null"
+            },
+            gem2: {
                 text: "null"
             }
         },
@@ -719,6 +773,10 @@ function get_factors(parameters:queries):url_interface {
         correctness_latency:0,
         license:0,
         license_latency:0,
+        depends:0,
+        depends_latency:0,
+        pull:0,
+        pull_latency:0,
         net_score:0,
         net_score_latency:0,
         disk:0

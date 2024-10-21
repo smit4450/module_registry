@@ -4,7 +4,8 @@ import { str_exists, daysbetween } from '../api_handler/graphql_handler/analyzer
 import { exists } from '../api_handler/graphql_handler/analyzer_graphql.js';
 import { ver_bounds } from '../api_handler/graphql_handler/analyzer_graphql.js';
 import { latency_calc } from '../api_handler/graphql_handler/analyzer_graphql.js';
-import { checkcompatible } from '../api_handler/graphql_handler/analyzer_graphql.js';
+import { checkcompatible, checkRequirementsTxt, checkPackageJson, checkGemfile } from '../api_handler/graphql_handler/analyzer_graphql.js';
+import { log } from '../logger.js';
 
 const NUM = 10;
 
@@ -14,6 +15,111 @@ export class Metrics {
     public constructor(url: url_interface, parameters: queries) {
         this.url = url;
         this.parameters = parameters
+    }
+
+    calculate_depends(): void {
+        this.parameters.now = new Date();
+        const metrics = this.parameters.info.data.repository;
+        let depends = 1;
+
+        let names: string[] = [];
+        let total = 0;
+        let pinned = 0;
+
+        if (metrics.requirements && metrics.requirements.text) {
+            log("REQUIREMENTS", 2, "INFO");
+            const dependencies = checkRequirementsTxt(metrics.requirements.text);
+            dependencies.forEach(dep => {
+                const { name, prefix, version } = dep;
+                names.push(name + ' ' + prefix + version)
+                total++;
+                if (prefix != '^') {
+                    pinned++;
+                }
+            });
+        }
+        if (metrics.requirements2 && metrics.requirements2.text) {
+            log("REQUIREMENTS2", 2, "INFO");
+            const dependencies = checkRequirementsTxt(metrics.requirements2.text);
+            dependencies.forEach(dep => {
+                const { name, prefix, version } = dep;
+                names.push(name + ' ' + prefix + version)
+                total++;
+                if (prefix != '^') {
+                    pinned++;
+                }
+            });
+        }
+        if (metrics.package && metrics.package.text) {
+            log("PACKAGE", 2, "INFO");
+            const dependencies = checkPackageJson(metrics.package.text);
+            dependencies.forEach(dep => {
+                const { name, prefix, version } = dep;
+                names.push(name + ' ' + prefix + version)
+                total++;
+                if (prefix != '^') {
+                    pinned++;
+                }
+            });
+        }
+        if (metrics.package2 && metrics.package2.text) {
+            log("PACKAGE2", 2, "INFO");
+            const dependencies = checkPackageJson(metrics.package2.text);
+            dependencies.forEach(dep => {
+                const { name, prefix, version } = dep;
+                names.push(name + ' ' + prefix + version)
+                total++;
+                if (prefix != '^') {
+                    pinned++;
+                }
+            });
+        }
+        if (metrics.gem && metrics.gem.text) {
+            log("GEMFILE", 2, "INFO");
+            const dependencies = checkGemfile(metrics.gem.text);
+            dependencies.forEach(dep => {
+                const { name, prefix, version } = dep;
+                names.push(name + ' ' + prefix + version)
+                total++;
+                if (prefix != '^') {
+                    pinned++;
+                }
+            });
+        }
+        if (metrics.gem2 && metrics.gem2.text) {
+            log("GEMFILE2", 2, "INFO");
+            const dependencies = checkGemfile(metrics.gem2.text);
+            dependencies.forEach(dep => {
+                const { name, prefix, version } = dep;
+                names.push(name + ' ' + prefix + version)
+                total++;
+                if (prefix != '^') {
+                    pinned++;
+                }
+            });
+        }
+
+        log("DEPENDS " + names, 2, "INFO");
+
+        if (total > 0) {
+            depends = pinned / total;
+        }
+
+        this.url.depends = depends;
+        var end = new Date();
+        var dependslat = latency_calc(this.parameters.now, end) + this.parameters.calclat;
+        this.url.depends_latency = dependslat;
+    }
+
+    calculate_pull(): void {
+        this.parameters.now = new Date();
+        const metrics = this.parameters.info.data.repository;
+        let pull = 1;
+
+        this.url.pull = pull;
+        var end = new Date();
+        var pulllat = latency_calc(this.parameters.now, end) + this.parameters.calclat;
+        this.url.pull_latency = pulllat;
     }
 
     calculate_bus_factor(): void {
@@ -218,7 +324,7 @@ export class Metrics {
     }
 
     calc_net_score() {
-        var net = (this.url.bus_factor + this.url.correctness + this.url.ramp_up + this.url.responsive_maintainer * 2 + this.url.license) / 6.
+        var net = (this.url.bus_factor + this.url.correctness + this.url.ramp_up + this.url.responsive_maintainer * 2 + this.url.license + this.url.pull + this.url.depends) / 8.
         var end = new Date();
         this.url.net_score = net
         var net_lat = latency_calc(this.parameters.start, end);
