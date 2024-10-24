@@ -1,23 +1,31 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-function UploadPackage() {
+function UpdatePackage() {
   const location = useLocation();
   const url = location.state?.url || '';
+  const [newVersion, setNewVersion] = useState('');
   const [debloat, setDebloat] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Package URL:', url, 'Debloat:', debloat);
-    // Implement upload functionality with debloat option
+    console.log('Updating Package:', url, 'Version:', newVersion, 'Debloat:', debloat);
+    // Call your API to update the package, send the new version and debloat option
   };
 
   return (
     <div className="container">
-      <h2>Upload or Update Package</h2>
+      <h2>Update Package</h2>
       <form onSubmit={handleSubmit}>
         <label>Package URL: </label>
         <input type="text" value={url} disabled />
+        <label>New Version: </label>
+        <input 
+          type="text" 
+          value={newVersion} 
+          onChange={(e) => setNewVersion(e.target.value)} 
+          placeholder="Enter the new version" 
+        />
         <div>
           <label>
             <input 
@@ -28,10 +36,10 @@ function UploadPackage() {
             Debloat (remove unnecessary bloat)
           </label>
         </div>
-        <button type="submit">Upload/Update</button>
+        <button type="submit">Update Package</button>
       </form>
     </div>
   );
 }
 
-export default UploadPackage;
+export default UpdatePackage;
