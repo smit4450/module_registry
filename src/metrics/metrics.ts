@@ -116,6 +116,38 @@ export class Metrics {
         const metrics = this.parameters.info.data.repository;
         let pull = 1;
 
+
+
+        const pullRequests = metrics.pullRequests.nodes;
+        if(Array.isArray(pullRequests)) {
+            log("PULL REQUESTS", 2, "INFO");
+            const mergedPullRequests = pullRequests.filter(pullRequests => pullRequests.state === "MERGED");
+            const reviewedPullRequests = mergedPullRequests.filter(pullRequests => pullRequests.reviews.totalCount > 0);
+            const unreviewedPullRequests = mergedPullRequests.filter(pullRequest => pullRequest.reviews.totalCount == 0);
+            const reviewedAdditions = reviewedPullRequests.reduce((sum, pullRequest) => sum + pullRequest.additions, 0);
+            const unreviewedAdditions = unreviewedPullRequests.reduce((sum, pullRequest) => sum + pullRequest.additions, 0);
+
+            log("REVIEWED PULL REQUESTS: " + reviewedPullRequests.length, 2, "INFO");
+            log("UNREVIEWED PULL REQUESTS: " + unreviewedPullRequests.length, 2, "INFO");
+            let revLen = 3;
+            if(reviewedPullRequests.length > 0) { revLen = Math.min(reviewedPullRequests.length, revLen); }
+            reviewedPullRequests.slice(0, revLen).forEach((pullRequest, index) => {
+                log(`REVIEWED PULL REQUEST TITLE ${index + 1}: ${pullRequest.title}`, 2, "INFO");
+            });
+            let unrevLen = 3;
+            if(unreviewedPullRequests.length > 0) { unrevLen = Math.min(unreviewedPullRequests.length, unrevLen); }
+            unreviewedPullRequests.slice(0, unrevLen).forEach((pullRequest, index) => {
+                log(`UNREVIEWED PULL REQUEST TITLE ${index + 1}: ${pullRequest.title}`, 2, "INFO");
+            });
+            log("REVIEWED ADDITIONS: " + reviewedAdditions, 2, "INFO");
+            log("UNREVIEWED ADDITIONS: " + unreviewedAdditions, 2, "INFO");
+            pull = reviewedAdditions / (reviewedAdditions + unreviewedAdditions);
+        }
+        else {
+            log("No Pull Requests", 2, "INFO");
+            pull = 0;
+        }
+
         this.url.pull = pull;
         var end = new Date();
         var pulllat = latency_calc(this.parameters.now, end) + this.parameters.calclat;
@@ -233,7 +265,7 @@ export class Metrics {
         const RES_TOTAL = 50 + 55 + 45 + 45 + 35;
 
         var len_pr = -1;
-        if (metrics.pullRequests && metrics.pullRequests.nodes) {
+        if (metrics.pullRequests && Array.isArray(metrics.pullRequests.nodes)) {
             len_pr = metrics.pullRequests.nodes.length - 1;
         }
         var issue_time;
@@ -244,7 +276,7 @@ export class Metrics {
         else if (metrics.issues.nodes.length > 0) {
             issue_time = new Date(metrics.issues.nodes[0].updatedAt);
         }
-        if (len_pr != -1) {
+        if (len_pr != -1 && Array.isArray(metrics.pullRequests.nodes)) {
             pr_time = new Date(metrics.pullRequests.nodes[len_pr].publishedAt);
         }
         var ipar_m = ver_bounds(this.parameters.partic / 5);

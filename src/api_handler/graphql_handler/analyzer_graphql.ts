@@ -82,11 +82,15 @@ export interface Response {
                 totalCount: number;
             }
             pullRequests: {
-                nodes: [
-                    {
-                        publishedAt: Date,
-                    }
-                ]
+              nodes: {
+                  title: string; 
+                  additions: number; 
+                  state: string;
+                  reviews: {
+                      totalCount: number;
+                  },
+                  publishedAt: Date;
+              }
             }
             fcount: {
                 totalCount: number;
@@ -161,6 +165,7 @@ export async function fetch_repo(GRAPHQL_URL: string, headers: HeadersInit, urlI
     var query = set_query(urlInput);
     try {
         log("Fetching repository data...", 1, "INFO")
+        log("-------------------------" + urlInput + "-------------------------", 1, "INFO")
         // console.log("Fetching repository data...");
         const response = await fetch(GRAPHQL_URL, {
             method: 'POST',
@@ -441,8 +446,14 @@ query {
     prcount: pullRequests {
       totalCount
     }
-    pullRequests(last: 10) {
+    pullRequests(last: 100) {
       nodes {
+        title
+        additions
+        state
+        reviews(first: 1) {
+          totalCount
+        }
         publishedAt
       }
     }

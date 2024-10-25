@@ -109,12 +109,16 @@ const new_repo: Response = {
                 totalCount: 0
             },
             pullRequests: {
-                nodes: [
-                    { 
-                        publishedAt: new Date(),
-                    }
-                ]
-            },
+                nodes: {
+                    title: 'Example Pull Request',
+                    additions: 0, 
+                    state: 'OPEN',
+                    reviews: {
+                        totalCount: 0,
+                    },
+                    publishedAt: new Date(), 
+                }
+            },            
             fcount: {
                 totalCount: 0
             },
@@ -224,11 +228,15 @@ const big_repo: Response = {
                 totalCount: 50000
             },
             pullRequests: {
-                nodes: [
-                    { 
-                        publishedAt: new Date(),
+                nodes: {
+                    title: 'Example Pull Request',
+                    additions: 0, 
+                    state: 'OPEN',
+                    reviews: {
+                        totalCount: 0,
                     },
-                ]
+                    publishedAt: new Date(), 
+                }
             },
             fcount: {
                 totalCount: 50000
@@ -339,11 +347,15 @@ const old_repo: Response = {
                 totalCount: 5
             },
             pullRequests: {
-                nodes: [
-                    { 
-                        publishedAt: new Date(2002, 7, 30),
-                    }
-                ]
+                nodes: {
+                    title: 'Example Pull Request',
+                    additions: 0, 
+                    state: 'OPEN',
+                    reviews: {
+                        totalCount: 0,
+                    },
+                    publishedAt: new Date(), 
+                }
             },
             fcount: {
                 totalCount: 6000

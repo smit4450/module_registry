@@ -230,7 +230,7 @@ export async function calculate_factors(urlInput: string) {
 
 // Main function to handle URL input from command line
 async function main() {
-    emptyLogFile();
+    //emptyLogFile();
     log("Starting Process", 1, "INFO");
     const file_path = process.argv[2];
     try {
