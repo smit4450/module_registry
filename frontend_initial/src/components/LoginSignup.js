@@ -6,6 +6,10 @@ function LoginSignup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!username || !password) {
+      alert('Username and Password are required');
+      return;
+    }
     console.log('Username:', username, 'Password:', password);
   };
 
@@ -14,16 +18,16 @@ function LoginSignup() {
       <h2>Login / Signup</h2>
       <form onSubmit={handleSubmit}>
         <label>Username: </label>
-        <input 
-          type="text" 
-          value={username} 
-          onChange={(e) => setUsername(e.target.value)} 
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <label>Password: </label>
-        <input 
-          type="password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Submit</button>
       </form>

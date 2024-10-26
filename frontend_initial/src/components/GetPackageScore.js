@@ -5,12 +5,25 @@ function GetPackageScore() {
   const location = useLocation();
   const url = location.state?.url || '';
   const [packageId, setPackageId] = useState('');
+  const [score, setScore] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Package ID:', packageId);
-    // Implement the API call to get the package score
-    // Include net score, fraction of pinned dependencies, and PR review code fraction
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`${url}/packages/${packageId}/score`);
+      if (!response.ok) throw new Error('Failed to fetch package score');
+      const data = await response.json();
+      setScore(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -20,14 +33,23 @@ function GetPackageScore() {
         <label>Package URL: </label>
         <input type="text" value={url} disabled />
         <label>Package ID: </label>
-        <input 
-          type="text" 
-          value={packageId} 
-          onChange={(e) => setPackageId(e.target.value)} 
+        <input
+          type="text"
+          value={packageId}
+          onChange={(e) => setPackageId(e.target.value)}
           placeholder="Enter the package ID"
         />
         <button type="submit">Get Score</button>
       </form>
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {score && (
+        <div>
+          <p>Net Score: {score.netScore}</p>
+          <p>Dependencies Pinned: {score.dependenciesPinned}</p>
+          <p>Code Review Fraction: {score.codeReviewFraction}</p>
+        </div>
+      )}
     </div>
   );
 }
