@@ -154,22 +154,22 @@ export async function calculate_factors(urlInput: string) {
         if (url) {
             data = {
                 URL: urlInput,
-                NetScore: url.net_score.toFixed(3) || 0,
-                NetScore_Latency: url.net_score_latency.toFixed(3) || 0,
-                RampUP: url.ramp_up.toFixed(3) || 0,
-                RampUp_Latency: url.ramp_up_latency.toFixed(3) || 0,
-                Correctness: url.correctness.toFixed(3) || 0,
-                Correctness_Latency: url.correctness_latency.toFixed(3) || 0,
-                BusFactor: url.bus_factor.toFixed(3) || 0,
-                BusFactor_Latency: url.bus_factor_latency.toFixed(3) || 0,
-                ResponsiveMaintainer: url.responsive_maintainer.toFixed(3) || 0,
-                ResponsiveMaintainer_Latency: url.responsive_maintainer_latency.toFixed(3) || 0,
-                License: url.license.toFixed(3) || 0,
-                License_Latency: url.license_latency.toFixed(3) || 0,
-                Depends: url.depends.toFixed(3) || 0,
-                Depends_Latency: url.depends_latency.toFixed(3) || 0,
-                Pull: url.pull.toFixed(3) || 0,
-                Pull_Latency: url.pull_latency.toFixed(3) || 0,
+                NetScore: Number(url.net_score.toFixed(3)) || 0,
+                NetScore_Latency: Number(url.net_score_latency.toFixed(3)) || 0,
+                RampUP: Number(url.ramp_up.toFixed(3)) || 0,
+                RampUp_Latency: Number(url.ramp_up_latency.toFixed(3)) || 0,
+                Correctness: Number(url.correctness.toFixed(3)) || 0,
+                Correctness_Latency: Number(url.correctness_latency.toFixed(3)) || 0,
+                BusFactor: Number(url.bus_factor.toFixed(3)) || 0,
+                BusFactor_Latency: Number(url.bus_factor_latency.toFixed(3)) || 0,
+                ResponsiveMaintainer: Number(url.responsive_maintainer.toFixed(3)) || 0,
+                ResponsiveMaintainer_Latency: Number(url.responsive_maintainer_latency.toFixed(3)) || 0,
+                License: Number(url.license.toFixed(3)) || 0,
+                License_Latency: Number(url.license_latency.toFixed(3)) || 0,
+                Depends: Number(url.depends.toFixed(3)) || 0,
+                Depends_Latency: Number(url.depends_latency.toFixed(3)) || 0,
+                Pull: Number(url.pull.toFixed(3)) || 0,
+                Pull_Latency: Number(url.pull_latency.toFixed(3)) || 0,
             }
         }
         else {
@@ -193,22 +193,22 @@ export async function calculate_factors(urlInput: string) {
         if (url) {
             data = {
                 URL: urlInput,
-                NetScore: url.net_score.toFixed(3) || 0,
-                NetScore_Latency: url.net_score_latency.toFixed(3) || 0,
-                RampUP: url.ramp_up.toFixed(3) || 0,
-                RampUp_Latency: url.ramp_up_latency.toFixed(3) || 0,
-                Correctness: url.correctness.toFixed(3) || 0,
-                Correctness_Latency: url.correctness_latency.toFixed(3) || 0,
-                BusFactor: url.bus_factor.toFixed(3) || 0,
-                BusFactor_Latency: url.bus_factor_latency.toFixed(3) || 0,
-                ResponsiveMaintainer: url.responsive_maintainer.toFixed(3) || 0,
-                ResponsiveMaintainer_Latency: url.responsive_maintainer_latency.toFixed(3) || 0,
-                License: url.license.toFixed(3) || 0,
-                License_Latency: url.license_latency.toFixed(3) || 0,
-                Depends: url.depends.toFixed(3) || 0,
-                Depends_Latency: url.depends_latency.toFixed(3) || 0,
-                Pull: url.pull.toFixed(3) || 0,
-                Pull_Latency: url.pull_latency.toFixed(3) || 0,
+                NetScore: Number(url.net_score.toFixed(3)) || 0,
+                NetScore_Latency: Number(url.net_score_latency.toFixed(3)) || 0,
+                RampUP: Number(url.ramp_up.toFixed(3)) || 0,
+                RampUp_Latency: Number(url.ramp_up_latency.toFixed(3)) || 0,
+                Correctness: Number(url.correctness.toFixed(3)) || 0,
+                Correctness_Latency: Number(url.correctness_latency.toFixed(3)) || 0,
+                BusFactor: Number(url.bus_factor.toFixed(3)) || 0,
+                BusFactor_Latency: Number(url.bus_factor_latency.toFixed(3)) || 0,
+                ResponsiveMaintainer: Number(url.responsive_maintainer.toFixed(3)) || 0,
+                ResponsiveMaintainer_Latency: Number(url.responsive_maintainer_latency.toFixed(3)) || 0,
+                License: Number(url.license.toFixed(3)) || 0,
+                License_Latency: Number(url.license_latency.toFixed(3)) || 0,
+                Depends: Number(url.depends.toFixed(3)) || 0,
+                Depends_Latency: Number(url.depends_latency.toFixed(3)) || 0,
+                Pull: Number(url.pull.toFixed(3)) || 0,
+                Pull_Latency: Number(url.pull_latency.toFixed(3)) || 0,
             }
         }
         else {
@@ -233,6 +233,9 @@ async function main() {
     //emptyLogFile();
     log("Starting Process", 1, "INFO");
     const file_path = process.argv[2];
+    if (!process.env.LOG_FILE) {
+        process.exit(1);
+    }
     try {
         await readLinesFromFile(file_path)
         log("All analyses complete", 1, "INFO")
