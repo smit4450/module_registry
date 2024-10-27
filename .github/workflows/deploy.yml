@@ -26,7 +26,4 @@ jobs:
         ssh -o StrictHostKeyChecking=no $USER@$HOST << 'EOF'
           cd module_registry
           git pull origin main
-          # npm install # or yarn install
-          # npm run build # or any other build steps
-          # pm2 restart app_name # or your server restart command
         EOF
