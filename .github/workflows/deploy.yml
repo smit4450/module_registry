@@ -24,7 +24,7 @@ jobs:
         USER: ${{ secrets.EC2_USER }}
       run: |
         ssh -o StrictHostKeyChecking=no $USER@$HOST << 'EOF'
-          cd /module_registry
+          cd module_registry
           git pull origin main
           # npm install # or yarn install
           # npm run build # or any other build steps
