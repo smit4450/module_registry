@@ -1,5 +1,5 @@
 /node_modules
-/dist
+package1.json
 .env
 project.log
 package-lock.json
