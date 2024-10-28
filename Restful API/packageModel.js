@@ -1,15 +1,48 @@
 // models/packageModel.js
-const mongoose = require("mongoose");
+const dynamoDB = require("../dynamoConfig");
+const { v4: uuidv4 } = require("uuid");
 
-const packageSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  version: { type: String, required: true },
-  filePath: { type: String, required: true }, // Path to the uploaded file
-  createdAt: { type: Date, default: Date.now },
-  ratings: {
-    versionPinning: { type: Number, default: 1.0 }, // Default 1.0 for no dependencies
-    codeReviewFraction: { type: Number, default: 0.0 },
-  },
-});
+const PACKAGE_TABLE = process.env.DYNAMO_DB_PACKAGE_TABLE;
 
-module.exports = mongoose.model("Package", packageSchema);
+// Create a new package
+const createPackage = async (name, version, filePath) => {
+  const packageId = uuidv4();
+  const params = {
+    TableName: PACKAGE_TABLE,
+    Item: {
+      id: packageId,
+      name,
+      version,
+      filePath,
+      createdAt: new Date().toISOString(),
+    },
+  };
+  await dynamoDB.put(params).promise();
+  return params.Item;
+};
+
+// Get a package by ID
+const getPackageById = async (id) => {
+  const params = {
+    TableName: PACKAGE_TABLE,
+    Key: { id },
+  };
+  const result = await dynamoDB.get(params).promise();
+  return result.Item;
+};
+
+// Update a package by ID
+const updatePackage = async (id, version, filePath) => {
+  const params = {
+    TableName: PACKAGE_TABLE,
+    Key: { id },
+    UpdateExpression: "set #v = :version, filePath = :filePath",
+    ExpressionAttributeNames: { "#v": "version" },
+    ExpressionAttributeValues: { ":version": version, ":filePath": filePath },
+    ReturnValues: "ALL_NEW",
+  };
+  const result = await dynamoDB.update(params).promise();
+  return result.Attributes;
+};
+
+module.exports = { createPackage, getPackageById, updatePackage };

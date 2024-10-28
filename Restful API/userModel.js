@@ -1,23 +1,41 @@
 // models/userModel.js
-const mongoose = require("mongoose");
+const dynamoDB = require("../dynamoConfig");
 const bcrypt = require("bcryptjs");
+const { v4: uuidv4 } = require("uuid");
 
-const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  role: { type: String, default: "user" }, // role: "user" or "admin"
-});
+const USER_TABLE = process.env.DYNAMO_DB_USER_TABLE;
 
-// Hash password before saving
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
-});
-
-// Method to compare passwords
-userSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+// Create a new user
+const createUser = async (username, password) => {
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const userId = uuidv4();
+  const params = {
+    TableName: USER_TABLE,
+    Item: {
+      id: userId,
+      username,
+      password: hashedPassword,
+    },
+  };
+  await dynamoDB.put(params).promise();
+  return params.Item;
 };
 
-module.exports = mongoose.model("User", userSchema);
+// Find a user by username
+const getUserByUsername = async (username) => {
+  const params = {
+    TableName: USER_TABLE,
+    IndexName: "username-index",
+    KeyConditionExpression: "username = :username",
+    ExpressionAttributeValues: { ":username": username },
+  };
+  const result = await dynamoDB.query(params).promise();
+  return result.Items[0];
+};
+
+// Validate password
+const validatePassword = async (user, password) => {
+  return bcrypt.compare(password, user.password);
+};
+
+module.exports = { createUser, getUserByUsername, validatePassword };
