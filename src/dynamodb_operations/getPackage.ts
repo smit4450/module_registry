@@ -1,45 +1,47 @@
-import { GetCommand } from "@aws-sdk/lib-dynamodb";
+import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import dynamodb from "../dynamodb";
-import readline from 'readline';
+import readline from "readline";
 
-// Create an interface for reading from the command line
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-// Function to get user input
-function askQuestion(query: string): Promise<string> {
-    return new Promise(resolve => rl.question(query, resolve));
-}
-
-async function getPackage() {
-    try {
-        // Ask for package ID
-        const package_id = await askQuestion("Enter package ID to retrieve: ");
-        
-        // Close the readline interface
+// Helper function to prompt the user
+const promptUser = (query: string): Promise<string> => {
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+    return new Promise((resolve) => rl.question(query, (ans) => {
         rl.close();
+        resolve(ans);
+    }));
+};
 
+(async () => {
+    try {
+        // Prompt the user for the package name
+        const packageName = await promptUser("Enter the package name to search: ");
+
+        // Query the database for items with the given name
         const params = {
             TableName: "Packages",
-            Key: {
-                package_id: package_id
+            KeyConditionExpression: "#name = :name",
+            ExpressionAttributeNames: {
+                "#name": "name"
+            },
+            ExpressionAttributeValues: {
+                ":name": packageName
             }
         };
 
-        const command = new GetCommand(params);
-        const result = await dynamodb.send(command);
+        const data = await dynamodb.send(new QueryCommand(params));
 
-        if (result.Item) {
-            console.log("Package retrieved successfully:", result.Item);
+        if (data.Items && data.Items.length > 0) {
+            console.log("Packages found:");
+            data.Items.forEach((item) => {
+                console.log(JSON.stringify(item, null, 2));
+            });
         } else {
-            console.log("Package not found.");
+            console.log("No packages found with that name.");
         }
-
     } catch (error) {
-        console.error("Error fetching package:", error);
+        console.error("Error retrieving packages:", error);
     }
-}
-
-getPackage();
+})();

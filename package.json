@@ -14,6 +14,7 @@
     "run-delete-package": "node dist/dynamodb_operations/deletePackage.js",
     "run-upload-package": "node dist/dynamodb_operations/uploadPackage.js",
     "run-download-package": "node dist/dynamodb_operations/downloadPackage.js",
+    "run-retrieve-versions": "node dist/dynamodb_operations/retrieveVersions.js",
     "path": "node dist/api_handler/npm_handler/analyzer_npm.js",
     "path2": "node dist/metrics/validation.js",
     "test": "npm run build && npm run path2"
@@ -24,6 +25,7 @@
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.682.0",
+    "@aws-sdk/client-s3": "^3.685.0",
     "@aws-sdk/lib-dynamodb": "^3.682.0",
     "aws-sdk": "^2.1691.0",
     "axios": "^1.7.7",

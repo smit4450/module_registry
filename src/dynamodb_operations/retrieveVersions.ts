@@ -1,46 +1,47 @@
-import { QueryCommand } from '@aws-sdk/lib-dynamodb';
-import dynamodb from '../dynamodb';
-import readline from 'readline';
+import { QueryCommand } from "@aws-sdk/lib-dynamodb";
+import dynamodb from "../dynamodb";
+import readline from "readline";
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
-
+// Helper function to prompt the user
 const promptUser = (query: string): Promise<string> => {
-    return new Promise((resolve) => rl.question(query, resolve));
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+    return new Promise((resolve) => rl.question(query, (ans) => {
+        rl.close();
+        resolve(ans);
+    }));
 };
 
-const retrieveVersions = async () => {
+(async () => {
     try {
-        const packageName = await promptUser('Enter package name to retrieve versions: ');
+        // Prompt the user for the package name
+        const packageName = await promptUser("Enter the package name to retrieve versions: ");
 
-        // Query DynamoDB based on the package name and version
+        // Step 1: Query DynamoDB for all versions of the package with the specified name
         const params = {
-            TableName: 'Packages',
-            KeyConditionExpression: 'name = :name',
+            TableName: "Packages",
+            KeyConditionExpression: "#name = :name",
+            ExpressionAttributeNames: {
+                "#name": "name" // Alias to avoid conflicts with reserved keyword
+            },
             ExpressionAttributeValues: {
-                ':name': packageName
+                ":name": packageName
             }
         };
 
-        const command = new QueryCommand(params);
-        const { Items } = await dynamodb.send(command);
+        const data = await dynamodb.send(new QueryCommand(params));
 
-        if (Items && Items.length > 0) {
-            console.log("Available versions:");
-            Items.forEach((item) => {
-                console.log(`- ${item.version}`);
+        if (data.Items && data.Items.length > 0) {
+            console.log(`Versions available for package "${packageName}":`);
+            data.Items.forEach((item) => {
+                console.log(`- Version: ${item.version}`);
             });
         } else {
-            console.log("No versions found for this package");
+            console.log("No versions found for the specified package name.");
         }
     } catch (error) {
         console.error("Error retrieving versions:", error);
-    } finally {
-        rl.close();
     }
-};
-
-retrieveVersions();
-export default retrieveVersions;
+})();

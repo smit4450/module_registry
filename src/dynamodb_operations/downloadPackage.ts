@@ -1,46 +1,69 @@
-import fs from 'fs';
-import { GetCommand } from '@aws-sdk/lib-dynamodb';
-import dynamodb from '../dynamodb';
-import readline from 'readline';
+import { QueryCommand } from "@aws-sdk/lib-dynamodb";
+import dynamodb from "../dynamodb";
+import AWS from "aws-sdk";
+import readline from "readline";
+import fs from "fs";
+import path from "path";
+import dotenv from "dotenv";
 
-// Prompt user function to get input directly
-function promptUser(query: string): Promise<string> {
+dotenv.config();
+
+const s3 = new AWS.S3();
+const BUCKET_NAME = process.env.S3_BUCKET_NAME;
+
+// Helper function to prompt the user
+const promptUser = (query: string): Promise<string> => {
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
     });
-
-    return new Promise((resolve) => rl.question(query, (answer) => {
+    return new Promise((resolve) => rl.question(query, (ans) => {
         rl.close();
-        resolve(answer);
+        resolve(ans);
     }));
-}
+};
 
 (async () => {
     try {
-        // Get package ID and output path from the user
-        const packageId = await promptUser("Enter package ID to download: ");
-        const outputPath = await promptUser("Enter path to save the downloaded file: ");
+        // Prompt the user for the package name
+        const packageName = await promptUser("Enter the package name to download: ");
 
-        // Prepare parameters for DynamoDB
+        // Step 1: Query the item from DynamoDB using name only
         const params = {
             TableName: "Packages",
-            Key: {
-                package_id: packageId,
+            KeyConditionExpression: "#name = :name",
+            ExpressionAttributeNames: {
+                "#name": "name", // Use an alias for the reserved keyword "name"
+            },
+            ExpressionAttributeValues: {
+                ":name": packageName,
             },
         };
 
-        // Fetch from DynamoDB
-        const command = new GetCommand(params);
-        const response = await dynamodb.send(command);
+        const data = await dynamodb.send(new QueryCommand(params));
 
-        if (response.Item && response.Item.content) {
-            // Decode content if it's base64 encoded
-            const fileContent = Buffer.from(response.Item.content, 'base64');
-            fs.writeFileSync(outputPath, fileContent);
-            console.log("Package downloaded successfully!");
+        if (data.Items && data.Items.length > 0) {
+            console.log("Available versions for the package:");
+            data.Items.forEach((item, index) => {
+                console.log(`${index + 1}. Version: ${item.version}`);
+            });
+
+            const versionChoice = await promptUser("Enter the version number you want to download (e.g., 1 for the first version): ");
+            const selectedItem = data.Items[parseInt(versionChoice) - 1];
+            const s3Key = selectedItem.s3_key;
+
+            // Step 2: Download the file from S3
+            const fileContent = await s3.getObject({
+                Bucket: BUCKET_NAME!,
+                Key: s3Key,
+            }).promise();
+
+            // Step 3: Save the file locally
+            const filePath = path.join(__dirname, path.basename(s3Key));
+            fs.writeFileSync(filePath, fileContent.Body as Buffer);
+            console.log(`Package downloaded successfully: ${filePath}`);
         } else {
-            console.log("Package not found.");
+            console.log("Package not found with the specified name.");
         }
     } catch (error) {
         console.error("Error downloading package:", error);

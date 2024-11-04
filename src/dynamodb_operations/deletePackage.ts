@@ -1,38 +1,74 @@
-import { DeleteCommand } from "@aws-sdk/lib-dynamodb";
+import { ScanCommand, DeleteCommand, GetCommand } from "@aws-sdk/lib-dynamodb";
 import dynamodb from "../dynamodb";
-import readline from 'readline';
+import AWS from "aws-sdk";
+import readline from "readline";
 
-// Create an interface for reading from the command line
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+// Set up AWS S3 client
+const s3 = new AWS.S3();
+const BUCKET_NAME = process.env.S3_BUCKET_NAME;
 
-// Function to get user input
-function askQuestion(query: string): Promise<string> {
-    return new Promise(resolve => rl.question(query, resolve));
-}
-
-async function deletePackage() {
-    try {
-        // Ask for package ID
-        const package_id = await askQuestion("Enter the package ID to delete: ");
-
-        // Close the readline interface
+// Helper function to prompt the user
+const promptUser = (query: string): Promise<string> => {
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+    return new Promise((resolve) => rl.question(query, (ans) => {
         rl.close();
+        resolve(ans);
+    }));
+};
 
-        const params = {
+(async () => {
+    try {
+        // Prompt the user for the package name and version to delete
+        const packageName = await promptUser("Enter the package name to delete: ");
+        const packageVersion = await promptUser("Enter the package version to delete: ");
+
+        // Step 1: Scan the table to find the item with both name and version
+        const scanParams = {
             TableName: "Packages",
-            Key: { package_id }
+            FilterExpression: "#name = :name AND #version = :version",
+            ExpressionAttributeNames: {
+                "#name": "name",
+                "#version": "version",
+            },
+            ExpressionAttributeValues: {
+                ":name": packageName,
+                ":version": packageVersion,
+            },
         };
 
-        const command = new DeleteCommand(params);
-        await dynamodb.send(command);
-        console.log("Package deleted successfully");
+        const scanResponse = await dynamodb.send(new ScanCommand(scanParams));
 
+        if (scanResponse.Items && scanResponse.Items.length > 0) {
+            // Retrieve the S3 key from the item
+            const item = scanResponse.Items[0];
+            const s3Key = item.s3_key;
+
+            // Step 2: Delete the file from S3
+            const deleteS3Params = {
+                Bucket: BUCKET_NAME!,
+                Key: s3Key,
+            };
+
+            await s3.deleteObject(deleteS3Params).promise();
+            console.log(`Package file deleted from S3: ${s3Key}`);
+
+            // Step 3: Delete the item from DynamoDB
+            const deleteDbParams = {
+                TableName: "Packages",
+                Key: {
+                    name: packageName, // Use only the partition key
+                },
+            };
+
+            await dynamodb.send(new DeleteCommand(deleteDbParams));
+            console.log(`Package with name "${packageName}" and version "${packageVersion}" deleted successfully from DynamoDB.`);
+        } else {
+            console.log(`No package found with name "${packageName}" and version "${packageVersion}".`);
+        }
     } catch (error) {
         console.error("Error deleting package:", error);
     }
-}
-
-deletePackage();
+})();
