@@ -23,7 +23,7 @@ module.exports = {
   },
   devServer: {
     static: path.join(__dirname, 'dist'),
-    port: 3000,
+    port: 80,
     host: '0.0.0.0',  // Listen on all network interfaces
     historyApiFallback: true,
     open: false,  // Set to false because there's no browser to open on EC2
