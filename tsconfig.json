@@ -16,6 +16,6 @@
     "moduleResolution": "node",
     
   },
-  "include": ["src/**/*", "Restful API"],
+  "include": ["src/**/*", "restfulAPI"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
