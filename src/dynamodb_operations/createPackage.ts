@@ -36,7 +36,7 @@ async function createPackage() {
 
         const command = new PutCommand(params);
         await dynamodb.send(command);
-        console.log("Package created successfully");
+        console.log("SAM'S COOL PACKAGE has been created!");
 
     } catch (error) {
         console.error("Error creating package:", error);
