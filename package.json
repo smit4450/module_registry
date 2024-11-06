@@ -8,7 +8,7 @@
     "start": "webpack serve --config webpack.config.js",
     "build": "webpack --config webpack.config.js",
     "path2": "node dist/metrics/validation.js",
-    "test": "npm tsc && npm run path2"
+    "test": "npm run tsc && npm run path2"
   },
   "keywords": [],
   "debug": "false",
