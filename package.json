@@ -5,6 +5,8 @@
     "scripts": {
         "start": "webpack serve --config webpack.config.js",
         "build": "webpack --config webpack.config.js"
+        "path2": "node dist/metrics/validation.js",
+        "test": "npm tsc && npm run path2"
     },
     "dependencies": {
         "bootstrap": "^5.3.3",
