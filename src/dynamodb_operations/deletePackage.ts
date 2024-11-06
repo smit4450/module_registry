@@ -19,11 +19,11 @@ const promptUser = (query: string): Promise<string> => {
     }));
 };
 
-(async () => {
+export const deletePackage = async (packageName: string, packageVersion: string) => {
     try {
         // Prompt the user for the package name and version to delete
-        const packageName = await promptUser("Enter the package name to delete: ");
-        const packageVersion = await promptUser("Enter the package version to delete: ");
+        //const packageName = await promptUser("Enter the package name to delete: ");
+        //const packageVersion = await promptUser("Enter the package version to delete: ");
 
         // Step 1: Scan the table to find the item with both name and version
         const scanParams = {
@@ -71,4 +71,4 @@ const promptUser = (query: string): Promise<string> => {
     } catch (error) {
         console.error("Error deleting package:", error);
     }
-})();
+};

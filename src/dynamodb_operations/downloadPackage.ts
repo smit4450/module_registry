@@ -23,10 +23,10 @@ const promptUser = (query: string): Promise<string> => {
     }));
 };
 
-(async () => {
+export const downloadPackage = async (filePath: string, packageName: string) => {
     try {
         // Prompt the user for the package name
-        const packageName = await promptUser("Enter the package name to download: ");
+        //const packageName = await promptUser("Enter the package name to download: ");
 
         // Step 1: Query the item from DynamoDB using name only
         const params = {
@@ -59,7 +59,8 @@ const promptUser = (query: string): Promise<string> => {
             }).promise();
 
             // Step 3: Save the file locally
-            const filePath = path.join(__dirname, path.basename(s3Key));
+            //const filePath = path.join(__dirname, path.basename(s3Key));
+            filePath = path.join(filePath, path.basename(s3Key));
             fs.writeFileSync(filePath, fileContent.Body as Buffer);
             console.log(`Package downloaded successfully: ${filePath}`);
         } else {
@@ -68,4 +69,4 @@ const promptUser = (query: string): Promise<string> => {
     } catch (error) {
         console.error("Error downloading package:", error);
     }
-})();
+};

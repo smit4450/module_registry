@@ -29,18 +29,17 @@ const promptUser = (query: string): Promise<string> => {
   }));
 };
 
-(async () => {
+export const uploadPackage = async (filePath: string, packageName: string, packageVersion: string) => {
   try {
-    // Prompt for file path
-    const filePath = await promptUser('Enter path to the zipped package file: ');
+    //filePath = await promptUser('Enter path to the zipped package file: ');
     const fileStream = fs.createReadStream(filePath);
 
     // Automatically derive package ID from the file name
     const packageId = path.basename(filePath, path.extname(filePath));
 
     // Prompt for additional metadata
-    const packageName = await promptUser('Enter the package name: ');
-    const packageVersion = await promptUser('Enter the package version: ');
+    //packageName = await promptUser('Enter the package name: ');
+    //packageVersion = await promptUser('Enter the package version: ');
 
     // Upload file to S3
     const s3BucketName = process.env.S3_BUCKET_NAME; // Ensure your bucket name is set in your .env
@@ -72,4 +71,6 @@ const promptUser = (query: string): Promise<string> => {
   } catch (error) {
     console.error('Error uploading package:', error);
   }
-})();
+};
+
+uploadPackage('/home/shay/a/john2969/461/module_registry/src/test.zip', 'sam_tester', '1.0.0');

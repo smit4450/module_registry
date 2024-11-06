@@ -14,11 +14,8 @@ const promptUser = (query: string): Promise<string> => {
     }));
 };
 
-(async () => {
+export const retrieveVersions = async (packageName: string): Promise<string> => {
     try {
-        // Prompt the user for the package name
-        const packageName = await promptUser("Enter the package name to retrieve versions: ");
-
         // Step 1: Query DynamoDB for all versions of the package with the specified name
         const params = {
             TableName: "Packages",
@@ -34,14 +31,13 @@ const promptUser = (query: string): Promise<string> => {
         const data = await dynamodb.send(new QueryCommand(params));
 
         if (data.Items && data.Items.length > 0) {
-            console.log(`Versions available for package "${packageName}":`);
-            data.Items.forEach((item) => {
-                console.log(`- Version: ${item.version}`);
-            });
+            const versions = data.Items.map((item) => item.version);
+            return JSON.stringify({ packageName, versions });
         } else {
-            console.log("No versions found for the specified package name.");
+            return JSON.stringify({ packageName, versions: [] });
         }
     } catch (error) {
         console.error("Error retrieving versions:", error);
+        return JSON.stringify({ error: "Error retrieving versions" });
     }
-})();
+};

@@ -1,5 +1,5 @@
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import dynamodb from "../dynamodb";
+import dynamodb from "../../dynamodb";
 import readline from 'readline';
 
 // Create an interface for reading from the command line
