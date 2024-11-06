@@ -16,10 +16,10 @@ function askQuestion(query: string): Promise<string> {
 async function createPackage() {
     try {
         // Collect inputs from the user
-        const package_id = "333"; //await askQuestion("Enter package ID: ");
-        const name = "SAM'S COOL PACKAGE"; //await askQuestion("Enter package name: ");
-        const version = "3.3.3"; //await askQuestion("Enter package version: ");
-        const description = "Sam's really cool custom package that requires no input from the terminal"; //await askQuestion("Enter package description: ");
+        const package_id = await askQuestion("Enter package ID: ");
+        const name = await askQuestion("Enter package name: ");
+        const version = await askQuestion("Enter package version: ");
+        const description = await askQuestion("Enter package description: ");
 
         // Close the readline interface
         //rl.close();
@@ -36,7 +36,7 @@ async function createPackage() {
 
         const command = new PutCommand(params);
         await dynamodb.send(command);
-        console.log("SAM'S COOL PACKAGE has been created!");
+        console.log("Package has been created!");
 
     } catch (error) {
         console.error("Error creating package:", error);
