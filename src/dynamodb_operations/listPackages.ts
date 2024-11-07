@@ -3,7 +3,6 @@ import dynamodb from "../dynamodb";
 
 export const listPackages = async (): Promise<string> => {
     try {
-        // Step 1: Scan the Packages table
         const params = {
             TableName: "Packages",
         };

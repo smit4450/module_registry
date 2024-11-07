@@ -5,6 +5,6 @@
 // success/failure
 
 
-export function regex_search() {
+export function regexSearch() {
     //search over database package names and READMEs
 }

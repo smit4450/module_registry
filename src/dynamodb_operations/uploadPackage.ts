@@ -31,17 +31,9 @@ const promptUser = (query: string): Promise<string> => {
 
 export const uploadPackage = async (filePath: string, packageName: string, packageVersion: string) => {
   try {
-    //filePath = await promptUser('Enter path to the zipped package file: ');
+
     const fileStream = fs.createReadStream(filePath);
-
-    // Automatically derive package ID from the file name
     const packageId = path.basename(filePath, path.extname(filePath));
-
-    // Prompt for additional metadata
-    //packageName = await promptUser('Enter the package name: ');
-    //packageVersion = await promptUser('Enter the package version: ');
-
-    // Upload file to S3
     const s3BucketName = process.env.S3_BUCKET_NAME; // Ensure your bucket name is set in your .env
     const s3Key = `packages/${packageName}-${packageVersion}.tgz`;
 

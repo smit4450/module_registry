@@ -4,7 +4,7 @@
 // success/failure
 
 
-export function npm_ingestion() {
+export function npmIngestion() {
     //check rating of npm package
     //upload to database
 }

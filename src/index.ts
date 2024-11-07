@@ -1,43 +1,78 @@
-import { check_rating } from './check_rating';
-import { check_size } from './check_size';
-import { check_versions } from './check_versions';
+import { checkRating, get_package_name } from './checkRating';
+import { checkSize } from './checkSize';
+import { checkVersions } from './checkVersions';
 import { debloat } from './debloat';
 import { download } from './download';
-import { fetch_directory } from './fetch_directory';
-import { npm_ingestion } from './npm_ingestion';
-import { regex_search } from './regex_search';
-import { update } from './update';
+import { fetchDirectory } from './fetchDirectory';
+import { npmIngestion } from './npmIngestion';
+import { regexSearch } from './regexSearch';
 import { upload } from './upload';
+import readline from "readline";
+
+const promptUser = (query: string): Promise<string> => {
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+    return new Promise((resolve) => rl.question(query, (ans) => {
+      rl.close();
+      resolve(ans);
+    }));
+  };
 
 export async function main() {
-    if(check_rating) {
-        check_rating();
+    console.log("Enter mode: \n");
+    console.log("check rating\n");
+    console.log("check size\n");
+    console.log("check versions\n");
+    console.log("debloat\n");
+    console.log("download\n");
+    console.log("fetch directory\n");
+    console.log("npm ingestion\n");
+    console.log("regex search\n");
+    console.log("upload\n");
+    const mode = await promptUser("Enter mode: ");
+
+
+    if(mode == "check rating") {
+        //checkRating();
+        console.log("Not imlpemented yet");
     }
-    if(check_size) {
-        check_size();
+    else if(mode == "check size") {
+        //checkSize();
+        console.log("Not imlpemented yet");
     }
-    if(check_versions) {
-        check_versions();
+    else if(mode == "check versions") {
+        const packageName = await promptUser("Enter package name: ");
+        const versions = await checkVersions(packageName);
+        console.log(versions);
     }
-    if(debloat) {
-        debloat();
+    else if(mode == "debloat") {
+        //debloat();
+        console.log("Not imlpemented yet");
     }
-    if(download) {
-        download();
+    else if(mode == "download") {
+        const filePath = await promptUser("Enter file path: ");
+        const packageName = await promptUser("Enter package name: ");
+        download(filePath, packageName);
     }
-    if(fetch_directory) {
-        fetch_directory();
+    else if(mode == "fetch directory") {
+        const directory = fetchDirectory();
     }
-    if(npm_ingestion) {
-        npm_ingestion();
+    else if(mode == "npm ingestion") {
+        //npmIngestion();
+        console.log("Not imlpemented yet");
     }
-    if(regex_search) {
-        regex_search();
+    else if(mode == "regex search") {
+        //regexSearch();
+        console.log("Not imlpemented yet");
     }
-    if(update) {
-        update();
-    }
-    if(upload) {
-        upload();
+    else if(mode == "upload") {
+        const filePath = await promptUser("Enter file path: ");
+        const packageName = await promptUser("Enter package name: ");
+        const packageVersion = await promptUser("Enter package version: ");
+        upload(filePath, packageName, packageVersion);
     }
 }
+
+main();

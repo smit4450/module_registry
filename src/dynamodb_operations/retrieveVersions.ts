@@ -16,7 +16,6 @@ const promptUser = (query: string): Promise<string> => {
 
 export const retrieveVersions = async (packageName: string): Promise<string> => {
     try {
-        // Step 1: Query DynamoDB for all versions of the package with the specified name
         const params = {
             TableName: "Packages",
             KeyConditionExpression: "#name = :name",

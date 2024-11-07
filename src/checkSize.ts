@@ -5,7 +5,6 @@
 // package size
 // success/failure
 
-
-export function check_size() {
+export function checkSize() {
     //check size in database
 }

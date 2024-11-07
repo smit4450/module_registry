@@ -259,7 +259,7 @@ async function phase_1(): Promise<boolean>{
     }
 }
 
-export async function check_rating(): Promise<boolean> {
+export async function checkRating(): Promise<boolean> {
     let tries = 3;
     while (tries > 0) {
         let output = await phase_1();
