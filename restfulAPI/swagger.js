@@ -1,5 +1,6 @@
 // Import swagger-jsdoc using ES module syntax
 import swaggerJSDoc from "swagger-jsdoc";
+import path from "path";
 
 // Define the Swagger options for the API documentation
 const swaggerOptions = {
@@ -16,7 +17,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ["./routes/*.js"], // Path to API route definitions for Swagger
+  apis: [path.join(process.cwd(), '/routes/*.routes.js')],
 };
 
 // Generate the Swagger documentation based on the options

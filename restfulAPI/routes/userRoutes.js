@@ -19,7 +19,7 @@ router.post("/register", async (req, res) => {
     // Check if the username already exists
     const existingUser = await getUserByUsername(username);
     if (existingUser) return res.status(400).json({ message: "User already exists" });
-
+    
     // Create a new user and generate a token for them
     const user = await createUser(username, password);
     res.status(201).json({ id: user.id, username: user.username, token: generateToken(user.id) });

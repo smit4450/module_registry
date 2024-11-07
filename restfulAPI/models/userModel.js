@@ -2,6 +2,7 @@
 import dynamoDB from "../dynamoConfig.js";
 import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
+import { PutCommand, QueryCommand } from "@aws-sdk/lib-dynamodb";
 
 const USER_TABLE = process.env.DYNAMO_DB_USER_TABLE;
 
@@ -9,7 +10,7 @@ const USER_TABLE = process.env.DYNAMO_DB_USER_TABLE;
 export const createUser = async (username, password) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   const userId = uuidv4();
-
+  
   const params = {
     TableName: USER_TABLE,
     Item: {
@@ -19,7 +20,7 @@ export const createUser = async (username, password) => {
     },
   };
 
-  await dynamoDB.put(params).promise();
+  await dynamoDB.send(new PutCommand(params));   // No .promise() needed in AWS SDK v3
   return params.Item;
 };
 
@@ -27,12 +28,10 @@ export const createUser = async (username, password) => {
 export const getUserByUsername = async (username) => {
   const params = {
     TableName: USER_TABLE,
-    IndexName: "username-index",
     KeyConditionExpression: "username = :username",
     ExpressionAttributeValues: { ":username": username },
   };
-
-  const result = await dynamoDB.query(params).promise();
+  const result = await dynamoDB.send(new QueryCommand(params)); 
   return result.Items[0];
 };
 
@@ -48,6 +47,6 @@ export const findById = async (id) => {
     Key: { id },
   };
 
-  const result = await dynamoDB.get(params).promise();
+  const result = await dynamoDB.get(params);  // No .promise() needed
   return result.Item;
 };
