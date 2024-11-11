@@ -64,5 +64,3 @@ export const uploadPackage = async (filePath: string, packageName: string, packa
     console.error('Error uploading package:', error);
   }
 };
-
-uploadPackage('/home/shay/a/john2969/461/module_registry/src/test.zip', 'sam_tester', '1.0.0');

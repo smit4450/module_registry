@@ -1,14 +1,16 @@
 import { QueryCommand } from "@aws-sdk/lib-dynamodb";
-import dynamodb from "../dynamodb";
-import AWS from "aws-sdk";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import readline from "readline";
 import fs from "fs";
 import path from "path";
 import dotenv from "dotenv";
+import { Readable } from "stream";
 
 dotenv.config();
 
-const s3 = new AWS.S3();
+const dynamodb = new DynamoDBClient({});
+const s3 = new S3Client({});
 const BUCKET_NAME = process.env.S3_BUCKET_NAME;
 
 // Helper function to prompt the user
@@ -21,6 +23,15 @@ const promptUser = (query: string): Promise<string> => {
         rl.close();
         resolve(ans);
     }));
+};
+
+const streamToString = (stream: Readable): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        const chunks: any[] = [];
+        stream.on("data", (chunk) => chunks.push(chunk));
+        stream.on("error", reject);
+        stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf-8")));
+    });
 };
 
 export const downloadPackage = async (filePath: string, packageName: string) => {
@@ -49,16 +60,21 @@ export const downloadPackage = async (filePath: string, packageName: string) => 
             const s3Key = selectedItem.s3_key;
 
             // Step 2: Download the file from S3
-            const fileContent = await s3.getObject({
+            const fileContent = await s3.send(new GetObjectCommand({
                 Bucket: BUCKET_NAME!,
                 Key: s3Key,
-            }).promise();
+            }));
 
             // Step 3: Save the file locally
-            //const filePath = path.join(__dirname, path.basename(s3Key));
-            filePath = path.join(filePath, path.basename(s3Key));
-            fs.writeFileSync(filePath, fileContent.Body as Buffer);
-            console.log(`Package downloaded successfully: ${filePath}`);
+            const localFilePath = path.join(filePath, path.basename(s3Key));
+            if (fileContent.Body) {
+                const stream = fileContent.Body as Readable;
+                const fileData = await streamToString(stream);
+                fs.writeFileSync(localFilePath, fileData);
+                console.log(`Package downloaded successfully: ${localFilePath}`);
+            } else {
+                console.error("Error: fileContent.Body is undefined.");
+            }
         } else {
             console.log("Package not found with the specified name.");
         }
