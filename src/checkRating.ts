@@ -16,67 +16,9 @@ import { fetch_repo, queries } from './api_handler/graphql_handler/analyzer_grap
 import { headers } from './api_handler/graphql_handler/analyzer_graphql.js';
 import { GRAPHQL_URL } from './api_handler/graphql_handler/analyzer_graphql.js';
 import { emptyLogFile } from './logger.js';
-// Function to validate if the input is a valid URL
-export function isValidUrl(input: string): boolean {
-    try {
-        new URL(input);  // If URL constructor doesn't throw, it's valid
-        return true;
-    } catch (err) {
-        return false;
-    }
-}
+import AdmZip from 'adm-zip';
+import { latency_calc } from './api_handler/graphql_handler/analyzer_graphql.js';
 
-export async function get_package_name(package_url: string) {
-    const package_name = package_url.split('/').pop();
-    return package_name;
-}
-
-export async function getGitHubRepoUrl(package_name: string) {
-    try {
-        const response = await axios.get(`https://registry.npmjs.org/${package_name}`);
-        const latest_version = response.data['dist-tags'].latest; //get latest version of package
-        const repository = response.data.versions[latest_version].repository; //get the repository URL
-        if (repository && repository.url) {
-            // Clean up the repository URL (remove "git+" and ".git" if present)
-            var gitUrl = repository.url.replace(/^git\+/, '').replace(/\.git$/, '');
-            if (gitUrl.startsWith('ssh://git@')) {
-                //some urls start with the ssh://git@ prefix 
-                //console.log("Clean up ssh URL:")
-                gitUrl = gitUrl.replace('ssh://git@', 'https://');
-            }
-            //console.log(`GitHub URL for ${package_name}: ${gitUrl}`);
-            return gitUrl;
-        } else {
-
-            //console.log(`No repository URL found for ${package_name}`);
-            return null;
-        }
-    } catch (error) {
-        console.error(`Error fetching package data for ${package_name}:`, error);
-    }
-}
-
-export async function fetchRepoUrl(package_url: string) {
-    const package_name = await get_package_name(package_url);
-    const gitHubUrl = await getGitHubRepoUrl(String(package_name));  // Output is assigned to gitHubUrl
-    return gitHubUrl;
-}
-
-
-async function readLinesFromFile(file_path: string) {
-    const fileStream = fs.createReadStream(file_path);
-    const rl = readline.createInterface({
-        input: fileStream,
-        crlfDelay: Infinity,
-    });
-
-    for await (const line of rl) {
-        await calculate_factors(line);
-    }
-}
-
-
-// Logger function to output analysis results
 
 
 export async function get_url_interface(urlInput: string): Promise<url_interface> {
@@ -142,15 +84,6 @@ export async function get_url_interface(urlInput: string): Promise<url_interface
 }
 
 export async function calculate_factors(urlInput: string) {
-    if (isValidUrl(urlInput)) {
-        //console.log(`The URL you provided is valid: ${urlInput}`);
-    }
-    else {
-        log("Invalid URL format", 2, "ERROR")
-        process.exit(1);
-    }
-    log("URL validation successful", 1, "INFO");
-    log("Starting Analysis", 1, "INFO");
 
     // This if else statement checks if the link is a github link or a npm link, then calls the appropriate analyze functions.  Then it outputs the result.
     if (urlInput.includes("github.com")) {
@@ -189,12 +122,9 @@ export async function calculate_factors(urlInput: string) {
 
     }
     else if (urlInput.includes("npmjs.com/package")) {
-        //find eqvivalent github link and then call analyzeGraphQL();
         log("Link is an NPM URL", 1, "INFO");
-        // const npmResult = analyzeNpm();
-        // console.log(npmResult);
         let url: url_interface | undefined;
-        urlInput = String(await fetchRepoUrl(urlInput))
+        //urlInput = String(await fetchRepoUrl(urlInput))
         url = await get_url_interface(urlInput);
         let data;
         if (url) {
@@ -235,47 +165,207 @@ export async function calculate_factors(urlInput: string) {
 
 }
 
-// Main function to handle URL input from command line
-async function phase_1(): Promise<boolean>{
-    //emptyLogFile();
-    log("Starting Process", 1, "INFO");
-    const file_path = process.argv[2];
-    if (!process.env.LOG_FILE) {
-        return false; //process.exit(1);
-    }
-    try {
-        await readLinesFromFile(file_path)
-        log("All analyses complete", 1, "INFO")
-        return true; //process.exit(0);
+export async function calculate_depends_DL(path: string): Promise<number> {
+    const zip = new AdmZip(path);
+    const zipEntries = zip.getEntries();
+    let depends = 1;
+
+    let names: string[] = [];
+    let total = 0;
+    let pinned = 0;
+    for (const zipEntry of zipEntries) {
+        if (!zipEntry.isDirectory && zipEntry.entryName.split('/').length < 3) {
+            const fileName = zipEntry.entryName;
+            if (fileName.includes('requirements.txt')) {
+                const fileContent = zipEntry.getData().toString('utf8');
+                const lines = fileContent.split('\n');
+                const dependencies = lines.map((line: string) => {
+                    log("LINE " + line, 2, "INFO");
+                    const matches = Array.from(line.matchAll(/([a-zA-Z0-9_-]+)([~=<>!]*)([^,\s]*)/g));
+                    return matches.map((match: RegExpMatchArray) => {
+                        const [, name, prefix, version] = match;
+                        log("MATCH " + name + " " + prefix + " " + version, 2, "INFO");
+                        return { name, prefix, version };
+                    });
+                }).flat().filter(dep => dep.name);
+                dependencies.forEach(dep => {
+                    const { name, prefix, version } = dep;
+                    names.push(name + ' ' + prefix + version);
+                    total++;
+                    if (prefix !== '^') {
+                        pinned++;
+                    }
+                });
+            }
+            else if (fileName.includes('package.json')) {
+                const json = JSON.parse(zipEntry.getData().toString('utf8'));
+                const deps = { ...json.dependencies, ...json.devDependencies };
+                const dependencies = Object.entries(deps).map(([name, version]) => {
+                    const matches = (version as string).matchAll(/([~^]?)([^,\s]*)/g);
+                    return Array.from(matches).map(match => {
+                        const [, prefix, version] = match;
+                        return { name, prefix, version };
+                    });
+                }).flat().filter(Boolean);
+                dependencies.forEach(dep => {
+                    const { name, prefix, version } = dep;
+                    names.push(name + ' ' + prefix + version);
+                    total++;
+                    if (prefix !== '^') {
+                        pinned++;
+                    }
+                });
+            }
+            else if (fileName.includes('Gemfile')) {
+                const fileContent = zipEntry.getData().toString('utf8');
+                const lines = fileContent.split('\n');
+                const dependencies = lines.map(line => {
+                    const matches = line.matchAll(/^gem ['"](.+)['"], ['"]([~^]?)(.+)['"]$/g);
+                    return Array.from(matches).map(match => {
+                        const [, name, prefix, version] = match;
+                        return { name, prefix, version };
+                    });
+                }).flat().filter(Boolean);
+                dependencies.forEach(dep => {
+                    const { name, prefix, version } = dep;
+                    names.push(name + ' ' + prefix + version);
+                    total++;
+                    if (prefix !== '^') {
+                        pinned++;
+                    }
+                });
+            }
+        }
     }
 
-    catch (error) {
-        if (error instanceof Error) {
-            log(`Error during processing: ${error.message}`, 2, "ERROR");
-        } else {
-            log("An unknown error occurred during processing", 2, "ERROR");
+    log("DEPENDS " + names, 2, "INFO");
+    if (total > 0) {
+        depends = pinned / total;
+    }
+
+    return depends;
+}
+
+export async function calculate_license_DL(path: string): Promise<number> {
+    const zip = new AdmZip(path);
+    const zipEntries = zip.getEntries();
+    let licenseText: string | null = null;
+
+    try {
+        for (const zipEntry of zipEntries) {
+            if (zipEntry.entryName.includes('LICENSE')) {
+                log('License - Reading license from LICENSE file', 2, 'INFO');
+                licenseText = zipEntry.getData().toString('utf8');
+                break;
+            } else if (zipEntry.entryName.includes('README.md')) {
+                log('License - Reading license from README.md', 2, 'INFO');
+                const readmeContent = zipEntry.getData().toString('utf8');
+                licenseText = extractLicenseFromReadme(readmeContent);
+                if (licenseText) break;
+            }
         }
-        return false; //process.exit(1); // Exit with failure code
+
+        // Determine if the license is compatible with LGPLv2.1
+        if (licenseText && isLicenseCompatibleWithLGPLv21(licenseText)) {
+            log('License - License is compatible with LGPLv2.1', 2, 'INFO');
+            return 1; // License is compatible
+        } else {
+            return 0; // License is incompatible or not found
+        }
+    } catch (error) {
+        log('License - Failed to analyze license', 2, 'INFO');
+        return -1;
     }
 }
 
-export async function checkRating(): Promise<boolean> {
+export async function phase_1_DL(path: string): Promise<string> {
+    let net_score = 0;
+    let net_score_latency = 0;
+    let ramp_up = 0;
+    let ramp_up_latency = 0;
+    let correctness = 0;
+    let correctness_latency = 0;
+    let bus_factor = 0;
+    let bus_factor_latency = 0;
+    let responsive_maintainer = 0;
+    let responsive_maintainer_latency = 0;
+    let license = 0;
+    let license_latency = 0;
+    let depends = 0;
+    let depends_latency = 0;
+    let pull = 0;
+    let pull_latency = 0;
+
+    let t1 = new Date();
+    depends = await calculate_depends_DL(path);
+    let t2 = new Date();
+    depends_latency = latency_calc(t1, t2);
+    license = await calculate_license_DL(path);
+    let t3 = new Date();
+    license_latency = latency_calc(t2, t3);
+    net_score = (license + depends) / 2;
+    let t4 = new Date();
+    net_score_latency = latency_calc(t1, t4);
+
+
+
+    let data = {
+        URL: "",
+        NetScore: Number(net_score.toFixed(3)) || 0,
+        NetScore_Latency: Number(net_score_latency.toFixed(3)) || 0,
+        RampUp: Number(ramp_up.toFixed(3)) || 0,
+        RampUp_Latency: Number(ramp_up_latency.toFixed(3)) || 0,
+        Correctness: Number(correctness.toFixed(3)) || 0,
+        Correctness_Latency: Number(correctness_latency.toFixed(3)) || 0,
+        BusFactor: Number(bus_factor.toFixed(3)) || 0,
+        BusFactor_Latency: Number(bus_factor_latency.toFixed(3)) || 0,
+        ResponsiveMaintainer: Number(responsive_maintainer.toFixed(3)) || 0,
+        ResponsiveMaintainer_Latency: Number(responsive_maintainer_latency.toFixed(3)) || 0,
+        License: Number(license.toFixed(3)) || 0,
+        License_Latency: Number(license_latency.toFixed(3)) || 0,
+        Depends: Number(depends.toFixed(3)) || 0,
+        Depends_Latency: Number(depends_latency.toFixed(3)) || 0,
+        Pull: Number(pull.toFixed(3)) || 0,
+        Pull_Latency: Number(pull_latency.toFixed(3)) || 0,
+    }
+
+    const output = JSON.stringify(data);
+    return output;
+}
+
+export async function checkRating(path: string): Promise<string> {
     let tries = 3;
     while (tries > 0) {
-        let output = await phase_1();
-        if (output) {
-            return true;
+        let output = await phase_1_DL(path);
+        if (output != "Error") {
+            return output;
         }
         tries--;
     }
-    return false;
+    return "Error";
 }
 
+// Utility function to check if a license is compatible with LGPLv2.1
+export function isLicenseCompatibleWithLGPLv21(licenseText: string): boolean {
+    const compatibleLicenses = [
+        'LGPL-2.1',
+        'LGPL-2.1-only',
+        'LGPL-2.1-or-later',
+        'MIT',
+        'BSD-3-Clause',
+        'BSD-2-Clause',
+        'Apache-2.0',
+        'GPL-2.0-or-later',
+        'GPL-3.0-or-later'
+    ];
 
-/*
-1. Writes test cases for empty files
-2. Configure ./run test
-3. Write the coverage percentage
-4. Create error checking, add promises, add cases for if parameter cannot be extracted, exiting 0 and 1
-5. Run in eceprog
-*/
+    return compatibleLicenses.some((license) => licenseText.includes(license));
+}
+
+// Extract license from README using regex
+function extractLicenseFromReadme(readmeContent: string): string | null {
+    log('License - Extracting license from README.md', 2, 'INFO');
+    const licenseRegex = /##\s*License\s*\n+([^#]+)/i;
+    const match = readmeContent.match(licenseRegex);
+    return match ? match[1].trim() : null;
+}

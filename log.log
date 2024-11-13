@@ -1,295 +1,146 @@
-[INFO] 2024-10-26T18:26:20.931Z - Starting Process
-[INFO] 2024-10-26T18:26:20.936Z - URL validation successful
-[INFO] 2024-10-26T18:26:20.937Z - Starting Analysis
-[INFO] 2024-10-26T18:26:20.938Z - Link is an NPM URL
-[INFO] 2024-10-26T18:26:21.017Z - Fetching repository data...
-[INFO] 2024-10-26T18:26:25.789Z - Parameters Found
-[INFO] 2024-10-26T18:26:25.789Z - Calculating metrics
-[INFO] 2024-10-26T18:26:25.791Z - PACKAGE
-[INFO] 2024-10-26T18:26:25.792Z - DEPENDS async ^2.6.3,async ,benchmark ^2.1.3,benchmark ,chalk ^1.1.3,chalk ,cheerio ^0.22.0,cheerio ,codecov.io ~0.1.6,codecov.io ,coveralls ^2.11.15,coveralls ,curl-amd ~0.8.12,curl-amd ,docdown ~0.7.2,docdown ,dojo ^1.15.0,dojo ,ecstatic ^2.2.2,ecstatic ,fs-extra ~1.0.0,fs-extra ,glob ^7.1.4,glob ,istanbul 0.4.5,istanbul ,jquery ^3.4.1,jquery ,jscs ^3.0.7,jscs ,lodash 4.17.20,lodash ,lodash-doc-globals ^0.1.1,lodash-doc-globals ,markdown-doctest ^0.9.1,markdown-doctest ,optional-dev-dependency ^2.0.0,optional-dev-dependency ,platform ^1.3.3,platform ,qunit-extras ^3.0.0,qunit-extras ,qunitjs ^2.1.0,qunitjs ,request ^2.88.0,request ,requirejs ^2.3.6,requirejs ,sauce-tunnel ^2.5.0,sauce-tunnel ,uglify-js 2.7.5,uglify-js ,webpack ^1.14.0,webpack 
-[INFO] 2024-10-26T18:26:25.793Z - URL validation successful
-[INFO] 2024-10-26T18:26:25.793Z - Starting Analysis
-[INFO] 2024-10-26T18:26:25.794Z - Link is a GitHub URL
-[INFO] 2024-10-26T18:26:25.795Z - Fetching repository data...
-[INFO] 2024-10-26T18:26:31.193Z - Parameters Found
-[INFO] 2024-10-26T18:26:31.194Z - Calculating metrics
-[INFO] 2024-10-26T18:26:31.194Z - PACKAGE2
-[INFO] 2024-10-26T18:26:31.195Z - DEPENDS accepts ^2.0.0,accepts ,body-parser ^2.0.1,body-parser ,content-disposition ^1.0.0,content-disposition ,content-type ~1.0.4,content-type ,cookie 0.7.1,cookie ,cookie-signature ^1.2.1,cookie-signature ,debug 4.3.6,debug ,depd 2.0.0,depd ,encodeurl ~2.0.0,encodeurl ,escape-html ~1.0.3,escape-html ,etag ~1.8.1,etag ,finalhandler ^2.0.0,finalhandler ,fresh 2.0.0,fresh ,http-errors 2.0.0,http-errors ,merge-descriptors ^2.0.0,merge-descriptors ,methods ~1.1.2,methods ,mime-types ^3.0.0,mime-types ,on-finished 2.4.1,on-finished ,once 1.4.0,once ,parseurl ~1.3.3,parseurl ,proxy-addr ~2.0.7,proxy-addr ,qs 6.13.0,qs ,range-parser ~1.2.1,range-parser ,router ^2.0.0,router ,safe-buffer 5.2.1,safe-buffer ,send ^1.1.0,send ,serve-static ^2.1.0,serve-static ,statuses 2.0.1,statuses ,type-is ^2.0.0,type-is ,utils-merge 1.0.1,utils-merge ,vary ~1.1.2,vary ,after 0.8.2,after ,connect-redis 3.4.2,connect-redis ,cookie-parser 1.4.6,cookie-parser ,cookie-session 2.0.0,cookie-session ,ejs 3.1.9,ejs ,eslint 8.47.0,eslint ,express-session 1.17.2,express-session ,hbs 4.2.0,hbs ,marked 0.7.0,marked ,method-override 3.0.0,method-override ,mocha 10.2.0,mocha ,morgan 1.10.0,morgan ,nyc 15.1.0,nyc ,pbkdf2-password 1.2.1,pbkdf2-password ,supertest 6.3.0,supertest ,vhost ~3.0.2,vhost 
-[INFO] 2024-10-26T18:26:31.196Z - All analyses complete
-[INFO] 2024-10-26T19:13:01.489Z - Test Case 1 Valid URL
-[PASSED] 2024-10-26T19:13:01.490Z - Test #1 Passed! Valid URL is valid.
-[INFO] 2024-10-26T19:13:01.490Z - Test Case 2 Invalid URL
-[PASSED] 2024-10-26T19:13:01.491Z - Test #2 Passed! Invalid URL is invalid.
-[INFO] 2024-10-26T19:13:01.491Z - Test Case 3: Bus Factor Calculation using Dummy Data for New Repository
-[PASSED] 2024-10-26T19:13:01.492Z - Test #3 Passed! Bus Factor for a new repo is less than expected value of 0.1.
-[INFO] 2024-10-26T19:13:01.492Z - Test Case 4: Bus Factor Calculation using Dummy Data for Big/Older/Still Currently Updated Repository
-[PASSED] 2024-10-26T19:13:01.493Z - Test #4 Passed! Bus Factor for a big repo is greater than expected value of 0.6.
-[INFO] 2024-10-26T19:13:01.493Z - Test Case 5: Bus Factor Calculation using Dummy Data for Older Abandoned Repository
-[PASSED] 2024-10-26T19:13:01.494Z - Test #5 Passed! Bus Factor for a old repo is greater than expected value of 0.6.
-[INFO] 2024-10-26T19:13:01.494Z - Test Case 6: Calculate correctness of new repository
-[PASSED] 2024-10-26T19:13:01.495Z - Test #6 Passed! Correctness is less than expected value of 0.3.
-[INFO] 2024-10-26T19:13:01.495Z - Test Case 7: Calculate correctness of big repository
-[PASSED] 2024-10-26T19:13:01.496Z - Test #7 Passed! Correctness is greater than expected value of 0.5.
-[INFO] 2024-10-26T19:13:01.496Z - Test Case 8: Calculate correctness of old repository
-[PASSED] 2024-10-26T19:13:01.496Z - Test #8 Passed! Correctness is less than expected value of 0.5.
-[INFO] 2024-10-26T19:13:01.497Z - Test Case 9: Calculate rampup factor of new repository
-[PASSED] 2024-10-26T19:13:01.497Z - Test #9 Passed! Rampup is less than expected value of 0.3.
-[INFO] 2024-10-26T19:13:01.498Z - Test Case 10: Calculate rampup factor of big repository
-[PASSED] 2024-10-26T19:13:01.498Z - Test #10 Passed! Rampup is greater than expected value of 0.5.
-[INFO] 2024-10-26T19:13:01.498Z - Test Case 11: Calculate rampup factor of old repository
-[PASSED] 2024-10-26T19:13:01.499Z - Test #11 Passed! Rampup is less than expected value of 0.5.
-[INFO] 2024-10-26T19:13:01.499Z - Test Case 12: Calculate responsive maintainer factor of new repository
-[PASSED] 2024-10-26T19:13:01.500Z - Test #12 Passed! Responsive Maintainer is less than expected value of 0.3.
-[INFO] 2024-10-26T19:13:01.500Z - Test Case 13: Calculate responsive maintainer factor of big repository
-[FAILED] 2024-10-26T19:13:01.501Z - Test #13 Failed! Responsive Maintainer is less than expected value of 0.3.
-[INFO] 2024-10-26T19:13:01.501Z - Test Case 14: Calculate responsive maintainer factor of old repository
-[PASSED] 2024-10-26T19:13:01.502Z - Test #14 Passed! Responsive Maintainer is less than expected value of 0.3.
-[INFO] 2024-10-26T19:13:01.502Z - Test Case 15: Calculate license factor of new repository
-[PASSED] 2024-10-26T19:13:01.503Z - Test #15 Passed! License is greater than expected value of 0.5.
-[INFO] 2024-10-26T19:13:01.503Z - Test Case 16: Calculate license factor of big repository
-[PASSED] 2024-10-26T19:13:01.503Z - Test #16 Passed! License is greater than expected value of 0.5.
-[INFO] 2024-10-26T19:13:01.504Z - Test Case 17: Calculate license factor of old repository
-[PASSED] 2024-10-26T19:13:01.504Z - Test #17 Passed! License is greater than expected value of 0.5.
-[INFO] 2024-10-26T19:13:01.505Z - Test Case 18: Calculate net score of new repository
-[PASSED] 2024-10-26T19:13:01.505Z - Test #18 Passed! Net Score is less than expected value of 0.5.
-[INFO] 2024-10-26T19:13:01.505Z - Test Case 19: Calculate net score of big repository
-[FAILED] 2024-10-26T19:13:01.506Z - Test #19 Failed! Net Score is less than expected value of 0.5.
-[INFO] 2024-10-26T19:13:01.506Z - Test Case 20: Checking net score is positive
-[PASSED] 2024-10-26T19:13:01.507Z - Test #20 Passed! Net Score is positive.
-[INFO] 2024-10-26T19:13:01.507Z - Test Case 21: Calculate net score of old repository
-[PASSED] 2024-10-26T19:13:01.507Z - Test #21 Passed! Net Score is less than expected value of 0.5.
-[INFO] 2024-10-26T19:13:01.508Z - Test Case 22: Getting package name from npm express
-[PASSED] 2024-10-26T19:13:01.508Z - Test #22 Passed! Accurate package found.
-[INFO] 2024-10-26T19:13:01.509Z - Test Case 23: getting github URL for npm package
-[PASSED] 2024-10-26T19:13:01.604Z - Test #23 Passed! Accurate github URL found.
-[INFO] 2024-10-26T19:13:01.604Z - Test Case 22: Getting package name from npm express
-[PASSED] 2024-10-26T19:13:01.605Z - Test #24 Passed! Accurate package found.
-[INFO] 2024-10-26T19:13:01.605Z - Test Case 25: Getting package name from npm lodash package
-[PASSED] 2024-10-26T19:13:01.663Z - Test #25 Passed! Accurate github URL found.
-[INFO] 2024-10-26T19:13:28.916Z - Starting Process
-[INFO] 2024-10-26T19:13:28.922Z - URL validation successful
-[INFO] 2024-10-26T19:13:28.922Z - Starting Analysis
-[INFO] 2024-10-26T19:13:28.923Z - Link is an NPM URL
-[INFO] 2024-10-26T19:13:28.998Z - Fetching repository data...
-[INFO] 2024-10-26T19:13:28.998Z - -------------------------https://github.com/lodash/lodash-------------------------
-[CRITICAL] 2024-10-26T19:13:39.311Z - Error calling fetchRepo: Repository data info not found.
-[INFO] 2024-10-26T19:13:52.308Z - Starting Process
-[INFO] 2024-10-26T19:13:52.314Z - URL validation successful
-[INFO] 2024-10-26T19:13:52.314Z - Starting Analysis
-[INFO] 2024-10-26T19:13:52.315Z - Link is an NPM URL
-[INFO] 2024-10-26T19:13:52.389Z - Fetching repository data...
-[INFO] 2024-10-26T19:13:52.390Z - -------------------------https://github.com/lodash/lodash-------------------------
-[INFO] 2024-10-26T19:14:00.080Z - Parameters Found
-[INFO] 2024-10-26T19:14:00.081Z - Calculating metrics
-[INFO] 2024-10-26T19:14:00.083Z - PACKAGE
-[INFO] 2024-10-26T19:14:00.083Z - DEPENDS async ^2.6.3,async ,benchmark ^2.1.3,benchmark ,chalk ^1.1.3,chalk ,cheerio ^0.22.0,cheerio ,codecov.io ~0.1.6,codecov.io ,coveralls ^2.11.15,coveralls ,curl-amd ~0.8.12,curl-amd ,docdown ~0.7.2,docdown ,dojo ^1.15.0,dojo ,ecstatic ^2.2.2,ecstatic ,fs-extra ~1.0.0,fs-extra ,glob ^7.1.4,glob ,istanbul 0.4.5,istanbul ,jquery ^3.4.1,jquery ,jscs ^3.0.7,jscs ,lodash 4.17.20,lodash ,lodash-doc-globals ^0.1.1,lodash-doc-globals ,markdown-doctest ^0.9.1,markdown-doctest ,optional-dev-dependency ^2.0.0,optional-dev-dependency ,platform ^1.3.3,platform ,qunit-extras ^3.0.0,qunit-extras ,qunitjs ^2.1.0,qunitjs ,request ^2.88.0,request ,requirejs ^2.3.6,requirejs ,sauce-tunnel ^2.5.0,sauce-tunnel ,uglify-js 2.7.5,uglify-js ,webpack ^1.14.0,webpack 
-[INFO] 2024-10-26T19:14:00.084Z - PULL REQUESTS
-[INFO] 2024-10-26T19:14:00.085Z - REVIEWED PULL REQUESTS: 1
-[INFO] 2024-10-26T19:14:00.085Z - UNREVIEWED PULL REQUESTS: 6
-[INFO] 2024-10-26T19:14:00.086Z - REVIEWED PULL REQUEST TITLE 1: chore: combine the if statements into one
-[INFO] 2024-10-26T19:14:00.086Z - UNREVIEWED PULL REQUEST TITLE 1: ci: make it work
-[INFO] 2024-10-26T19:14:00.087Z - UNREVIEWED PULL REQUEST TITLE 2: test: partially fix broken tests
-[INFO] 2024-10-26T19:14:00.087Z - UNREVIEWED PULL REQUEST TITLE 3: test: fix cannot find root
-[INFO] 2024-10-26T19:14:00.088Z - REVIEWED ADDITIONS: 2
-[INFO] 2024-10-26T19:14:00.088Z - UNREVIEWED ADDITIONS: 356
-[INFO] 2024-10-26T19:14:00.089Z - URL validation successful
-[INFO] 2024-10-26T19:14:00.090Z - Starting Analysis
-[INFO] 2024-10-26T19:14:00.090Z - Link is a GitHub URL
-[INFO] 2024-10-26T19:14:00.090Z - Fetching repository data...
-[INFO] 2024-10-26T19:14:00.091Z - -------------------------https://github.com/expressjs/express-------------------------
-[INFO] 2024-10-26T19:14:08.068Z - Parameters Found
-[INFO] 2024-10-26T19:14:08.068Z - Calculating metrics
-[INFO] 2024-10-26T19:14:08.069Z - PACKAGE2
-[INFO] 2024-10-26T19:14:08.070Z - DEPENDS accepts ^2.0.0,accepts ,body-parser ^2.0.1,body-parser ,content-disposition ^1.0.0,content-disposition ,content-type ~1.0.4,content-type ,cookie 0.7.1,cookie ,cookie-signature ^1.2.1,cookie-signature ,debug 4.3.6,debug ,depd 2.0.0,depd ,encodeurl ~2.0.0,encodeurl ,escape-html ~1.0.3,escape-html ,etag ~1.8.1,etag ,finalhandler ^2.0.0,finalhandler ,fresh 2.0.0,fresh ,http-errors 2.0.0,http-errors ,merge-descriptors ^2.0.0,merge-descriptors ,methods ~1.1.2,methods ,mime-types ^3.0.0,mime-types ,on-finished 2.4.1,on-finished ,once 1.4.0,once ,parseurl ~1.3.3,parseurl ,proxy-addr ~2.0.7,proxy-addr ,qs 6.13.0,qs ,range-parser ~1.2.1,range-parser ,router ^2.0.0,router ,safe-buffer 5.2.1,safe-buffer ,send ^1.1.0,send ,serve-static ^2.1.0,serve-static ,statuses 2.0.1,statuses ,type-is ^2.0.0,type-is ,utils-merge 1.0.1,utils-merge ,vary ~1.1.2,vary ,after 0.8.2,after ,connect-redis 3.4.2,connect-redis ,cookie-parser 1.4.6,cookie-parser ,cookie-session 2.0.0,cookie-session ,ejs 3.1.9,ejs ,eslint 8.47.0,eslint ,express-session 1.17.2,express-session ,hbs 4.2.0,hbs ,marked 0.7.0,marked ,method-override 3.0.0,method-override ,mocha 10.2.0,mocha ,morgan 1.10.0,morgan ,nyc 15.1.0,nyc ,pbkdf2-password 1.2.1,pbkdf2-password ,supertest 6.3.0,supertest ,vhost ~3.0.2,vhost 
-[INFO] 2024-10-26T19:14:08.070Z - PULL REQUESTS
-[INFO] 2024-10-26T19:14:08.071Z - REVIEWED PULL REQUESTS: 24
-[INFO] 2024-10-26T19:14:08.071Z - UNREVIEWED PULL REQUESTS: 1
-[INFO] 2024-10-26T19:14:08.071Z - REVIEWED PULL REQUEST TITLE 1: feat: upgrade to send@0.19.0
-[INFO] 2024-10-26T19:14:08.072Z - REVIEWED PULL REQUEST TITLE 2: feat: upgrade to serve-static@0.16.0
-[INFO] 2024-10-26T19:14:08.072Z - REVIEWED PULL REQUEST TITLE 3: Release: 4.20.0
-[INFO] 2024-10-26T19:14:08.073Z - UNREVIEWED PULL REQUEST TITLE 1: finalhandler@1.3.1
-[INFO] 2024-10-26T19:14:08.073Z - REVIEWED ADDITIONS: 266
-[INFO] 2024-10-26T19:14:08.073Z - UNREVIEWED ADDITIONS: 2
-[INFO] 2024-10-26T19:14:08.074Z - URL validation successful
-[INFO] 2024-10-26T19:14:08.074Z - Starting Analysis
-[INFO] 2024-10-26T19:14:08.075Z - Link is a GitHub URL
-[INFO] 2024-10-26T19:14:08.075Z - Fetching repository data...
-[INFO] 2024-10-26T19:14:08.076Z - -------------------------https://github.com/Samojo3303/461Project-------------------------
-[INFO] 2024-10-26T19:14:13.702Z - Parameters Found
-[INFO] 2024-10-26T19:14:13.702Z - Calculating metrics
-[INFO] 2024-10-26T19:14:13.703Z - PACKAGE
-[INFO] 2024-10-26T19:14:13.703Z - DEPENDS axios ^1.7.7,axios ,chai ^5.1.1,chai ,dotenv ^16.4.5,dotenv ,fs ^0.0.1-security,fs ,fs-extra ^11.2.0,fs-extra ,isomorphic-git ^1.27.1,isomorphic-git ,jq ^1.7.2,jq ,mocha ^10.7.3,mocha ,node-fetch ^3.3.2,node-fetch ,winston ^3.14.2,winston ,@eslint/js ^9.10.0,@eslint/js ,@types/dotenv ^6.1.1,@types/dotenv ,@types/eslint__js ^8.42.3,@types/eslint__js ,@types/jest ^29.5.13,@types/jest ,@types/node ^22.5.5,@types/node ,eslint ^9.10.0,eslint ,jest ^29.7.0,jest ,ts-jest ^29.2.5,ts-jest ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,typescript-eslint ^8.4.0,typescript-eslint 
-[INFO] 2024-10-26T19:14:13.704Z - PULL REQUESTS
-[INFO] 2024-10-26T19:14:13.704Z - REVIEWED PULL REQUESTS: 21
-[INFO] 2024-10-26T19:14:13.705Z - UNREVIEWED PULL REQUESTS: 10
-[INFO] 2024-10-26T19:14:13.705Z - REVIEWED PULL REQUEST TITLE 1: npm project setup
-[INFO] 2024-10-26T19:14:13.705Z - REVIEWED PULL REQUEST TITLE 2: Added requirements file and tsconfig file
-[INFO] 2024-10-26T19:14:13.706Z - REVIEWED PULL REQUEST TITLE 3: Getting the requirements
-[INFO] 2024-10-26T19:14:13.706Z - UNREVIEWED PULL REQUEST TITLE 1: README Update Sam - Pull Request
-[INFO] 2024-10-26T19:14:13.707Z - UNREVIEWED PULL REQUEST TITLE 2: README Sam Update
-[INFO] 2024-10-26T19:14:13.707Z - UNREVIEWED PULL REQUEST TITLE 3: Change by Doha to close issue
-[INFO] 2024-10-26T19:14:13.707Z - REVIEWED ADDITIONS: 2282380
-[INFO] 2024-10-26T19:14:13.708Z - UNREVIEWED ADDITIONS: 154555
-[INFO] 2024-10-26T19:14:13.708Z - All analyses complete
-[INFO] 2024-10-27T22:02:51.741Z - Test Case 1 Valid URL
-[PASSED] 2024-10-27T22:02:51.742Z - Test #1 Passed! Valid URL is valid.
-[INFO] 2024-10-27T22:02:51.742Z - Test Case 2 Invalid URL
-[PASSED] 2024-10-27T22:02:51.743Z - Test #2 Passed! Invalid URL is invalid.
-[INFO] 2024-10-27T22:02:51.743Z - Test Case 3: Bus Factor Calculation using Dummy Data for New Repository
-[PASSED] 2024-10-27T22:02:51.744Z - Test #3 Passed! Bus Factor for a new repo is less than expected value of 0.1.
-[INFO] 2024-10-27T22:02:51.744Z - Test Case 4: Bus Factor Calculation using Dummy Data for Big/Older/Still Currently Updated Repository
-[PASSED] 2024-10-27T22:02:51.745Z - Test #4 Passed! Bus Factor for a big repo is greater than expected value of 0.6.
-[INFO] 2024-10-27T22:02:51.745Z - Test Case 5: Bus Factor Calculation using Dummy Data for Older Abandoned Repository
-[PASSED] 2024-10-27T22:02:51.745Z - Test #5 Passed! Bus Factor for a old repo is greater than expected value of 0.6.
-[INFO] 2024-10-27T22:02:51.746Z - Test Case 6: Calculate correctness of new repository
-[PASSED] 2024-10-27T22:02:51.746Z - Test #6 Passed! Correctness is less than expected value of 0.3.
-[INFO] 2024-10-27T22:02:51.747Z - Test Case 7: Calculate correctness of big repository
-[PASSED] 2024-10-27T22:02:51.747Z - Test #7 Passed! Correctness is greater than expected value of 0.5.
-[INFO] 2024-10-27T22:02:51.747Z - Test Case 8: Calculate correctness of old repository
-[PASSED] 2024-10-27T22:02:51.748Z - Test #8 Passed! Correctness is less than expected value of 0.5.
-[INFO] 2024-10-27T22:02:51.748Z - Test Case 9: Calculate rampup factor of new repository
-[PASSED] 2024-10-27T22:02:51.749Z - Test #9 Passed! Rampup is less than expected value of 0.3.
-[INFO] 2024-10-27T22:02:51.749Z - Test Case 10: Calculate rampup factor of big repository
-[PASSED] 2024-10-27T22:02:51.750Z - Test #10 Passed! Rampup is greater than expected value of 0.5.
-[INFO] 2024-10-27T22:02:51.750Z - Test Case 11: Calculate rampup factor of old repository
-[PASSED] 2024-10-27T22:02:51.750Z - Test #11 Passed! Rampup is less than expected value of 0.5.
-[INFO] 2024-10-27T22:02:51.751Z - Test Case 12: Calculate responsive maintainer factor of new repository
-[PASSED] 2024-10-27T22:02:51.751Z - Test #12 Passed! Responsive Maintainer is less than expected value of 0.3.
-[INFO] 2024-10-27T22:02:51.752Z - Test Case 13: Calculate responsive maintainer factor of big repository
-[FAILED] 2024-10-27T22:02:51.752Z - Test #13 Failed! Responsive Maintainer is less than expected value of 0.3.
-[INFO] 2024-10-27T22:02:51.752Z - Test Case 14: Calculate responsive maintainer factor of old repository
-[PASSED] 2024-10-27T22:02:51.753Z - Test #14 Passed! Responsive Maintainer is less than expected value of 0.3.
-[INFO] 2024-10-27T22:02:51.753Z - Test Case 15: Calculate license factor of new repository
-[PASSED] 2024-10-27T22:02:51.754Z - Test #15 Passed! License is greater than expected value of 0.5.
-[INFO] 2024-10-27T22:02:51.754Z - Test Case 16: Calculate license factor of big repository
-[PASSED] 2024-10-27T22:02:51.754Z - Test #16 Passed! License is greater than expected value of 0.5.
-[INFO] 2024-10-27T22:02:51.755Z - Test Case 17: Calculate license factor of old repository
-[PASSED] 2024-10-27T22:02:51.755Z - Test #17 Passed! License is greater than expected value of 0.5.
-[INFO] 2024-10-27T22:02:51.756Z - Test Case 18: Calculate net score of new repository
-[PASSED] 2024-10-27T22:02:51.756Z - Test #18 Passed! Net Score is less than expected value of 0.5.
-[INFO] 2024-10-27T22:02:51.756Z - Test Case 19: Calculate net score of big repository
-[FAILED] 2024-10-27T22:02:51.757Z - Test #19 Failed! Net Score is less than expected value of 0.5.
-[INFO] 2024-10-27T22:02:51.757Z - Test Case 20: Checking net score is positive
-[PASSED] 2024-10-27T22:02:51.757Z - Test #20 Passed! Net Score is positive.
-[INFO] 2024-10-27T22:02:51.758Z - Test Case 21: Calculate net score of old repository
-[PASSED] 2024-10-27T22:02:51.758Z - Test #21 Passed! Net Score is less than expected value of 0.5.
-[INFO] 2024-10-27T22:02:51.759Z - Test Case 22: Getting package name from npm express
-[PASSED] 2024-10-27T22:02:51.759Z - Test #22 Passed! Accurate package found.
-[INFO] 2024-10-27T22:02:51.760Z - Test Case 23: getting github URL for npm package
-[PASSED] 2024-10-27T22:02:51.918Z - Test #23 Passed! Accurate github URL found.
-[INFO] 2024-10-27T22:02:51.919Z - Test Case 22: Getting package name from npm express
-[PASSED] 2024-10-27T22:02:51.919Z - Test #24 Passed! Accurate package found.
-[INFO] 2024-10-27T22:02:51.920Z - Test Case 25: Getting package name from npm lodash package
-[PASSED] 2024-10-27T22:02:51.947Z - Test #25 Passed! Accurate github URL found.
-[INFO] 2024-10-27T22:02:56.805Z - Starting Process
-[INFO] 2024-10-27T22:02:56.810Z - URL validation successful
-[INFO] 2024-10-27T22:02:56.810Z - Starting Analysis
-[INFO] 2024-10-27T22:02:56.810Z - Link is an NPM URL
-[INFO] 2024-10-27T22:02:56.886Z - Fetching repository data...
-[INFO] 2024-10-27T22:02:56.886Z - -------------------------https://github.com/lodash/lodash-------------------------
-[CRITICAL] 2024-10-27T22:03:07.186Z - Error calling fetchRepo: Repository data info not found.
-[INFO] 2024-10-27T22:03:36.725Z - Starting Process
-[INFO] 2024-10-27T22:03:36.730Z - URL validation successful
-[INFO] 2024-10-27T22:03:36.730Z - Starting Analysis
-[INFO] 2024-10-27T22:03:36.731Z - Link is an NPM URL
-[INFO] 2024-10-27T22:03:36.813Z - Fetching repository data...
-[INFO] 2024-10-27T22:03:36.813Z - -------------------------https://github.com/lodash/lodash-------------------------
-[CRITICAL] 2024-10-27T22:03:47.204Z - Error calling fetchRepo: Repository data info not found.
-[INFO] 2024-10-27T22:03:55.839Z - Starting Process
-[INFO] 2024-10-27T22:03:55.844Z - URL validation successful
-[INFO] 2024-10-27T22:03:55.845Z - Starting Analysis
-[INFO] 2024-10-27T22:03:55.845Z - Link is an NPM URL
-[INFO] 2024-10-27T22:03:55.922Z - Fetching repository data...
-[INFO] 2024-10-27T22:03:55.922Z - -------------------------https://github.com/lodash/lodash-------------------------
-[INFO] 2024-10-27T22:04:02.508Z - Parameters Found
-[INFO] 2024-10-27T22:04:02.508Z - Calculating metrics
-[INFO] 2024-10-27T22:04:02.510Z - PACKAGE
-[INFO] 2024-10-27T22:04:02.510Z - DEPENDS async ^2.6.3,async ,benchmark ^2.1.3,benchmark ,chalk ^1.1.3,chalk ,cheerio ^0.22.0,cheerio ,codecov.io ~0.1.6,codecov.io ,coveralls ^2.11.15,coveralls ,curl-amd ~0.8.12,curl-amd ,docdown ~0.7.2,docdown ,dojo ^1.15.0,dojo ,ecstatic ^2.2.2,ecstatic ,fs-extra ~1.0.0,fs-extra ,glob ^7.1.4,glob ,istanbul 0.4.5,istanbul ,jquery ^3.4.1,jquery ,jscs ^3.0.7,jscs ,lodash 4.17.20,lodash ,lodash-doc-globals ^0.1.1,lodash-doc-globals ,markdown-doctest ^0.9.1,markdown-doctest ,optional-dev-dependency ^2.0.0,optional-dev-dependency ,platform ^1.3.3,platform ,qunit-extras ^3.0.0,qunit-extras ,qunitjs ^2.1.0,qunitjs ,request ^2.88.0,request ,requirejs ^2.3.6,requirejs ,sauce-tunnel ^2.5.0,sauce-tunnel ,uglify-js 2.7.5,uglify-js ,webpack ^1.14.0,webpack 
-[INFO] 2024-10-27T22:04:02.511Z - PULL REQUESTS
-[INFO] 2024-10-27T22:04:02.511Z - REVIEWED PULL REQUESTS: 1
-[INFO] 2024-10-27T22:04:02.512Z - UNREVIEWED PULL REQUESTS: 6
-[INFO] 2024-10-27T22:04:02.512Z - REVIEWED PULL REQUEST TITLE 1: chore: combine the if statements into one
-[INFO] 2024-10-27T22:04:02.513Z - UNREVIEWED PULL REQUEST TITLE 1: ci: make it work
-[INFO] 2024-10-27T22:04:02.513Z - UNREVIEWED PULL REQUEST TITLE 2: test: partially fix broken tests
-[INFO] 2024-10-27T22:04:02.513Z - UNREVIEWED PULL REQUEST TITLE 3: test: fix cannot find root
-[INFO] 2024-10-27T22:04:02.514Z - REVIEWED ADDITIONS: 2
-[INFO] 2024-10-27T22:04:02.514Z - UNREVIEWED ADDITIONS: 356
-[INFO] 2024-10-27T22:04:02.515Z - URL validation successful
-[INFO] 2024-10-27T22:04:02.516Z - Starting Analysis
-[INFO] 2024-10-27T22:04:02.516Z - Link is a GitHub URL
-[INFO] 2024-10-27T22:04:02.516Z - Fetching repository data...
-[INFO] 2024-10-27T22:04:02.517Z - -------------------------https://github.com/expressjs/express-------------------------
-[INFO] 2024-10-27T22:04:11.578Z - Parameters Found
-[INFO] 2024-10-27T22:04:11.579Z - Calculating metrics
-[INFO] 2024-10-27T22:04:11.579Z - PACKAGE2
-[INFO] 2024-10-27T22:04:11.580Z - DEPENDS accepts ^2.0.0,accepts ,body-parser ^2.0.1,body-parser ,content-disposition ^1.0.0,content-disposition ,content-type ~1.0.4,content-type ,cookie 0.7.1,cookie ,cookie-signature ^1.2.1,cookie-signature ,debug 4.3.6,debug ,depd 2.0.0,depd ,encodeurl ~2.0.0,encodeurl ,escape-html ~1.0.3,escape-html ,etag ~1.8.1,etag ,finalhandler ^2.0.0,finalhandler ,fresh 2.0.0,fresh ,http-errors 2.0.0,http-errors ,merge-descriptors ^2.0.0,merge-descriptors ,methods ~1.1.2,methods ,mime-types ^3.0.0,mime-types ,on-finished 2.4.1,on-finished ,once 1.4.0,once ,parseurl ~1.3.3,parseurl ,proxy-addr ~2.0.7,proxy-addr ,qs 6.13.0,qs ,range-parser ~1.2.1,range-parser ,router ^2.0.0,router ,send ^1.1.0,send ,serve-static ^2.1.0,serve-static ,statuses 2.0.1,statuses ,type-is ^2.0.0,type-is ,utils-merge 1.0.1,utils-merge ,vary ~1.1.2,vary ,after 0.8.2,after ,connect-redis 3.4.2,connect-redis ,cookie-parser 1.4.6,cookie-parser ,cookie-session 2.0.0,cookie-session ,ejs 3.1.9,ejs ,eslint 8.47.0,eslint ,express-session 1.17.2,express-session ,hbs 4.2.0,hbs ,marked 0.7.0,marked ,method-override 3.0.0,method-override ,mocha 10.2.0,mocha ,morgan 1.10.0,morgan ,nyc 15.1.0,nyc ,pbkdf2-password 1.2.1,pbkdf2-password ,supertest 6.3.0,supertest ,vhost ~3.0.2,vhost 
-[INFO] 2024-10-27T22:04:11.581Z - PULL REQUESTS
-[INFO] 2024-10-27T22:04:11.581Z - REVIEWED PULL REQUESTS: 23
-[INFO] 2024-10-27T22:04:11.581Z - UNREVIEWED PULL REQUESTS: 1
-[INFO] 2024-10-27T22:04:11.582Z - REVIEWED PULL REQUEST TITLE 1: Release: 4.20.0
-[INFO] 2024-10-27T22:04:11.582Z - REVIEWED PULL REQUEST TITLE 2: 🔧 update CI, remove unsupported versions, clean up
-[INFO] 2024-10-27T22:04:11.582Z - REVIEWED PULL REQUEST TITLE 3: Delete `back` as a magic string
-[INFO] 2024-10-27T22:04:11.583Z - UNREVIEWED PULL REQUEST TITLE 1: finalhandler@1.3.1
-[INFO] 2024-10-27T22:04:11.583Z - REVIEWED ADDITIONS: 271
-[INFO] 2024-10-27T22:04:11.584Z - UNREVIEWED ADDITIONS: 2
-[INFO] 2024-10-27T22:04:11.584Z - URL validation successful
-[INFO] 2024-10-27T22:04:11.585Z - Starting Analysis
-[INFO] 2024-10-27T22:04:11.585Z - Link is a GitHub URL
-[INFO] 2024-10-27T22:04:11.585Z - Fetching repository data...
-[INFO] 2024-10-27T22:04:11.586Z - -------------------------https://github.com/Samojo3303/461Project-------------------------
-[INFO] 2024-10-27T22:04:18.016Z - Parameters Found
-[INFO] 2024-10-27T22:04:18.017Z - Calculating metrics
-[INFO] 2024-10-27T22:04:18.017Z - PACKAGE
-[INFO] 2024-10-27T22:04:18.018Z - DEPENDS axios ^1.7.7,axios ,chai ^5.1.1,chai ,dotenv ^16.4.5,dotenv ,fs ^0.0.1-security,fs ,fs-extra ^11.2.0,fs-extra ,isomorphic-git ^1.27.1,isomorphic-git ,jq ^1.7.2,jq ,mocha ^10.7.3,mocha ,node-fetch ^3.3.2,node-fetch ,winston ^3.14.2,winston ,@eslint/js ^9.10.0,@eslint/js ,@types/dotenv ^6.1.1,@types/dotenv ,@types/eslint__js ^8.42.3,@types/eslint__js ,@types/jest ^29.5.13,@types/jest ,@types/node ^22.5.5,@types/node ,eslint ^9.10.0,eslint ,jest ^29.7.0,jest ,ts-jest ^29.2.5,ts-jest ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,typescript-eslint ^8.4.0,typescript-eslint 
-[INFO] 2024-10-27T22:04:18.018Z - PULL REQUESTS
-[INFO] 2024-10-27T22:04:18.019Z - REVIEWED PULL REQUESTS: 21
-[INFO] 2024-10-27T22:04:18.019Z - UNREVIEWED PULL REQUESTS: 10
-[INFO] 2024-10-27T22:04:18.020Z - REVIEWED PULL REQUEST TITLE 1: npm project setup
-[INFO] 2024-10-27T22:04:18.020Z - REVIEWED PULL REQUEST TITLE 2: Added requirements file and tsconfig file
-[INFO] 2024-10-27T22:04:18.020Z - REVIEWED PULL REQUEST TITLE 3: Getting the requirements
-[INFO] 2024-10-27T22:04:18.021Z - UNREVIEWED PULL REQUEST TITLE 1: README Update Sam - Pull Request
-[INFO] 2024-10-27T22:04:18.021Z - UNREVIEWED PULL REQUEST TITLE 2: README Sam Update
-[INFO] 2024-10-27T22:04:18.021Z - UNREVIEWED PULL REQUEST TITLE 3: Change by Doha to close issue
-[INFO] 2024-10-27T22:04:18.022Z - REVIEWED ADDITIONS: 2282380
-[INFO] 2024-10-27T22:04:18.022Z - UNREVIEWED ADDITIONS: 154555
-[INFO] 2024-10-27T22:04:18.023Z - All analyses complete
-[INFO] 2024-11-11T02:33:04.436Z - URL validation successful
-[INFO] 2024-11-11T02:33:04.437Z - Starting Analysis
-[INFO] 2024-11-11T02:33:04.437Z - Link is a GitHub URL
-[INFO] 2024-11-11T02:33:04.438Z - Fetching repository data...
-[INFO] 2024-11-11T02:33:04.439Z - -------------------------https://github.com/smit4450/module_registry-------------------------
-[INFO] 2024-11-11T02:33:08.962Z - Parameters Found
-[INFO] 2024-11-11T02:33:08.963Z - Calculating metrics
-[INFO] 2024-11-11T02:33:08.964Z - PACKAGE
-[INFO] 2024-11-11T02:33:08.965Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
-[INFO] 2024-11-11T02:33:08.966Z - PULL REQUESTS
-[INFO] 2024-11-11T02:33:08.966Z - REVIEWED PULL REQUESTS: 9
-[INFO] 2024-11-11T02:33:08.967Z - UNREVIEWED PULL REQUESTS: 5
-[INFO] 2024-11-11T02:33:08.967Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
-[INFO] 2024-11-11T02:33:08.967Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
-[INFO] 2024-11-11T02:33:08.968Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
-[INFO] 2024-11-11T02:33:08.968Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
-[INFO] 2024-11-11T02:33:08.968Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
-[INFO] 2024-11-11T02:33:08.969Z - UNREVIEWED PULL REQUEST TITLE 3: test
-[INFO] 2024-11-11T02:33:08.969Z - REVIEWED ADDITIONS: 2156
-[INFO] 2024-11-11T02:33:08.970Z - UNREVIEWED ADDITIONS: 3
-[INFO] 2024-11-11T02:33:37.351Z - URL validation successful
-[INFO] 2024-11-11T02:33:37.352Z - Starting Analysis
-[INFO] 2024-11-11T02:33:37.353Z - Link is a GitHub URL
-[INFO] 2024-11-11T02:33:37.353Z - Fetching repository data...
-[INFO] 2024-11-11T02:33:37.354Z - -------------------------https://github.com/smit4450/module_registry-------------------------
-[INFO] 2024-11-11T02:33:40.977Z - Parameters Found
-[INFO] 2024-11-11T02:33:40.978Z - Calculating metrics
-[INFO] 2024-11-11T02:33:40.979Z - PACKAGE
-[INFO] 2024-11-11T02:33:40.980Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
-[INFO] 2024-11-11T02:33:40.980Z - PULL REQUESTS
-[INFO] 2024-11-11T02:33:40.981Z - REVIEWED PULL REQUESTS: 9
-[INFO] 2024-11-11T02:33:40.981Z - UNREVIEWED PULL REQUESTS: 5
-[INFO] 2024-11-11T02:33:40.982Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
-[INFO] 2024-11-11T02:33:40.982Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
-[INFO] 2024-11-11T02:33:40.983Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
-[INFO] 2024-11-11T02:33:40.983Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
-[INFO] 2024-11-11T02:33:40.983Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
-[INFO] 2024-11-11T02:33:40.984Z - UNREVIEWED PULL REQUEST TITLE 3: test
-[INFO] 2024-11-11T02:33:40.984Z - REVIEWED ADDITIONS: 2156
-[INFO] 2024-11-11T02:33:40.985Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-11-13T18:55:12.833Z - DEPENDS 
+[INFO] 2024-11-13T18:56:13.918Z - FILENAME module_registry-main/.DS_Store
+[INFO] 2024-11-13T18:56:13.919Z - FILENAME module_registry-main/.babelrc
+[INFO] 2024-11-13T18:56:13.919Z - FILENAME module_registry-main/.github/workflows/deploy.yml
+[INFO] 2024-11-13T18:56:13.919Z - FILENAME module_registry-main/.github/workflows/node.js.yml
+[INFO] 2024-11-13T18:56:13.920Z - FILENAME module_registry-main/.gitignore
+[INFO] 2024-11-13T18:56:13.920Z - FILENAME module_registry-main/README.md
+[INFO] 2024-11-13T18:56:13.921Z - FILENAME module_registry-main/dist/bundle.js
+[INFO] 2024-11-13T18:56:13.921Z - FILENAME module_registry-main/dist/index.html
+[INFO] 2024-11-13T18:56:13.921Z - FILENAME module_registry-main/log.log
+[INFO] 2024-11-13T18:56:13.922Z - FILENAME module_registry-main/package-lock.json
+[INFO] 2024-11-13T18:56:13.922Z - FILENAME module_registry-main/package.json
+[INFO] 2024-11-13T18:56:13.923Z - FILENAME module_registry-main/run
+[INFO] 2024-11-13T18:56:13.923Z - FILENAME module_registry-main/src/.DS_Store
+[INFO] 2024-11-13T18:56:13.924Z - FILENAME module_registry-main/src/01.most-dependent-upon.md.txt
+[INFO] 2024-11-13T18:56:13.924Z - FILENAME module_registry-main/src/GlobalStyles.css
+[INFO] 2024-11-13T18:56:13.924Z - FILENAME module_registry-main/src/api_handler/.DS_Store
+[INFO] 2024-11-13T18:56:13.925Z - FILENAME module_registry-main/src/api_handler/graphql_handler/analyzer_graphql.ts
+[INFO] 2024-11-13T18:56:13.925Z - FILENAME module_registry-main/src/app.js
+[INFO] 2024-11-13T18:56:13.925Z - FILENAME module_registry-main/src/components/CheckRating.js
+[INFO] 2024-11-13T18:56:13.926Z - FILENAME module_registry-main/src/components/CheckSize.js
+[INFO] 2024-11-13T18:56:13.926Z - FILENAME module_registry-main/src/components/CheckVersions.js
+[INFO] 2024-11-13T18:56:13.927Z - FILENAME module_registry-main/src/components/DatabaseSearch.js
+[INFO] 2024-11-13T18:56:13.927Z - FILENAME module_registry-main/src/components/Directory.js
+[INFO] 2024-11-13T18:56:13.927Z - FILENAME module_registry-main/src/components/DownloadZip.js
+[INFO] 2024-11-13T18:56:13.928Z - FILENAME module_registry-main/src/components/FetchDirectory.js
+[INFO] 2024-11-13T18:56:13.928Z - FILENAME module_registry-main/src/components/GetPackageScore.js
+[INFO] 2024-11-13T18:56:13.928Z - FILENAME module_registry-main/src/components/Home.js
+[INFO] 2024-11-13T18:56:13.929Z - FILENAME module_registry-main/src/components/LoginSignup.js
+[INFO] 2024-11-13T18:56:13.929Z - FILENAME module_registry-main/src/components/NotFound.js
+[INFO] 2024-11-13T18:56:13.930Z - FILENAME module_registry-main/src/components/NpmIngestion.js
+[INFO] 2024-11-13T18:56:13.930Z - FILENAME module_registry-main/src/components/RegexSearch.js
+[INFO] 2024-11-13T18:56:13.930Z - FILENAME module_registry-main/src/components/UpdatePackage.js
+[INFO] 2024-11-13T18:56:13.931Z - FILENAME module_registry-main/src/components/UploadPackage.js
+[INFO] 2024-11-13T18:56:13.931Z - FILENAME module_registry-main/src/global.css
+[INFO] 2024-11-13T18:56:13.931Z - FILENAME module_registry-main/src/index.js
+[INFO] 2024-11-13T18:56:13.932Z - FILENAME module_registry-main/src/index.ts
+[INFO] 2024-11-13T18:56:13.932Z - FILENAME module_registry-main/src/logger.ts
+[INFO] 2024-11-13T18:56:13.932Z - FILENAME module_registry-main/src/metrics/interfaces.ts
+[INFO] 2024-11-13T18:56:13.933Z - FILENAME module_registry-main/src/metrics/metrics.ts
+[INFO] 2024-11-13T18:56:13.933Z - FILENAME module_registry-main/src/metrics/validation.ts
+[INFO] 2024-11-13T18:56:13.933Z - FILENAME module_registry-main/tconfig.json
+[INFO] 2024-11-13T18:56:13.934Z - FILENAME module_registry-main/tsconfig.json
+[INFO] 2024-11-13T18:56:13.934Z - FILENAME module_registry-main/urls.txt
+[INFO] 2024-11-13T18:56:13.934Z - FILENAME module_registry-main/webpack.config.js
+[INFO] 2024-11-13T18:56:13.935Z - DEPENDS 
+[INFO] 2024-11-13T18:57:57.017Z - DEPENDS 
+[INFO] 2024-11-13T19:00:15.816Z - DEPENDS 
+[INFO] 2024-11-13T19:00:36.286Z - FILENAME module_registry-main/.DS_Store
+[INFO] 2024-11-13T19:00:36.286Z - FILENAME module_registry-main/.babelrc
+[INFO] 2024-11-13T19:00:36.287Z - FILENAME module_registry-main/.gitignore
+[INFO] 2024-11-13T19:00:36.287Z - FILENAME module_registry-main/README.md
+[INFO] 2024-11-13T19:00:36.288Z - FILENAME module_registry-main/log.log
+[INFO] 2024-11-13T19:00:36.288Z - FILENAME module_registry-main/package-lock.json
+[INFO] 2024-11-13T19:00:36.289Z - FILENAME module_registry-main/package.json
+[INFO] 2024-11-13T19:00:36.290Z - FILENAME module_registry-main/run
+[INFO] 2024-11-13T19:00:36.291Z - FILENAME module_registry-main/tconfig.json
+[INFO] 2024-11-13T19:00:36.292Z - FILENAME module_registry-main/tsconfig.json
+[INFO] 2024-11-13T19:00:36.292Z - FILENAME module_registry-main/urls.txt
+[INFO] 2024-11-13T19:00:36.292Z - FILENAME module_registry-main/webpack.config.js
+[INFO] 2024-11-13T19:00:36.293Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-11-13T19:20:51.172Z - FILENAME module_registry-main/.DS_Store
+[INFO] 2024-11-13T19:20:51.174Z - FILENAME module_registry-main/.babelrc
+[INFO] 2024-11-13T19:20:51.174Z - FILENAME module_registry-main/.gitignore
+[INFO] 2024-11-13T19:20:51.174Z - FILENAME module_registry-main/README.md
+[INFO] 2024-11-13T19:20:51.175Z - FILENAME module_registry-main/log.log
+[INFO] 2024-11-13T19:20:51.175Z - FILENAME module_registry-main/package-lock.json
+[INFO] 2024-11-13T19:20:51.176Z - FILENAME module_registry-main/package.json
+[INFO] 2024-11-13T19:20:51.177Z - FILENAME module_registry-main/run
+[INFO] 2024-11-13T19:20:51.178Z - FILENAME module_registry-main/tconfig.json
+[INFO] 2024-11-13T19:20:51.179Z - FILENAME module_registry-main/tsconfig.json
+[INFO] 2024-11-13T19:20:51.179Z - FILENAME module_registry-main/urls.txt
+[INFO] 2024-11-13T19:20:51.179Z - FILENAME module_registry-main/webpack.config.js
+[INFO] 2024-11-13T19:20:51.180Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-11-13T19:20:51.182Z - License - Reading license from README.md
+[INFO] 2024-11-13T19:20:51.183Z - License - Extracting license from README.md
+[INFO] 2024-11-13T19:22:37.711Z - URL validation successful
+[INFO] 2024-11-13T19:22:37.712Z - Starting Analysis
+[INFO] 2024-11-13T19:22:37.712Z - Link is a GitHub URL
+[INFO] 2024-11-13T19:22:37.713Z - Fetching repository data...
+[INFO] 2024-11-13T19:22:37.714Z - -------------------------https://github.com/lodash/lodash-------------------------
+[CRITICAL] 2024-11-13T19:22:48.145Z - Error calling fetchRepo: Repository data info not found.
+[INFO] 2024-11-13T19:23:34.764Z - URL validation successful
+[INFO] 2024-11-13T19:23:34.765Z - Starting Analysis
+[INFO] 2024-11-13T19:23:34.765Z - Link is a GitHub URL
+[INFO] 2024-11-13T19:23:34.766Z - Fetching repository data...
+[INFO] 2024-11-13T19:23:34.766Z - -------------------------https://github.com/lodash/lodash-------------------------
+[CRITICAL] 2024-11-13T19:23:45.153Z - Error calling fetchRepo: Repository data info not found.
+[INFO] 2024-11-13T19:24:03.991Z - URL validation successful
+[INFO] 2024-11-13T19:24:03.992Z - Starting Analysis
+[INFO] 2024-11-13T19:24:03.992Z - Link is an NPM URL
+[INFO] 2024-11-13T19:24:04.138Z - Fetching repository data...
+[INFO] 2024-11-13T19:24:04.138Z - -------------------------https://github.com/lodash/lodash-------------------------
+[CRITICAL] 2024-11-13T19:24:14.500Z - Error calling fetchRepo: Repository data info not found.
+[INFO] 2024-11-13T19:25:13.553Z - URL validation successful
+[INFO] 2024-11-13T19:25:13.554Z - Starting Analysis
+[INFO] 2024-11-13T19:25:13.555Z - Link is an NPM URL
+[INFO] 2024-11-13T19:25:13.658Z - Fetching repository data...
+[INFO] 2024-11-13T19:25:13.659Z - -------------------------https://github.com/lodash/lodash-------------------------
+[CRITICAL] 2024-11-13T19:25:24.045Z - Error calling fetchRepo: Repository data info not found.
+[INFO] 2024-11-13T19:25:37.491Z - URL validation successful
+[INFO] 2024-11-13T19:25:37.492Z - Starting Analysis
+[INFO] 2024-11-13T19:25:37.492Z - Link is an NPM URL
+[INFO] 2024-11-13T19:25:37.597Z - Fetching repository data...
+[INFO] 2024-11-13T19:25:37.597Z - -------------------------https://github.com/lodash/lodash-------------------------
+[CRITICAL] 2024-11-13T19:25:48.070Z - Error calling fetchRepo: Repository data info not found.
+[INFO] 2024-11-13T19:27:01.304Z - URL validation successful
+[INFO] 2024-11-13T19:27:01.305Z - Starting Analysis
+[INFO] 2024-11-13T19:27:01.305Z - Link is a GitHub URL
+[INFO] 2024-11-13T19:27:01.306Z - Fetching repository data...
+[INFO] 2024-11-13T19:27:01.307Z - -------------------------https://github.com/expressjs/express-------------------------
+[CRITICAL] 2024-11-13T19:27:11.760Z - Error calling fetchRepo: Repository data info not found.
+[INFO] 2024-11-13T19:29:49.075Z - URL validation successful
+[INFO] 2024-11-13T19:29:49.077Z - Starting Analysis
+[INFO] 2024-11-13T19:29:49.078Z - Link is an NPM URL
+[INFO] 2024-11-13T19:29:49.229Z - Fetching repository data...
+[INFO] 2024-11-13T19:29:49.230Z - -------------------------https://github.com/lodash/lodash-------------------------
+[INFO] 2024-11-13T19:29:57.202Z - Parameters Found
+[INFO] 2024-11-13T19:29:57.202Z - Calculating metrics
+[INFO] 2024-11-13T19:29:57.204Z - PACKAGE
+[INFO] 2024-11-13T19:29:57.205Z - DEPENDS async ^2.6.3,async ,benchmark ^2.1.3,benchmark ,chalk ^1.1.3,chalk ,cheerio ^0.22.0,cheerio ,codecov.io ~0.1.6,codecov.io ,coveralls ^2.11.15,coveralls ,curl-amd ~0.8.12,curl-amd ,docdown ~0.7.2,docdown ,dojo ^1.15.0,dojo ,ecstatic ^2.2.2,ecstatic ,fs-extra ~1.0.0,fs-extra ,glob ^7.1.4,glob ,istanbul 0.4.5,istanbul ,jquery ^3.4.1,jquery ,jscs ^3.0.7,jscs ,lodash 4.17.20,lodash ,lodash-doc-globals ^0.1.1,lodash-doc-globals ,markdown-doctest ^0.9.1,markdown-doctest ,optional-dev-dependency ^2.0.0,optional-dev-dependency ,platform ^1.3.3,platform ,qunit-extras ^3.0.0,qunit-extras ,qunitjs ^2.1.0,qunitjs ,request ^2.88.0,request ,requirejs ^2.3.6,requirejs ,sauce-tunnel ^2.5.0,sauce-tunnel ,uglify-js 2.7.5,uglify-js ,webpack ^1.14.0,webpack 
+[INFO] 2024-11-13T19:29:57.206Z - PULL REQUESTS
+[INFO] 2024-11-13T19:29:57.206Z - REVIEWED PULL REQUESTS: 1
+[INFO] 2024-11-13T19:29:57.207Z - UNREVIEWED PULL REQUESTS: 6
+[INFO] 2024-11-13T19:29:57.207Z - REVIEWED PULL REQUEST TITLE 1: chore: combine the if statements into one
+[INFO] 2024-11-13T19:29:57.207Z - UNREVIEWED PULL REQUEST TITLE 1: ci: make it work
+[INFO] 2024-11-13T19:29:57.208Z - UNREVIEWED PULL REQUEST TITLE 2: test: partially fix broken tests
+[INFO] 2024-11-13T19:29:57.208Z - UNREVIEWED PULL REQUEST TITLE 3: test: fix cannot find root
+[INFO] 2024-11-13T19:29:57.209Z - REVIEWED ADDITIONS: 2
+[INFO] 2024-11-13T19:29:57.209Z - UNREVIEWED ADDITIONS: 356
+[INFO] 2024-11-13T19:30:32.306Z - FILENAME lodash-main/.editorconfig
+[INFO] 2024-11-13T19:30:32.307Z - FILENAME lodash-main/.gitattributes
+[INFO] 2024-11-13T19:30:32.308Z - FILENAME lodash-main/.gitignore
+[INFO] 2024-11-13T19:30:32.309Z - FILENAME lodash-main/.jscsrc
+[INFO] 2024-11-13T19:30:32.309Z - FILENAME lodash-main/.markdown-doctest-setup.js
+[INFO] 2024-11-13T19:30:32.309Z - FILENAME lodash-main/.travis.yml
+[INFO] 2024-11-13T19:30:32.310Z - FILENAME lodash-main/CHANGELOG
+[INFO] 2024-11-13T19:30:32.310Z - FILENAME lodash-main/LICENSE
+[INFO] 2024-11-13T19:30:32.311Z - FILENAME lodash-main/README.md
+[INFO] 2024-11-13T19:30:32.311Z - FILENAME lodash-main/lodash.js
+[INFO] 2024-11-13T19:30:32.312Z - FILENAME lodash-main/package-lock.json
+[INFO] 2024-11-13T19:30:32.312Z - FILENAME lodash-main/package.json
+[INFO] 2024-11-13T19:30:32.315Z - FILENAME lodash-main/yarn.lock
+[INFO] 2024-11-13T19:30:32.315Z - DEPENDS async ^2.6.3,async ,benchmark ^2.1.3,benchmark ,chalk ^1.1.3,chalk ,cheerio ^0.22.0,cheerio ,codecov.io ~0.1.6,codecov.io ,coveralls ^2.11.15,coveralls ,curl-amd ~0.8.12,curl-amd ,docdown ~0.7.2,docdown ,dojo ^1.15.0,dojo ,ecstatic ^2.2.2,ecstatic ,fs-extra ~1.0.0,fs-extra ,glob ^7.1.4,glob ,istanbul 0.4.5,istanbul ,jquery ^3.4.1,jquery ,jscs ^3.0.7,jscs ,lodash 4.17.20,lodash ,lodash-doc-globals ^0.1.1,lodash-doc-globals ,markdown-doctest ^0.9.1,markdown-doctest ,optional-dev-dependency ^2.0.0,optional-dev-dependency ,platform ^1.3.3,platform ,qunit-extras ^3.0.0,qunit-extras ,qunitjs ^2.1.0,qunitjs ,request ^2.88.0,request ,requirejs ^2.3.6,requirejs ,sauce-tunnel ^2.5.0,sauce-tunnel ,uglify-js 2.7.5,uglify-js ,webpack ^1.14.0,webpack 
+[INFO] 2024-11-13T19:30:32.323Z - License - Reading license from LICENSE file
+[INFO] 2024-11-13T19:30:32.323Z - License - License is compatible with LGPLv2.1

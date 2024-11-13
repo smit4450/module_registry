@@ -68,7 +68,8 @@ export async function main() {
     }
     else if(mode == "npm ingestion") {
         const url = await promptUser("Enter url: ");
-        console.log(await checkRating_url(url));
+        const rating = await checkRating_url(url);
+        console.log(rating);
         //npmIngestion();
     }
     else if(mode == "regex search") {
@@ -77,9 +78,11 @@ export async function main() {
     }
     else if(mode == "upload") {
         const filePath = await promptUser("Enter file path: ");
-        const packageName = await promptUser("Enter package name: ");
-        const packageVersion = await promptUser("Enter package version: ");
-        upload(filePath, packageName, packageVersion);
+        //const packageName = await promptUser("Enter package name: ");
+        //const packageVersion = await promptUser("Enter package version: ");
+        const rating = await checkRating(filePath);
+        console.log(rating);
+        //upload(filePath, packageName, packageVersion);
     }
 }
 
