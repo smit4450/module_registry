@@ -29,9 +29,15 @@ const promptUser = (query: string): Promise<string> => {
   }));
 };
 
+// Function to calculate the size of a file
+const calculateSize = (filePath: string): number => {
+  const stats = fs.statSync(filePath);
+  return stats.size; // Size in bytes
+};
+
 export const uploadPackage = async (filePath: string, packageName: string, packageVersion: string) => {
   try {
-
+    const packageSize = calculateSize(filePath);
     const fileStream = fs.createReadStream(filePath);
     const packageId = path.basename(filePath, path.extname(filePath));
     const s3BucketName = process.env.S3_BUCKET_NAME; // Ensure your bucket name is set in your .env
@@ -50,10 +56,11 @@ export const uploadPackage = async (filePath: string, packageName: string, packa
     const dbParams = {
       TableName: 'Packages',
       Item: {
-        package_id: packageId, // Unique ID derived from the file name
-        name: packageName,      // User-provided package name
-        version: packageVersion, // User-provided version
-        s3_key: s3Key,          // Reference to the S3 file location
+        package_id: packageId,    // Unique ID derived from the file name
+        name: packageName,        // User-provided package name
+        version: packageVersion,  // User-provided version label
+        s3_key: s3Key,            // Reference to the S3 file location
+        size: packageSize         // Package size in bytes
       },
     };
 

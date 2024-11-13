@@ -202,3 +202,6 @@
 [INFO] 2024-11-13T20:02:19.032Z - REVIEWED PULL REQUEST TITLE 3: Add funding field (v4)
 [INFO] 2024-11-13T20:02:19.033Z - REVIEWED ADDITIONS: 39
 [INFO] 2024-11-13T20:02:19.033Z - UNREVIEWED ADDITIONS: 0
+[INFO] 2024-11-13T20:05:03.084Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-11-13T20:05:03.089Z - License - Reading license from README.md
+[INFO] 2024-11-13T20:05:03.090Z - License - Extracting license from README.md
