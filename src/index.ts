@@ -1,6 +1,6 @@
 import { checkRating_url } from './checkRating_url';
 import { checkRating } from './checkRating';
-//import { sizeCost } from './sizeCost';
+//import { getPackageSizeFromS3 } from './dynamodb_operations/sizeCost';
 import { retrieveVersions } from "./dynamodb_operations/retrieveVersions";
 import { debloat } from './debloat';
 import { deletePackage } from "./dynamodb_operations/deletePackage";
@@ -41,7 +41,7 @@ export async function main() {
         console.log("Not imlpemented yet");
     }
     else if(mode == "check size") {
-        //checkSize();
+        //getPackageSizeFromS3()
         console.log("Not imlpemented yet");
     }
     else if(mode == "check versions") {
