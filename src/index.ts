@@ -1,14 +1,14 @@
 import { checkRating_url } from './checkRating_url';
 import { checkRating } from './checkRating';
-import { checkSize } from './checkSize';
-import { checkVersions } from './checkVersions';
+//import { sizeCost } from './sizeCost';
+import { retrieveVersions } from "./dynamodb_operations/retrieveVersions";
 import { debloat } from './debloat';
-import { deletePackageByName } from './delete';
-import { download } from './download';
-import { fetchDirectory } from './fetchDirectory';
-import { npmIngestion } from './npmIngestion';
-import { regexSearch } from './regexSearch';
-import { upload } from './upload';
+import { deletePackage } from "./dynamodb_operations/deletePackage";
+import { downloadPackage } from "./dynamodb_operations/downloadPackage";
+import { listPackages } from "./dynamodb_operations/listPackages";
+import { npmIngestion } from './dynamodb_operations/npmIngestion';
+//import { regexSearch } from './regexSearch';
+import { uploadPackage } from "./dynamodb_operations/uploadPackage";
 import readline from "readline";
 
 const promptUser = (query: string): Promise<string> => {
@@ -46,7 +46,7 @@ export async function main() {
     }
     else if(mode == "check versions") {
         const packageName = await promptUser("Enter package name: ");
-        const versions = await checkVersions(packageName);
+        const versions = await retrieveVersions(packageName);
         console.log(versions);
     }
     else if(mode == "debloat") {
@@ -56,21 +56,24 @@ export async function main() {
     else if(mode == "delete") {
         const packageName = await promptUser("Enter package name: ");
         const packageVersion = await promptUser("Enter package version: ");
-        deletePackageByName(packageName, packageVersion);
+        deletePackage(packageName, packageVersion);
     }
     else if(mode == "download") {
         const filePath = await promptUser("Enter file path: ");
         const packageName = await promptUser("Enter package name: ");
-        download(filePath, packageName);
+        downloadPackage(filePath, packageName);
     }
     else if(mode == "fetch directory") {
-        const directory = fetchDirectory();
+        const directory = listPackages();
+        console.log(directory);
     }
     else if(mode == "npm ingestion") {
         const url = await promptUser("Enter url: ");
+        const packageName = await promptUser("Enter package name: ");
+        const packageVersion = await promptUser("Enter package version: ");
         const rating = await checkRating_url(url);
         console.log(rating);
-        //npmIngestion();
+        npmIngestion(url, packageName, packageVersion);
     }
     else if(mode == "regex search") {
         //regexSearch();
@@ -78,11 +81,11 @@ export async function main() {
     }
     else if(mode == "upload") {
         const filePath = await promptUser("Enter file path: ");
-        //const packageName = await promptUser("Enter package name: ");
-        //const packageVersion = await promptUser("Enter package version: ");
+        const packageName = await promptUser("Enter package name: ");
+        const packageVersion = await promptUser("Enter package version: ");
         const rating = await checkRating(filePath);
         console.log(rating);
-        //upload(filePath, packageName, packageVersion);
+        uploadPackage(filePath, packageName, packageVersion);
     }
 }
 
