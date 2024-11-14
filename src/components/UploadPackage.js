@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { uploadPackage, debloatPackage } from '../api_services/packageService';
 
 function UploadPackage() {
   const location = useLocation();
@@ -18,12 +19,7 @@ function UploadPackage() {
     setSuccess(null);
 
     try {
-      const response = await fetch(`${url}/upload`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: packageName, input: packageInput, version: packageVersion }),
-      });
-      if (!response.ok) throw new Error('Failed to upload package');
+      await uploadPackage({ name: packageName, input: packageInput, version: packageVersion });
       setSuccess('Package uploaded successfully');
     } catch (err) {
       setError(err.message);
@@ -38,12 +34,7 @@ function UploadPackage() {
     setSuccess(null);
 
     try {
-      const response = await fetch(`${url}/debloat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: packageName, input: packageInput, version: packageVersion }),
-      });
-      if (!response.ok) throw new Error('Failed to debloat package');
+      await debloatPackage({ name: packageName, input: packageInput, version: packageVersion });
       setSuccess('Package debloated successfully');
     } catch (err) {
       setError(err.message);

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { ingestNpmPackage } from '../api_services/packageService';
 
 function NpmIngestion() {
-  const location = useLocation();
-  const url = location.state?.url || '';
   const [packageVersion, setPackageVersion] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -16,12 +14,7 @@ function NpmIngestion() {
     setSuccess(null);
 
     try {
-      const response = await fetch(`${url}/ingest`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ version: packageVersion }),
-      });
-      if (!response.ok) throw new Error('Failed to ingest package');
+      await ingestNpmPackage(packageVersion);
       setSuccess('Package ingested successfully');
     } catch (err) {
       setError(err.message);
@@ -34,8 +27,6 @@ function NpmIngestion() {
     <div className="container">
       <h2>npm Ingestion</h2>
       <form onSubmit={handleSubmit}>
-        <label>Package URL: </label>
-        <input type="text" value={url} disabled />
         <label>Package Version: </label>
         <input
           type="text"

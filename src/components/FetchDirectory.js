@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { fetchEntireDirectory } from '../api_services/packageService';
 
 function FetchDirectory() {
-  const location = useLocation();
-  const url = location.state?.url || '';
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -14,9 +12,7 @@ function FetchDirectory() {
       setError(null);
 
       try {
-        const response = await fetch(`${url}/fetch-directory`);
-        if (!response.ok) throw new Error('Failed to fetch package directory');
-        const data = await response.json();
+        const data = await fetchEntireDirectory();
         setPackages(data.packages);
       } catch (err) {
         setError(err.message);
@@ -26,7 +22,7 @@ function FetchDirectory() {
     };
 
     fetchPackages();
-  }, [url]);
+  }, []);
 
   return (
     <div className="container">

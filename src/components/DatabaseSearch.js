@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { searchPackages } from '../api_services/packageService';
 
 function DatabaseSearch() {
-  const location = useLocation();
-  const url = location.state?.url || '';
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,9 +13,7 @@ function DatabaseSearch() {
     setError(null);
 
     try {
-      const response = await fetch(`${url}/search?term=${encodeURIComponent(searchTerm)}`);
-      if (!response.ok) throw new Error('Failed to fetch search results');
-      const data = await response.json();
+      const data = await searchPackages(searchTerm);
       setResults(data);
     } catch (err) {
       setError(err.message);
@@ -30,8 +26,6 @@ function DatabaseSearch() {
     <div className="container">
       <h2>Search Package Database</h2>
       <form onSubmit={handleSearch}>
-        <label>Package URL: </label>
-        <input type="text" value={url} disabled />
         <label>Search: </label>
         <input
           type="text"

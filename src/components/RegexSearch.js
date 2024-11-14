@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { searchByRegex } from '../api_services/packageService';
 
 function RegexSearch() {
-  const location = useLocation();
-  const url = location.state?.url || '';
   const [queryText, setQueryText] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,13 +14,7 @@ function RegexSearch() {
     setResults([]);
 
     try {
-      const response = await fetch(`${url}/regex-search`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: queryText }),
-      });
-      if (!response.ok) throw new Error('Failed to fetch search results');
-      const data = await response.json();
+      const data = await searchByRegex(queryText);
       setResults(data.results);
     } catch (err) {
       setError(err.message);
@@ -35,8 +27,6 @@ function RegexSearch() {
     <div className="container">
       <h2>Regex Search</h2>
       <form onSubmit={handleSearch}>
-        <label>Package URL: </label>
-        <input type="text" value={url} disabled />
         <label>Query Text: </label>
         <input
           type="text"
@@ -50,7 +40,7 @@ function RegexSearch() {
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <ul>
         {results.map((result, index) => (
-          <li key={index}>{result}</li>
+          <li key={index}>{result.name}</li>
         ))}
       </ul>
     </div>
