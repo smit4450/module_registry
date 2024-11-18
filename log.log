@@ -205,3 +205,44 @@
 [INFO] 2024-11-13T20:05:03.084Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
 [INFO] 2024-11-13T20:05:03.089Z - License - Reading license from README.md
 [INFO] 2024-11-13T20:05:03.090Z - License - Extracting license from README.md
+[INFO] 2024-11-18T02:06:10.424Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-11-18T02:06:10.436Z - License - Reading license from README.md
+[INFO] 2024-11-18T02:06:10.437Z - License - Extracting license from README.md
+[INFO] 2024-11-18T02:07:03.470Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-11-18T02:07:03.473Z - License - Reading license from README.md
+[INFO] 2024-11-18T02:07:03.475Z - License - Extracting license from README.md
+[INFO] 2024-11-18T02:08:55.805Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-11-18T02:08:55.808Z - License - Reading license from README.md
+[INFO] 2024-11-18T02:08:55.809Z - License - Extracting license from README.md
+[INFO] 2024-11-18T02:09:49.607Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-11-18T02:09:49.611Z - License - Reading license from README.md
+[INFO] 2024-11-18T02:09:49.612Z - License - Extracting license from README.md
+[INFO] 2024-11-18T02:11:52.680Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-11-18T02:11:52.682Z - License - Reading license from README.md
+[INFO] 2024-11-18T02:11:52.683Z - License - Extracting license from README.md
+[INFO] 2024-11-18T02:12:45.183Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-11-18T02:12:45.186Z - License - Reading license from README.md
+[INFO] 2024-11-18T02:12:45.187Z - License - Extracting license from README.md
+[INFO] 2024-11-18T02:13:42.195Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-11-18T02:13:42.198Z - License - Reading license from README.md
+[INFO] 2024-11-18T02:13:42.199Z - License - Extracting license from README.md
+[INFO] 2024-11-18T02:16:00.212Z - URL validation successful
+[INFO] 2024-11-18T02:16:00.213Z - Starting Analysis
+[INFO] 2024-11-18T02:16:00.214Z - Link is a GitHub URL
+[INFO] 2024-11-18T02:16:00.214Z - Fetching repository data...
+[INFO] 2024-11-18T02:16:00.215Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-11-18T02:16:03.894Z - Parameters Found
+[INFO] 2024-11-18T02:16:03.894Z - Calculating metrics
+[INFO] 2024-11-18T02:16:03.895Z - PACKAGE
+[INFO] 2024-11-18T02:16:03.896Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-11-18T02:16:03.897Z - PULL REQUESTS
+[INFO] 2024-11-18T02:16:03.897Z - REVIEWED PULL REQUESTS: 9
+[INFO] 2024-11-18T02:16:03.898Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-11-18T02:16:03.898Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-11-18T02:16:03.899Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-11-18T02:16:03.899Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-11-18T02:16:03.899Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-11-18T02:16:03.900Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-11-18T02:16:03.901Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-11-18T02:16:03.901Z - REVIEWED ADDITIONS: 2156
+[INFO] 2024-11-18T02:16:03.901Z - UNREVIEWED ADDITIONS: 3
