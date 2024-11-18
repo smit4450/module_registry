@@ -17,6 +17,7 @@
     "run-retrieve-versions": "node dist/dynamodb_operations/retrieveVersions.js",
     "run-regex-search": "ts-node src/dynamodb_operations/regexSearch.ts",
     "run-calculate-size": "ts-node src/dynamodb_operations/calculateSizeCost.ts",
+    "run-check-rating": "ts-node src/dynamodb_operations/checkRating.ts",
     "path": "node dist/api_handler/npm_handler/analyzer_npm.js",
     "path2": "node dist/metrics/validation.js",
     "test": "npm run build && npm run path2"
@@ -27,19 +28,20 @@
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.682.0",
-    "@aws-sdk/client-s3": "^3.685.0",
+    "@aws-sdk/client-s3": "^3.691.0",
     "@aws-sdk/lib-dynamodb": "^3.682.0",
     "aws-sdk": "^2.1691.0",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "node-fetch": "^2.7.0",
-    "tar": "^7.4.3"
+    "tar": "^7.4.3",
+    "unzipper": "^0.12.3"
   },
   "devDependencies": {
     "@types/aws-sdk": "^0.0.42",
     "@types/jest": "^29.5.14",
     "@types/minimist": "^1.2.5",
-    "@types/node": "^18.19.50",
+    "@types/node": "^18.19.64",
     "@types/node-fetch": "^2.6.11",
     "@types/tar": "^6.1.13",
     "jest": "^29.7.0",

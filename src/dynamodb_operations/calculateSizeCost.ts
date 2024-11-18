@@ -1,19 +1,13 @@
-import { S3Client, HeadObjectCommand } from '@aws-sdk/client-s3';
-import dotenv from 'dotenv';
+import fs from 'fs';
+import path from 'path';
 import readline from 'readline';
+import * as tar from 'tar';
+import { execSync } from 'child_process';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Set up AWS S3 client
-const s3 = new S3Client({
-  region: process.env.AWS_REGION,
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-  },
-});
-
-// Prompt utility to get S3 key from the user
+// Prompt utility
 const promptUser = (query: string): Promise<string> => {
   const rl = readline.createInterface({
     input: process.stdin,
@@ -25,33 +19,77 @@ const promptUser = (query: string): Promise<string> => {
   }));
 };
 
-// Function to retrieve the size of a file in S3 based on the S3 key
-const getPackageSizeFromS3 = async (s3Key: string): Promise<number | null> => {
+// Function to download the latest npm package
+const handleNpmPackage = async (url: string): Promise<string> => {
   try {
-    const s3BucketName = process.env.S3_BUCKET_NAME!;
-    const command = new HeadObjectCommand({
-      Bucket: s3BucketName,
-      Key: s3Key,
-    });
+    const packageName = url.split('/').pop(); // Extract package name from URL
+    console.log(`Downloading npm package ${packageName}...`);
     
-    const response = await s3.send(command);
+    // Run npm pack and capture the output
+    const output = execSync(`npm pack ${packageName} --pack-destination .`).toString();
+    
+    const tgzFileName = output.trim().split('\n').pop(); // Capture the exact file name
 
-    // Check if size metadata exists
-    if (response.ContentLength !== undefined) {
-      console.log(`Package size for S3 key "${s3Key}": ${response.ContentLength} bytes`);
-      return response.ContentLength;
-    } else {
-      console.error("Could not retrieve size information for the specified S3 key.");
-      return null;
+    if (!tgzFileName) {
+      throw new Error('Failed to locate the downloaded package file');
     }
+    
+    return path.resolve(tgzFileName);
   } catch (error) {
-    console.error("Error retrieving package size from S3:", error);
-    return null;
+    console.error(`Failed to download npm package from ${url}`);
+    throw error;
   }
 };
 
-// Main function to prompt for S3 key and retrieve size
+// Function to extract and calculate the sizes of files inside the .tgz package
+const calculatePackageContentsSize = async (tgzFilePath: string) => {
+  const extractedPath = path.join(__dirname, 'extracted');
+  
+  // Ensure the extracted directory exists
+  if (!fs.existsSync(extractedPath)) {
+    fs.mkdirSync(extractedPath);
+  }
+
+  // Extract the .tgz file
+  await tar.x({
+    file: tgzFilePath,
+    cwd: extractedPath,
+  });
+
+  // Calculate sizes of each file in the extracted directory
+  let totalSize = 0;
+  const fileSizes: Record<string, number> = {};
+
+  const walkDirectory = (dir: string) => {
+    const files = fs.readdirSync(dir);
+    for (const file of files) {
+      const filePath = path.join(dir, file);
+      const stats = fs.statSync(filePath);
+      if (stats.isDirectory()) {
+        walkDirectory(filePath);
+      } else {
+        const relativePath = path.relative(extractedPath, filePath);
+        fileSizes[relativePath] = stats.size;
+        totalSize += stats.size;
+      }
+    }
+  };
+
+  walkDirectory(extractedPath);
+
+  // Display each file’s size
+  console.log("\nPackage Contents and Sizes:");
+  for (const [fileName, size] of Object.entries(fileSizes)) {
+    console.log(`- ${fileName}: ${size} bytes`);
+  }
+
+  // Display total size
+  console.log(`\nTotal size of ${path.basename(tgzFilePath)}: ${totalSize} bytes`);
+};
+
+// Sample usage
 (async () => {
-  const s3Key = await promptUser("Enter the S3 key of the package to retrieve its size: ");
-  await getPackageSizeFromS3(s3Key);
+  const packageUrl = await promptUser("Enter the npm package URL: ");
+  const tgzFilePath = await handleNpmPackage(packageUrl);
+  await calculatePackageContentsSize(tgzFilePath);
 })();

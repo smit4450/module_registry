@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import * as tar from 'tar';
-import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, GetObjectCommand, ListObjectsV2Command, ListObjectsV2CommandOutput } from '@aws-sdk/client-s3';
 import dotenv from 'dotenv';
 import readline from 'readline';
 
@@ -15,6 +15,32 @@ const s3 = new S3Client({
   },
 });
 
+// Helper function to list all S3 keys in the specified bucket
+const listAllS3Keys = async (): Promise<string[]> => {
+  const s3BucketName = process.env.S3_BUCKET_NAME!;
+  const keys: string[] = [];
+  let continuationToken: string | undefined;
+
+  do {
+    const response: ListObjectsV2CommandOutput = await s3.send(
+      new ListObjectsV2Command({
+        Bucket: s3BucketName,
+        ContinuationToken: continuationToken,
+      })
+    );
+
+    if (response.Contents) {
+      response.Contents.forEach((item) => {
+        if (item.Key) keys.push(item.Key);
+      });
+    }
+    continuationToken = response.NextContinuationToken;
+  } while (continuationToken);
+
+  return keys;
+};
+
+// Function to download and extract README content from S3 object
 const downloadReadme = async (s3Key: string): Promise<string | null> => {
   try {
     const command = new GetObjectCommand({
@@ -25,7 +51,7 @@ const downloadReadme = async (s3Key: string): Promise<string | null> => {
     const data = await s3.send(command);
 
     if (!data.Body) {
-      console.error("No data found in the S3 response.");
+      console.error(`No data found in the S3 response for ${s3Key}.`);
       return null;
     }
 
@@ -38,36 +64,27 @@ const downloadReadme = async (s3Key: string): Promise<string | null> => {
         .on('error', reject);
     });
 
-    // Ensure the file was downloaded correctly
-    if (!fs.existsSync(filePath)) {
-      console.error("File was not saved correctly.");
-      return null;
-    }
-
     const extractedPath = path.join(__dirname, 'extracted');
     if (!fs.existsSync(extractedPath)) {
       fs.mkdirSync(extractedPath);
     }
 
-    // Extract and search for README files
     await tar.extract({
       file: filePath,
       cwd: extractedPath,
       filter: (filePath) => /README/i.test(filePath),
     });
 
-    // Search recursively for any README file in the extracted path
     const readmeFile = findReadmeFile(extractedPath);
     if (readmeFile) {
       const fileContent = fs.readFileSync(readmeFile, 'utf-8');
-      console.log(`README file found at ${readmeFile}`);
       return fileContent;
     } else {
-      console.error("README file not found in the archive.");
+      console.error(`README file not found in the archive for ${s3Key}.`);
       return null;
     }
   } catch (error) {
-    console.error("Error downloading or extracting README from S3:", error);
+    console.error(`Error downloading or extracting README from S3 for ${s3Key}:`, error);
     return null;
   }
 };
@@ -88,26 +105,42 @@ const findReadmeFile = (dir: string): string | null => {
 };
 
 // Function to search README content with regex
-const regexSearch = async (pattern: string, s3Key: string): Promise<string[] | null> => {
-  const content = await downloadReadme(s3Key);
-  if (content === null) {
-    console.error("No content found for regex search.");
-    return null;
-  }
-
+const regexSearchInReadme = (pattern: string, content: string): string[] | null => {
   const regex = new RegExp(pattern, 'g');
   const matches = content.match(regex);
+  return matches || null;
+};
 
-  if (matches) {
-    console.log(`Found ${matches.length} matches:`);
-    matches.forEach((match, index) => {
-      console.log(`Match ${index + 1}: ${match}`);
-    });
-  } else {
-    console.log("No matches found.");
+// Main function to list S3 keys and perform regex search across all packages
+const main = async () => {
+  const pattern = await promptUser("Enter the regex pattern to search for: ");
+  const keys = await listAllS3Keys();
+  console.log(`Searching across ${keys.length} packages...`);
+
+  const foundPackages: { s3Key: string; matchCount: number }[] = [];
+
+  for (const s3Key of keys) {
+    console.log(`Checking package: ${s3Key}`);
+    const content = await downloadReadme(s3Key);
+    if (content) {
+      const matches = regexSearchInReadme(pattern, content);
+      if (matches) {
+        console.log(`Found ${matches.length} matches in ${s3Key}`);
+        foundPackages.push({ s3Key, matchCount: matches.length });
+      } else {
+        console.log(`No matches found in ${s3Key}.`);
+      }
+    }
   }
 
-  return matches || [];
+  console.log("\nSummary of packages with matches:");
+  if (foundPackages.length > 0) {
+    foundPackages.forEach((pkg) => {
+      console.log(`- ${pkg.s3Key}: ${pkg.matchCount} matches`);
+    });
+  } else {
+    console.log("No packages found with matching content.");
+  }
 };
 
 // Helper function to prompt user input
@@ -124,11 +157,6 @@ async function promptUser(query: string): Promise<string> {
   });
 }
 
-// Sample usage
-(async () => {
-  const s3Key = await promptUser("Enter the S3 key for the README file to search: ");
-  const pattern = await promptUser("Enter the regex pattern to search for: ");
-  await regexSearch(pattern, s3Key);
-})();
+main().catch(console.error);
 
-export { regexSearch };
+export { regexSearchInReadme, listAllS3Keys };

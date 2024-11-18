@@ -100,20 +100,27 @@ const calculateSize = (filePath: string): number => {
     await s3.send(new PutObjectCommand(s3UploadParams));
     console.log(`Package file uploaded to S3 at key: ${s3Key}`);
 
-    // Save metadata to DynamoDB, including the size
+    // Save metadata to DynamoDB, including the size and zeroed ratings
     const dbParams = {
       TableName: 'Packages',
       Item: {
-        package_id: packageId,    // Unique ID derived from the file name
-        name: packageName,        // User-provided package name
-        version: packageVersion,  // User-provided version label
-        s3_key: s3Key,            // Reference to the S3 file location
-        size: packageSize         // Package size in bytes
+        package_id: packageId,          // Unique ID derived from the file name
+        name: packageName,              // User-provided package name
+        version: packageVersion,        // User-provided version label
+        s3_key: s3Key,                  // Reference to the S3 file location
+        size: packageSize,              // Package size in bytes
+        bus_factor: 0,                  // Ratings set to zero
+        responsiveness: 0,
+        correctness: 0,
+        license: 0,
+        ramp_up: 0,
+        pull_request: 0,
+        dependency: 0,
       },
     };
 
     await dynamodb.send(new PutCommand(dbParams));
-    console.log('Package metadata saved in DynamoDB successfully');
+    console.log('Package metadata with ratings set to zero saved in DynamoDB successfully');
 
   } catch (error) {
     console.error('Error uploading package:', error);
