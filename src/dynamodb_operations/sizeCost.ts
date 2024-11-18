@@ -1,13 +1,26 @@
 import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
+import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { GetCommand } from '@aws-sdk/lib-dynamodb';
 import * as tar from 'tar';
-import { execSync } from 'child_process';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-// Prompt utility
+// Initialize AWS Clients
+const s3 = new S3Client({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+  },
+});
+
+const dynamo = new DynamoDBClient({ region: process.env.AWS_REGION });
+
+// Utility to prompt user input
 const promptUser = (query: string): Promise<string> => {
   const rl = readline.createInterface({
     input: process.stdin,
@@ -19,77 +32,93 @@ const promptUser = (query: string): Promise<string> => {
   }));
 };
 
-// Function to download the latest npm package
-const handleNpmPackage = async (url: string): Promise<string> => {
-  try {
-    const packageName = url.split('/').pop(); // Extract package name from URL
-    console.log(`Downloading npm package ${packageName}...`);
-    
-    // Run npm pack and capture the output
-    const output = execSync(`npm pack ${packageName} --pack-destination .`).toString();
-    
-    const tgzFileName = output.trim().split('\n').pop(); // Capture the exact file name
-
-    if (!tgzFileName) {
-      throw new Error('Failed to locate the downloaded package file');
-    }
-    
-    return path.resolve(tgzFileName);
-  } catch (error) {
-    console.error(`Failed to download npm package from ${url}`);
-    throw error;
-  }
+// Function to fetch package metadata from DynamoDB
+const fetchPackageMetadata = async (name: string): Promise<any> => {
+  const command = new GetCommand({
+    TableName: 'Packages',
+    Key: { name }, // Use name as the primary key
+  });
+  const response = await dynamo.send(command);
+  return response.Item;
 };
 
-// Function to extract and calculate the sizes of files inside the .tgz package
-export const calcSize = async (tgzFilePath: string) => {
-  const extractedPath = path.join(__dirname, 'extracted');
-  
-  // Ensure the extracted directory exists
-  if (!fs.existsSync(extractedPath)) {
-    fs.mkdirSync(extractedPath);
-  }
+// Function to download a file from S3
+const downloadFromS3 = async (s3Key: string): Promise<string> => {
+  const command = new GetObjectCommand({
+    Bucket: process.env.S3_BUCKET_NAME!,
+    Key: s3Key,
+  });
+  const data = await s3.send(command);
+  const filePath = path.join(__dirname, path.basename(s3Key));
+  const fileStream = fs.createWriteStream(filePath);
 
-  // Extract the .tgz file
-  await tar.x({
-    file: tgzFilePath,
-    cwd: extractedPath,
+  await new Promise<void>((resolve, reject) => {
+    (data.Body as any).pipe(fileStream).on('finish', resolve).on('error', reject);
   });
 
-  // Calculate sizes of each file in the extracted directory
-  let totalSize = 0;
-  const fileSizes: Record<string, number> = {};
-
-  const walkDirectory = (dir: string) => {
-    const files = fs.readdirSync(dir);
-    for (const file of files) {
-      const filePath = path.join(dir, file);
-      const stats = fs.statSync(filePath);
-      if (stats.isDirectory()) {
-        walkDirectory(filePath);
-      } else {
-        const relativePath = path.relative(extractedPath, filePath);
-        fileSizes[relativePath] = stats.size;
-        totalSize += stats.size;
-      }
-    }
-  };
-
-  walkDirectory(extractedPath);
-
-  // Display each file’s size
-  console.log("\nPackage Contents and Sizes:");
-  for (const [fileName, size] of Object.entries(fileSizes)) {
-    console.log(`- ${fileName}: ${size} bytes`);
-  }
-
-  // Display total size
-  console.log(`\nTotal size of ${path.basename(tgzFilePath)}: ${totalSize} bytes`);
+  return filePath;
 };
 
-// Sample usage
-(async () => {
-  const packageUrl = await promptUser("Enter the npm package URL: ");
-  const tgzFilePath = await handleNpmPackage(packageUrl);
-  await calculatePackageContentsSize(tgzFilePath);
-})();
+// Function to calculate the size of a file
+const calculateSize = (filePath: string): number => fs.statSync(filePath).size;
+
+// Function to create a combined archive with dependencies
+const createCombinedArchive = async (
+  mainPackagePath: string,
+  dependenciesPaths: string[]
+): Promise<number> => {
+  const combinedArchivePath = path.join(__dirname, 'combined_package.tgz');
+
+  await tar.create(
+    {
+      gzip: true,
+      file: combinedArchivePath,
+    },
+    [mainPackagePath, ...dependenciesPaths]
+  );
+
+  return calculateSize(combinedArchivePath);
+};
+
+// Main Function
+export const sizeCost = async (packageName: string, packageVersion: string): Promise<string> => {
+  try {
+    const metadata = await fetchPackageMetadata(packageName);
+    if (!metadata) {
+      throw new Error('Package not found in the database.');
+    }
+
+    // Check if the version exists in the metadata
+    if (metadata.version !== packageVersion) {
+      throw new Error(`Version ${packageVersion} not found for package ${packageName}.`);
+    }
+
+    //console.log(`S3 key found for package: ${metadata.s3_key}`);
+    const mainPackagePath = await downloadFromS3(metadata.s3_key);
+    //console.log(`Package downloaded successfully: ${mainPackagePath}`);
+
+    const dependenciesPaths: string[] = []; // Simulating dependency downloads
+    //console.log('Dependency Sizes:');
+    metadata.dependencies?.forEach((dep: any) => {
+      //console.log(`${dep.name}: ${dep.size} bytes`);
+      // Simulate downloading each dependency and store its path in dependenciesPaths
+      // Example: const depPath = await downloadDependency(dep.s3_key);
+      // dependenciesPaths.push(depPath);
+    });
+
+    const combinedSize = await createCombinedArchive(mainPackagePath, dependenciesPaths);
+    //console.log(`Zipped size of the package with dependencies: ${combinedSize} bytes`);
+
+    const totalSize = metadata.size + dependenciesPaths.reduce((sum, depPath) => sum + calculateSize(depPath), 0);
+    //console.log(`Total size including dependencies: ${totalSize} bytes`);
+
+    return totalSize;
+
+  } catch (error) {
+    if (error instanceof Error) {
+      return `Error: ${error.message}`;
+    } else {
+      return 'Error';
+    }
+  }
+};

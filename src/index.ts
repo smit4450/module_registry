@@ -1,6 +1,7 @@
-import { checkRating_url } from './checkRating_url';
+import { checkRating_url, get_package_name } from './checkRating_url';
+import { lookupRating } from './dynamodb_operations/lookupRating';
 import { checkRating } from './checkRating';
-import { calcSize } from './dynamodb_operations/sizeCost';
+import { sizeCost } from './dynamodb_operations/sizeCost';
 import { retrieveVersions } from "./dynamodb_operations/retrieveVersions";
 import { debloat } from './debloat';
 import { deletePackage } from "./dynamodb_operations/deletePackage";
@@ -63,11 +64,26 @@ export async function main() {
 
 
     if(mode == "check rating") {
-        //checkRating();
-        console.log("Not imlpemented yet");
+        const packageName = await promptUser("Enter package name: ");
+        const packageVersion = await promptUser("Enter package version: ");
+        const rating = await lookupRating(packageName, packageVersion);
+        if (rating.toString().startsWith("Error")) {
+            console.log(rating);
+        } else {
+            console.log(rating);
+        }
+        
     }
     else if(mode == "check size") {
-        console.log("Not imlpemented yet");
+        const packageName = await promptUser("Enter package name: ");
+        const packageVersion = await promptUser("Enter package version: ");
+        const size = await sizeCost(packageName, packageVersion);
+        if (size.toString().startsWith("Error")) {
+            console.log(size);
+        } else {
+            console.log("Size: " + size);
+        }
+        
     }
     else if(mode == "check versions") {
         const packageName = await promptUser("Enter package name: ");
