@@ -1,6 +1,6 @@
 import { checkRating_url } from './checkRating_url';
 import { checkRating } from './checkRating';
-//import { getPackageSizeFromS3 } from './dynamodb_operations/sizeCost';
+import { calcSize } from './dynamodb_operations/sizeCost';
 import { retrieveVersions } from "./dynamodb_operations/retrieveVersions";
 import { debloat } from './debloat';
 import { deletePackage } from "./dynamodb_operations/deletePackage";
@@ -67,7 +67,6 @@ export async function main() {
         console.log("Not imlpemented yet");
     }
     else if(mode == "check size") {
-        //getPackageSizeFromS3()
         console.log("Not imlpemented yet");
     }
     else if(mode == "check versions") {
@@ -125,10 +124,9 @@ export async function main() {
     }
     else if(mode == "regex search") {
         const pattern = await promptUser("Enter pattern to search for: ");
-        const key = await promptUser("Enter pattern to search for: ");
 
-        regexSearch(pattern, key);
-        console.log("Not imlpemented yet");
+        const matches = await regexSearch(pattern);
+        console.log(matches);
     }
     else if(mode == "upload") {
         const filePath = await promptUser("Enter file path: ");
