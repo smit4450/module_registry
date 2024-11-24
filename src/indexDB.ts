@@ -81,7 +81,7 @@ export async function main() {
         if (size.toString().startsWith("Error")) {
             console.log(size);
         } else {
-            console.log("Size: " + size);
+            console.log("Size: " + size + " bytes");
         }
         
     }
@@ -115,7 +115,9 @@ export async function main() {
 
         let rating;
         while (true) {
+            console.log("Checking rating...");
             rating = await checkRating_url(url);
+            console.log("Rating: " + rating);
             try {
             JSON.parse(rating);
             break;
@@ -167,7 +169,7 @@ export async function main() {
         else {
             let rating;
             while (true) {
-                rating = await checkRating_url(url);;
+                rating = await checkRating_url(url);
                 try {
                 JSON.parse(rating);
                 break;

@@ -1,0 +1,3 @@
+https://www.npmjs.com/package/lodash
+https://github.com/expressjs/express
+https://github.com/Samojo3303/461Project

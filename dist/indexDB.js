@@ -73,7 +73,7 @@ export async function main() {
             console.log(size);
         }
         else {
-            console.log("Size: " + size);
+            console.log("Size: " + size + " bytes");
         }
     }
     else if (mode == "check versions") {
@@ -105,7 +105,9 @@ export async function main() {
         const packageVersion = await promptUser("Enter package version: ");
         let rating;
         while (true) {
+            console.log("Checking rating...");
             rating = await checkRating_url(url);
+            console.log("Rating: " + rating);
             try {
                 JSON.parse(rating);
                 break;
@@ -158,7 +160,6 @@ export async function main() {
             let rating;
             while (true) {
                 rating = await checkRating_url(url);
-                ;
                 try {
                     JSON.parse(rating);
                     break;

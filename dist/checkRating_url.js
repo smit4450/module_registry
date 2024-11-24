@@ -127,7 +127,7 @@ export async function get_url_interface(urlInput) {
 }
 export async function calculate_factors(urlInput) {
     if (isValidUrl(urlInput)) {
-        //console.log(`The URL you provided is valid: ${urlInput}`);
+        console.log(`The URL you provided is valid: ${urlInput}`);
     }
     else {
         log("Invalid URL format", 2, "ERROR");
@@ -213,10 +213,10 @@ export async function calculate_factors(urlInput) {
         return "Error";
     }
 }
+/*
 // Main function to handle URL input from command line
-async function phase_1(url) {
-    //emptyLogFile()
-    /*;
+async function phase_1(url: string): Promise<string>{
+    //emptyLogFile();
     log("Starting Process", 1, "INFO");
     const file_path = process.argv[2];
     if (!process.env.LOG_FILE) {
@@ -236,19 +236,16 @@ async function phase_1(url) {
         }
         return false; //process.exit(1); // Exit with failure code
     }
-    */
-    return calculate_factors(url);
+   return ;
 }
+*/
 export async function checkRating_url(url) {
-    let tries = 3;
-    while (tries > 0) {
-        let output = await phase_1(url);
-        if (output != "Error") {
-            return output;
-        }
-        tries--;
+    console.log("Checking rating 1...");
+    let output = await calculate_factors(url);
+    if (output != "Error") {
+        return output;
     }
-    return "Error";
+    return "";
 }
 /*
 1. Writes test cases for empty files

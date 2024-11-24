@@ -49,7 +49,7 @@ const downloadFromS3 = async (s3Key: string): Promise<string> => {
     Key: s3Key,
   });
   const data = await s3.send(command);
-  const filePath = path.join(__dirname, path.basename(s3Key));
+  const filePath = path.join(process.cwd(), path.basename(s3Key));
   const fileStream = fs.createWriteStream(filePath);
 
   await new Promise<void>((resolve, reject) => {
@@ -67,7 +67,7 @@ const createCombinedArchive = async (
   mainPackagePath: string,
   dependenciesPaths: string[]
 ): Promise<number> => {
-  const combinedArchivePath = path.join(__dirname, 'combined_package.tgz');
+  const combinedArchivePath = path.join(process.cwd(), 'combined_package.tgz');
 
   await tar.create(
     {

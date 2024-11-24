@@ -44,14 +44,14 @@ const downloadReadme = async (s3Key) => {
             //console.error(`No data found in the S3 response for ${s3Key}.`);
             return null;
         }
-        const filePath = path.join(__dirname, path.basename(s3Key));
+        const filePath = path.join(process.cwd(), path.basename(s3Key));
         const fileStream = fs.createWriteStream(filePath);
         await new Promise((resolve, reject) => {
             data.Body.pipe(fileStream)
                 .on('finish', resolve)
                 .on('error', reject);
         });
-        const extractedPath = path.join(__dirname, 'extracted');
+        const extractedPath = path.join(process.cwd(), 'extracted');
         if (!fs.existsSync(extractedPath)) {
             fs.mkdirSync(extractedPath);
         }

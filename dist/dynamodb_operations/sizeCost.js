@@ -43,7 +43,7 @@ const downloadFromS3 = async (s3Key) => {
         Key: s3Key,
     });
     const data = await s3.send(command);
-    const filePath = path.join(__dirname, path.basename(s3Key));
+    const filePath = path.join(process.cwd(), path.basename(s3Key));
     const fileStream = fs.createWriteStream(filePath);
     await new Promise((resolve, reject) => {
         data.Body.pipe(fileStream).on('finish', resolve).on('error', reject);
@@ -54,7 +54,7 @@ const downloadFromS3 = async (s3Key) => {
 const calculateSize = (filePath) => fs.statSync(filePath).size;
 // Function to create a combined archive with dependencies
 const createCombinedArchive = async (mainPackagePath, dependenciesPaths) => {
-    const combinedArchivePath = path.join(__dirname, 'combined_package.tgz');
+    const combinedArchivePath = path.join(process.cwd(), 'combined_package.tgz');
     await tar.create({
         gzip: true,
         file: combinedArchivePath,

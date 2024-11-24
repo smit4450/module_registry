@@ -55,7 +55,7 @@ const downloadReadme = async (s3Key: string): Promise<string | null> => {
       return null;
     }
 
-    const filePath = path.join(__dirname, path.basename(s3Key));
+    const filePath = path.join(process.cwd(), path.basename(s3Key));
     const fileStream = fs.createWriteStream(filePath);
 
     await new Promise<void>((resolve, reject) => {
@@ -64,7 +64,7 @@ const downloadReadme = async (s3Key: string): Promise<string | null> => {
         .on('error', reject);
     });
 
-    const extractedPath = path.join(__dirname, 'extracted');
+    const extractedPath = path.join(process.cwd(), 'extracted');
     if (!fs.existsSync(extractedPath)) {
       fs.mkdirSync(extractedPath);
     }
