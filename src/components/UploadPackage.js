@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { uploadPackage, debloatPackage } from '../api_services/packageService';
+import { uploadPackage, debloatPackage } from '../api_services/packageService.js';
 
 function UploadPackage() {
   const location = useLocation();
