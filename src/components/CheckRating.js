@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { getPackageRating } from '../api_services/packageService.js';
 
 function CheckRating() {
   const location = useLocation();
@@ -16,10 +17,10 @@ function CheckRating() {
     setError(null);
 
     try {
-      const response = await fetch(`${url}/rating?name=${packageName}&version=${version}`);
-      if (!response.ok) throw new Error('Failed to fetch package rating');
-      const data = await response.json();
-      setRating(data.rating);
+      // Construct the package ID (you may need to adjust this if the ID is formatted differently)
+      const packageId = `${packageName}-${version}`;
+      const data = await getPackageRating(packageId);
+      setRating(data.NetScore); // Assuming 'NetScore' is the main rating
     } catch (err) {
       setError(err.message);
     } finally {

@@ -1,20 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import LoginSignup from './components/LoginSignup';
-import Home from './components/Home';
-import UploadPackage from './components/UploadPackage';
-import UpdatePackage from './components/UpdatePackage';
-import GetPackageScore from './components/GetPackageScore';
-import DatabaseSearch from './components/DatabaseSearch';
-import Directory from './components/Directory';
-import CheckRating from './components/CheckRating';
-import CheckVersions from './components/CheckVersions';
-import DownloadZip from './components/DownloadZip';
-import CheckSize from './components/CheckSize';
-import NpmIngestion from './components/NpmIngestion';
-import RegexSearch from './components/RegexSearch';
-import FetchDirectory from './components/FetchDirectory';
-import NotFound from './components/NotFound';
+import LoginSignup from './components/LoginSignup.js';
+import Home from './components/Home.js';
+import UploadPackage from './components/UploadPackage.js';
+import GetPackageScore from './components/GetPackageScore.js';
+import DatabaseSearch from './components/DatabaseSearch.js';
+import Directory from './components/Directory.js';
+import CheckRating from './components/CheckRating.js';
+import CheckVersions from './components/CheckVersions.js';
+import DownloadZip from './components/DownloadZip.js';
+import CheckSize from './components/CheckSize.js';
+import NpmIngestion from './components/NpmIngestion.js';
+import RegexSearch from './components/RegexSearch.js';
+import FetchDirectory from './components/FetchDirectory.js';
+import NotFound from './components/NotFound.js';
 
 function App() {
   return (
@@ -25,7 +24,6 @@ function App() {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/login">Login/Signup</Link></li>
             <li><Link to="/upload">Upload Package</Link></li>
-            <li><Link to="/update">Update Package</Link></li>
             <li><Link to="/search">Search Database</Link></li>
             <li><Link to="/check-rating">Check Rating</Link></li>
             <li><Link to="/check-versions">Check Versions</Link></li>
@@ -41,7 +39,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginSignup />} />
           <Route path="/upload" element={<UploadPackage />} />
-          <Route path="/update" element={<UpdatePackage />} />
           <Route path="/search" element={<DatabaseSearch />} />
           <Route path="/check-rating" element={<CheckRating />} />
           <Route path="/check-versions" element={<CheckVersions />} />

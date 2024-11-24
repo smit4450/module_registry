@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+      "target": "ES6",                        
+      "module": "commonjs",                    
+      "lib": ["ES6", "DOM"],                   
+      "types": ["node"],                       
+      "esModuleInterop": true,                 
+      "forceConsistentCasingInFileNames": true,
+      "strict": true,
+      "skipLibCheck": true                     
+    },
+    "exclude": ["node_modules"]
+  }
+  

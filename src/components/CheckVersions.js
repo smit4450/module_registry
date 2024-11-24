@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { getAvailableVersions } from '../api_services/packageService.js';
 
 function CheckVersions() {
-  const location = useLocation();
-  const url = location.state?.url || '';
   const [packageName, setPackageName] = useState('');
   const [versions, setVersions] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,9 +13,7 @@ function CheckVersions() {
     setError(null);
 
     try {
-      const response = await fetch(`${url}/versions?name=${packageName}`);
-      if (!response.ok) throw new Error('Failed to fetch versions');
-      const data = await response.json();
+      const data = await getAvailableVersions(packageName);
       setVersions(data.versions);
     } catch (err) {
       setError(err.message);

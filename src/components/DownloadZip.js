@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { downloadPackageZip } from '../api_services/packageService.js';
 
 function DownloadZip() {
-  const location = useLocation();
-  const url = location.state?.url || '';
   const [packageName, setPackageName] = useState('');
   const [version, setVersion] = useState('');
 
   const handleDownload = async () => {
     try {
-      const downloadUrl = `${url}/download?name=${packageName}&version=${version}`;
-      window.location.href = downloadUrl; // Initiate download
+      const response = await downloadPackageZip(packageName, version);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${packageName}-${version}.zip`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } catch (err) {
       alert('Failed to initiate download');
     }

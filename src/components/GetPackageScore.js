@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { getPackageScore } from '../api_services/packageService.js';
 
 function GetPackageScore() {
-  const location = useLocation();
-  const url = location.state?.url || '';
   const [packageId, setPackageId] = useState('');
   const [score, setScore] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -15,9 +13,7 @@ function GetPackageScore() {
     setError(null);
 
     try {
-      const response = await fetch(`${url}/packages/${packageId}/score`);
-      if (!response.ok) throw new Error('Failed to fetch package score');
-      const data = await response.json();
+      const data = await getPackageScore(packageId);
       setScore(data);
     } catch (err) {
       setError(err.message);
@@ -30,8 +26,6 @@ function GetPackageScore() {
     <div className="container">
       <h2>Get Package Score</h2>
       <form onSubmit={handleSubmit}>
-        <label>Package URL: </label>
-        <input type="text" value={url} disabled />
         <label>Package ID: </label>
         <input
           type="text"

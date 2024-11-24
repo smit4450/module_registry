@@ -31,7 +31,7 @@ export class Metrics {
             const dependencies = checkRequirementsTxt(metrics.requirements.text);
             dependencies.forEach(dep => {
                 const { name, prefix, version } = dep;
-                names.push(name + ' ' + prefix + version)
+                names.push(name + ' ' + prefix + version);
                 total++;
                 if (prefix != '^') {
                     pinned++;
@@ -55,7 +55,7 @@ export class Metrics {
             const dependencies = checkPackageJson(metrics.package.text);
             dependencies.forEach(dep => {
                 const { name, prefix, version } = dep;
-                names.push(name + ' ' + prefix + version)
+                names.push(name + ' ' + prefix + version);
                 total++;
                 if (prefix != '^') {
                     pinned++;
@@ -67,7 +67,7 @@ export class Metrics {
             const dependencies = checkPackageJson(metrics.package2.text);
             dependencies.forEach(dep => {
                 const { name, prefix, version } = dep;
-                names.push(name + ' ' + prefix + version)
+                names.push(name + ' ' + prefix + version);
                 total++;
                 if (prefix != '^') {
                     pinned++;
@@ -79,7 +79,7 @@ export class Metrics {
             const dependencies = checkGemfile(metrics.gem.text);
             dependencies.forEach(dep => {
                 const { name, prefix, version } = dep;
-                names.push(name + ' ' + prefix + version)
+                names.push(name + ' ' + prefix + version);
                 total++;
                 if (prefix != '^') {
                     pinned++;
@@ -91,7 +91,7 @@ export class Metrics {
             const dependencies = checkGemfile(metrics.gem2.text);
             dependencies.forEach(dep => {
                 const { name, prefix, version } = dep;
-                names.push(name + ' ' + prefix + version)
+                names.push(name + ' ' + prefix + version);
                 total++;
                 if (prefix != '^') {
                     pinned++;
@@ -363,6 +363,5 @@ export class Metrics {
         this.url.net_score_latency = net_lat;
 
     }
-
 
 }

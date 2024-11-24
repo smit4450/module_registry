@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { getPackageSize } from '../api_services/packageService.js';
 
 function CheckSize() {
   const location = useLocation();
@@ -17,13 +18,7 @@ function CheckSize() {
     setSize(null);
 
     try {
-      const response = await fetch(`${url}/check-size`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: packageName, version: packageVersion }),
-      });
-      if (!response.ok) throw new Error('Failed to check package size');
-      const data = await response.json();
+      const data = await getPackageSize(packageName, packageVersion);
       setSize(data.size);
     } catch (err) {
       setError(err.message);
