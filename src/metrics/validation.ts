@@ -705,7 +705,6 @@ async function run_test_suite(): Promise<void>{
     console.log(`${pass_count_string}/${totalCount} test cases passed. ${coverage_string}% line coverage achieved.`)
 
 }
-run_test_suite();
 
 //test net score calculation
 function test_net_score(repository:Response):number{

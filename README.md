@@ -17,6 +17,9 @@ Front End:
 npm run build
 npm start
 
-Database
+Database:
 npx tsc
 npm test
+
+Backend API Endpoint:
+node server.js
