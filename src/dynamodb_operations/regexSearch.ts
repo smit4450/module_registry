@@ -111,8 +111,18 @@ const regexSearchInReadme = (pattern: string, content: string): string[] | null 
   return matches || null;
 };
 
+// Function to delete downloaded files and directories
+const cleanup = (filePath: string, extractedPath: string) => {
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+  }
+  if (fs.existsSync(extractedPath)) {
+    fs.rmSync(extractedPath, { recursive: true });
+  }
+};
+
 // Main function to list S3 keys and perform regex search across all packages
-export const regexSearch = async (pattern: string, ) => {
+export const regexSearch = async (pattern: string) => {
   const keys = await listAllS3Keys();
   //console.log(`Searching across ${keys.length} packages...`);
 
@@ -130,17 +140,20 @@ export const regexSearch = async (pattern: string, ) => {
         console.log(`No matches found in ${s3Key}.`);
       }
     }
+    const filePath = path.join(process.cwd(), path.basename(s3Key));
+    const extractedPath = path.join(process.cwd(), 'extracted');
+    cleanup(filePath, extractedPath);
   }
 
-let result = "";
-if (foundPackages.length > 0) {
+  let result = "";
+  if (foundPackages.length > 0) {
     foundPackages.forEach((pkg) => {
-        result += `- ${pkg.s3Key}: ${pkg.matchCount} matches\n`;
+      result += `- ${pkg.s3Key}: ${pkg.matchCount} matches\n`;
     });
-} else {
+  } else {
     return "No matches found in any package.";
-}
-return result;
+  }
+  return result;
 };
 
 // Helper function to prompt user input

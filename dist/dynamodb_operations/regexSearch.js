@@ -97,6 +97,15 @@ const regexSearchInReadme = (pattern, content) => {
     const matches = content.match(regex);
     return matches || null;
 };
+// Function to delete downloaded files and directories
+const cleanup = (filePath, extractedPath) => {
+    if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+    }
+    if (fs.existsSync(extractedPath)) {
+        fs.rmSync(extractedPath, { recursive: true });
+    }
+};
 // Main function to list S3 keys and perform regex search across all packages
 export const regexSearch = async (pattern) => {
     const keys = await listAllS3Keys();
@@ -115,6 +124,9 @@ export const regexSearch = async (pattern) => {
                 console.log(`No matches found in ${s3Key}.`);
             }
         }
+        const filePath = path.join(process.cwd(), path.basename(s3Key));
+        const extractedPath = path.join(process.cwd(), 'extracted');
+        cleanup(filePath, extractedPath);
     }
     let result = "";
     if (foundPackages.length > 0) {
