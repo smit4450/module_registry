@@ -26,7 +26,7 @@ const promptUser = (query: string): Promise<string> => {
     }));
   };
 
-const checkForURL = (path: string): Promise<string> => {
+export const checkForURL = (path: string): Promise<string> => {
     const zip = new AdmZip(path);
     const zipEntries = zip.getEntries();
 

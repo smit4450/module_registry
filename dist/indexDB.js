@@ -21,7 +21,7 @@ const promptUser = (query) => {
         resolve(ans);
     }));
 };
-const checkForURL = (path) => {
+export const checkForURL = (path) => {
     const zip = new AdmZip(path);
     const zipEntries = zip.getEntries();
     for (const zipEntry of zipEntries) {
