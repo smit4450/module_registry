@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "ECE 461 Project",
   "main": "index.ts",
+  "type": "module",
   "scripts": {
-    "start": "webpack serve --config webpack.config.js",
-    "build": "tsc && webpack --config webpack.config.js",
-    "test": "node dist/index.js",
+    "start": "webpack serve --config webpack.config.cjs",
+    "build": "tsc && webpack --config webpack.config.cjs",
+    "test": "node dist/indexDB.js --trace-warnings",
     "dev": "npm run build && node dist/index.js",
     "path": "node dist/api_handler/npm_handler/analyzer_npm.js",
     "path2": "node dist/metrics/validation.js"

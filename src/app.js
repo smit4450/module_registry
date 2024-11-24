@@ -1,19 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import LoginSignup from './components/LoginSignup';
-import Home from './components/Home';
-import UploadPackage from './components/UploadPackage';
-import GetPackageScore from './components/GetPackageScore';
-import DatabaseSearch from './components/DatabaseSearch';
-import Directory from './components/Directory';
-import CheckRating from './components/CheckRating';
-import CheckVersions from './components/CheckVersions';
-import DownloadZip from './components/DownloadZip';
-import CheckSize from './components/CheckSize';
-import NpmIngestion from './components/NpmIngestion';
-import RegexSearch from './components/RegexSearch';
-import FetchDirectory from './components/FetchDirectory';
-import NotFound from './components/NotFound';
+import LoginSignup from './components/LoginSignup.js';
+import Home from './components/Home.js';
+import UploadPackage from './components/UploadPackage.js';
+import GetPackageScore from './components/GetPackageScore.js';
+import DatabaseSearch from './components/DatabaseSearch.js';
+import Directory from './components/Directory.js';
+import CheckRating from './components/CheckRating.js';
+import CheckVersions from './components/CheckVersions.js';
+import DownloadZip from './components/DownloadZip.js';
+import CheckSize from './components/CheckSize.js';
+import NpmIngestion from './components/NpmIngestion.js';
+import RegexSearch from './components/RegexSearch.js';
+import FetchDirectory from './components/FetchDirectory.js';
+import NotFound from './components/NotFound.js';
 
 function App() {
   return (

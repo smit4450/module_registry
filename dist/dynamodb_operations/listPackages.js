@@ -1,5 +1,5 @@
 import { ScanCommand } from "@aws-sdk/lib-dynamodb";
-import dynamodb from "../dynamodb";
+import dynamodb from "../dynamodb.js";
 export const listPackages = async () => {
     try {
         const params = {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { searchPackages } from '../api_services/packageService';
+import { searchPackages } from '../api_services/packageService.js';
 
 function DatabaseSearch() {
   const [searchTerm, setSearchTerm] = useState('');

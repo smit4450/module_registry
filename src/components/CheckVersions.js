@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getAvailableVersions } from '../api_services/packageService';
+import { getAvailableVersions } from '../api_services/packageService.js';
 
 function CheckVersions() {
   const [packageName, setPackageName] = useState('');

@@ -1,6 +1,6 @@
 import { S3Client } from '@aws-sdk/client-s3';
 import { ScanCommand } from '@aws-sdk/lib-dynamodb';
-import dynamodb from '../dynamodb';
+import dynamodb from '../dynamodb.js';
 import dotenv from 'dotenv';
 dotenv.config();
 // Set up AWS S3 client

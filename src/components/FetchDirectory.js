@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchEntireDirectory } from '../api_services/packageService';
+import { fetchEntireDirectory } from '../api_services/packageService.js';
 
 function FetchDirectory() {
   const [packages, setPackages] = useState([]);

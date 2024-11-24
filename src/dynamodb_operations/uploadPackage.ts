@@ -3,7 +3,7 @@ import path from 'path';
 import readline from 'readline';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { PutCommand } from '@aws-sdk/lib-dynamodb';
-import dynamodb from '../dynamodb';
+import dynamodb from '../dynamodb.js';
 import dotenv from 'dotenv';
 
 dotenv.config();

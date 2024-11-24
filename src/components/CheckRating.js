@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getPackageRating } from '../api_services/packageService';
+import { getPackageRating } from '../api_services/packageService.js';
 
 function CheckRating() {
   const location = useLocation();

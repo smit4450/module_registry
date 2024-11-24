@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getPackageSize } from '../api_services/packageService';
+import { getPackageSize } from '../api_services/packageService.js';
 
 function CheckSize() {
   const location = useLocation();

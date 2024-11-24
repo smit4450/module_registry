@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { downloadPackageZip } from '../api_services/packageService';
+import { downloadPackageZip } from '../api_services/packageService.js';
 
 function DownloadZip() {
   const [packageName, setPackageName] = useState('');

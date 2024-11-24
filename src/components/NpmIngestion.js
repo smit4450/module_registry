@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ingestNpmPackage } from '../api_services/packageService';
+import { ingestNpmPackage } from '../api_services/packageService.js';
 
 function NpmIngestion() {
   const [packageVersion, setPackageVersion] = useState('');

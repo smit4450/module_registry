@@ -1,5 +1,5 @@
 import { QueryCommand } from "@aws-sdk/lib-dynamodb";
-import dynamodb from "../dynamodb";
+import dynamodb from "../dynamodb.js";
 import readline from "readline";
 // Helper function to prompt the user
 const promptUser = (query) => {

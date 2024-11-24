@@ -1,18 +1,18 @@
-import { checkRating_url, get_package_name } from './checkRating_url';
-import { lookupRating } from './dynamodb_operations/lookupRating';
-import { checkRating } from './checkRating';
-import { sizeCost } from './dynamodb_operations/sizeCost';
-import { retrieveVersions } from "./dynamodb_operations/retrieveVersions";
-import { debloat } from './debloat';
-import { deletePackage } from "./dynamodb_operations/deletePackage";
-import { downloadPackage } from "./dynamodb_operations/downloadPackage";
-import { listPackages } from "./dynamodb_operations/listPackages";
-import { npmIngestion } from './dynamodb_operations/npmIngestion';
-import { regexSearch } from './dynamodb_operations/regexSearch';
-import { uploadPackage } from "./dynamodb_operations/uploadPackage";
+import { checkRating_url, get_package_name } from './checkRating_url.js';
+import { lookupRating } from './dynamodb_operations/lookupRating.js';
+import { checkRating } from './checkRating.js';
+import { sizeCost } from './dynamodb_operations/sizeCost.js';
+import { retrieveVersions } from "./dynamodb_operations/retrieveVersions.js";
+import { debloat } from './debloat.js';
+import { deletePackage } from "./dynamodb_operations/deletePackage.js";
+import { downloadPackage } from "./dynamodb_operations/downloadPackage.js";
+import { listPackages } from "./dynamodb_operations/listPackages.js";
+import { npmIngestion } from './dynamodb_operations/npmIngestion.js';
+import { regexSearch } from './dynamodb_operations/regexSearch.js';
+import { uploadPackage } from "./dynamodb_operations/uploadPackage.js";
 import readline from "readline";
 import AdmZip from 'adm-zip';
-import { checkPackageJson } from './api_handler/graphql_handler/analyzer_graphql';
+import { checkPackageJson } from './api_handler/graphql_handler/analyzer_graphql.js';
 
 
 const promptUser = (query: string): Promise<string> => {
@@ -105,7 +105,7 @@ export async function main() {
         downloadPackage(filePath, packageName);
     }
     else if(mode == "fetch directory") {
-        const directory = listPackages();
+        const directory = await listPackages();
         console.log(directory);
     }
     else if(mode == "npm ingestion") {
@@ -115,7 +115,7 @@ export async function main() {
 
         let rating;
         while (true) {
-            rating = await checkRating_url(url);;
+            rating = await checkRating_url(url);
             try {
             JSON.parse(rating);
             break;

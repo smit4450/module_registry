@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getPackageScore } from '../api_services/packageService';
+import { getPackageScore } from '../api_services/packageService.js';
 
 function GetPackageScore() {
   const [packageId, setPackageId] = useState('');

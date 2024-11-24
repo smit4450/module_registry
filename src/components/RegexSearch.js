@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { searchByRegex } from '../api_services/packageService';
+import { searchByRegex } from '../api_services/packageService.js';
 
 function RegexSearch() {
   const [queryText, setQueryText] = useState('');
