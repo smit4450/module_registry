@@ -5,7 +5,6 @@ import { lookupRating } from './dynamodb_operations/lookupRating.js';
 import { sizeCost } from './dynamodb_operations/sizeCost.js';
 import { retrieveVersions } from "./dynamodb_operations/retrieveVersions.js";
 import { deletePackage } from "./dynamodb_operations/deletePackage.js";
-import { downloadPackage } from "./dynamodb_operations/downloadPackage.js";
 import { listPackages } from "./dynamodb_operations/listPackages.js";
 import { npmIngestion } from './dynamodb_operations/npmIngestion.js';
 import { regexSearch } from './dynamodb_operations/regexSearch.js';
@@ -42,6 +41,10 @@ app.get('/api/github-repo-url/:packageName', async (req: Request, res: Response)
 
 // Endpoint to get packages
 app.post('/packages', async (req: Request, res: Response) => {
+  // const authHeader = req.headers['x-authorization'];
+  // if (!authHeader) {
+  //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
+  // }
   try {
     const packages = await listPackages();
     res.status(200).json(packages);
@@ -52,6 +55,10 @@ app.post('/packages', async (req: Request, res: Response) => {
 
 // Endpoint to reset the registry
 app.delete('/reset', (req: Request, res: Response) => {
+  // const authHeader = req.headers['x-authorization'];
+  // if (!authHeader) {
+  //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
+  // }
   // Implement logic to reset the registry
   res.status(200).json({ message: 'Registry reset' });
 });
@@ -59,6 +66,10 @@ app.delete('/reset', (req: Request, res: Response) => {
 // Endpoint to interact with a package by ID
 app.route('/package/:id')
   .get(async (req: Request, res: Response) => {
+    // const authHeader = req.headers['x-authorization'];
+    // if (!authHeader) {
+    //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
+    // }
     const packageName = req.params.id;
     try {
       const versions = await retrieveVersions(packageName);
@@ -68,6 +79,10 @@ app.route('/package/:id')
     }
   })
   .put(async (req: Request, res: Response) => {
+    // const authHeader = req.headers['x-authorization'];
+    // if (!authHeader) {
+    //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
+    // }
     const { id } = req.params;
     const { filePath, packageName, packageVersion } = req.body;
     try {
@@ -102,6 +117,10 @@ app.route('/package/:id')
     }
   })
   .delete(async (req: Request, res: Response) => {
+    // const authHeader = req.headers['x-authorization'];
+    // if (!authHeader) {
+    //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
+    // }
     const { id } = req.params;
     const { packageVersion } = req.body;
     try {
@@ -114,6 +133,10 @@ app.route('/package/:id')
 
 // Endpoint to create a new package
 app.post('/package', async (req: Request, res: Response) => {
+  // const authHeader = req.headers['x-authorization'];
+  // if (!authHeader) {
+  //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
+  // }
   const { filePath, packageName, packageVersion } = req.body;
   try {
     const url = await checkForURL(filePath);
@@ -149,6 +172,10 @@ app.post('/package', async (req: Request, res: Response) => {
 
 // Endpoint to get package rating
 app.get('/package/:id/rate', async (req: Request, res: Response) => {
+  // const authHeader = req.headers['x-authorization'];
+  // if (!authHeader) {
+  //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
+  // }
   const { id } = req.params;
   try {
     const rating = await lookupRating(id, 'latest'); // Assuming 'latest' version
@@ -160,6 +187,10 @@ app.get('/package/:id/rate', async (req: Request, res: Response) => {
 
 // Endpoint to get package cost
 app.get('/package/:id/cost', async (req: Request, res: Response) => {
+  // const authHeader = req.headers['x-authorization'];
+  // if (!authHeader) {
+  //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
+  // }
   const { id } = req.params;
   try {
     const cost = await sizeCost(id, 'latest'); // Assuming 'latest' version
@@ -177,6 +208,10 @@ app.put('/authenticate', (req: Request, res: Response) => {
 
 // Endpoint to get package history by name
 app.get('/package/byName/:name', async (req: Request, res: Response) => {
+  // const authHeader = req.headers['x-authorization'];
+  // if (!authHeader) {
+  //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
+  // }
   const { name } = req.params;
   try {
     const versions = await retrieveVersions(name);
@@ -188,6 +223,10 @@ app.get('/package/byName/:name', async (req: Request, res: Response) => {
 
 // Endpoint to get packages by regex
 app.post('/package/byRegEx', async (req: Request, res: Response) => {
+  // const authHeader = req.headers['x-authorization'];
+  // if (!authHeader) {
+  //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
+  // }
   const { pattern } = req.body;
   try {
     const matches = await regexSearch(pattern);
@@ -207,8 +246,6 @@ app.get('/tracks', (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
-
 
 // Helper function to check for URL in package
 export const checkForURL = (path: string): Promise<string> => {
