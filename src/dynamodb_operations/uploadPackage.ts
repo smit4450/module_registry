@@ -58,6 +58,13 @@ const calculateSize = (filePath: string): number => {
   return stats.size; // Size in bytes
 };
 
+// Generate a numeric ID based on timestamp and random number
+const generateNumericId = (): string => {
+  const timestamp = Date.now(); // Current timestamp in milliseconds
+  const randomNum = Math.floor(Math.random() * 100000); // Generate a random number between 0 and 99999
+  return `${timestamp}-${randomNum}`; // Combine timestamp and random number to create a unique ID
+};
+
 (async () => {
   try {
     // Prompt for file path or URL
@@ -80,8 +87,9 @@ const calculateSize = (filePath: string): number => {
 
     const fileStream = fs.createReadStream(filePath);
 
-    // Automatically derive package ID from the file name
-    const packageId = path.basename(filePath, path.extname(filePath));
+    // Generate a unique numeric ID for the package
+    const uniqueId = generateNumericId();
+    console.log(`Generated numeric ID for the package: ${uniqueId}`);
 
     // Prompt for additional metadata
     const packageName = await promptUser('Enter the package name: ');
@@ -104,7 +112,7 @@ const calculateSize = (filePath: string): number => {
     const dbParams = {
       TableName: 'Packages',
       Item: {
-        package_id: packageId,          // Unique ID derived from the file name
+        package_id: uniqueId,            // Unique numeric ID generated for the package
         name: packageName,              // User-provided package name
         version: packageVersion,        // User-provided version label
         s3_key: s3Key,                  // Reference to the S3 file location
@@ -120,7 +128,7 @@ const calculateSize = (filePath: string): number => {
     };
 
     await dynamodb.send(new PutCommand(dbParams));
-    console.log('Package metadata with ratings set to zero saved in DynamoDB successfully');
+    console.log('Package metadata saved in DynamoDB successfully');
 
   } catch (error) {
     console.error('Error uploading package:', error);
