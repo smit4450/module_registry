@@ -13,9 +13,10 @@ import { checkRating_url } from './checkRating_url.js';
 import { checkRating } from './checkRating.js';
 import readline from "readline";
 import AdmZip from 'adm-zip';
+import fs from 'fs';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 
@@ -137,13 +138,19 @@ app.post('/package', async (req: Request, res: Response) => {
   // if (!authHeader) {
   //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
   // }
-  const { filePath, packageName, packageVersion } = req.body;
+  const { Content, URL, packageName, packageVersion } = req.body;
+
+  // Validate that exactly one of Content or URL is provided
+  if ((Content && URL) || (!Content && !URL)) {
+    return res.status(400).json({ error: 'Exactly one of Content or URL must be provided.' });
+  }
+
   try {
-    const url = await checkForURL(filePath);
     let rating;
-    if (url === "Error") {
+    if (Content) {
+      // Handle package creation from Content
       while (true) {
-        rating = await checkRating(filePath);
+        rating = await checkRating(Content);
         try {
           JSON.parse(rating);
           break;
@@ -151,10 +158,11 @@ app.post('/package', async (req: Request, res: Response) => {
           console.log("Invalid rating, trying again.");
         }
       }
-      await uploadPackage(filePath, packageName, packageVersion, rating);
-    } else {
+      await uploadPackage(Content, packageName, packageVersion, rating);
+    } else if (URL) {
+      // Handle package creation from URL
       while (true) {
-        rating = await checkRating_url(url);
+        rating = await checkRating_url(URL);
         try {
           JSON.parse(rating);
           break;
@@ -162,13 +170,16 @@ app.post('/package', async (req: Request, res: Response) => {
           console.log("Invalid rating, trying again.");
         }
       }
-      await npmIngestion(url, packageName, packageVersion, rating);
+      await npmIngestion(URL, packageName, packageVersion, rating);
     }
-    res.status(201).json({ message: 'Package created' });
+
+    res.status(201).json({ message: 'Package created successfully' });
   } catch (error) {
+    console.error('Error creating package:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // Endpoint to get package rating
 app.get('/package/:id/rate', async (req: Request, res: Response) => {

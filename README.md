@@ -22,4 +22,5 @@ npx tsc
 npm test
 
 Backend API Endpoint:
-node server.js
+npx tsc
+node dist/server.js
