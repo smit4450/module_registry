@@ -13,14 +13,22 @@ GITHUB_TOKEN
 LOG_LEVEL
 LOG_FILE
 
+Dev testing:
 Front End:
-npm run build
-npm start
+    npm run build
+    npm start
 
 Database:
-npx tsc
-npm test
+    npx tsc
+    npm test
 
 Backend API Endpoint:
-npx tsc
-node dist/server.js
+    npx tsc
+    node dist/server.js
+
+Production startup:
+Frontend: 
+    pm2 start npm --name "frontend" -- run start
+    Frontend runs on port 8080 and NGINX is used to reverse proxy port 80
+Backend:
+
