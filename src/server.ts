@@ -16,7 +16,7 @@ import AdmZip from 'adm-zip';
 import fs from 'fs';
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
@@ -264,20 +264,20 @@ export const checkForURL = (path: string): Promise<string> => {
   const zipEntries = zip.getEntries();
 
   for (const zipEntry of zipEntries) {
-      if (!zipEntry.isDirectory && zipEntry.entryName.split('/').length < 3) {
-          const fileName = zipEntry.entryName;
-          if (fileName.includes('package.json')) {
-              const fileContent = zipEntry.getData().toString('utf8');
-              const lines = fileContent.split('\n');
-              for (const line of lines) {
-                  const urlPattern = /(https?:\/\/(?:www\.)?(github\.com|npmjs\.com)\/[^\s]+)/;
-                  const match = line.match(urlPattern);
-                  if (match) {
-                      return Promise.resolve(match[0]);
-                  }
-              }
+    if (!zipEntry.isDirectory && zipEntry.entryName.split('/').length < 3) {
+      const fileName = zipEntry.entryName;
+      if (fileName.includes('package.json')) {
+        const fileContent = zipEntry.getData().toString('utf8');
+        const lines = fileContent.split('\n');
+        for (const line of lines) {
+          const urlPattern = /(https?:\/\/(?:www\.)?(github\.com|npmjs\.com)\/[^\s]+)/;
+          const match = line.match(urlPattern);
+          if (match) {
+            return Promise.resolve(match[0]);
           }
+        }
       }
+    }
   }
   return Promise.resolve("Error");
 }

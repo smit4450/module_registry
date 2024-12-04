@@ -31,4 +31,5 @@ Frontend:
     pm2 start npm --name "frontend" -- run start
     Frontend runs on port 8080 and NGINX is used to reverse proxy port 80
 Backend:
-
+    
+    Backend runs on port 3000
