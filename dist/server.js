@@ -9,6 +9,7 @@ import { listPackages } from "./dynamodb_operations/listPackages.js";
 import { npmIngestion } from './dynamodb_operations/npmIngestion.js';
 import { regexSearch } from './dynamodb_operations/regexSearch.js';
 import { uploadPackage } from "./dynamodb_operations/uploadPackage.js";
+import { resetRegistry } from './dynamodb_operations/resetRegistry.js';
 import { checkRating_url } from './checkRating_url.js';
 import { checkRating } from './checkRating.js';
 import AdmZip from 'adm-zip';
@@ -50,13 +51,22 @@ app.post('/packages', async (req, res) => {
     }
 });
 // Endpoint to reset the registry
-app.delete('/reset', (req, res) => {
+app.delete('/reset', async (req, res) => {
     // const authHeader = req.headers['x-authorization'];
     // if (!authHeader) {
     //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
     // }
     // Implement logic to reset the registry
-    res.status(200).json({ message: 'Registry reset' });
+    try {
+        await resetRegistry();
+        res.status(200).json({ message: "Registry has been reset successfully." });
+    }
+    catch (error) {
+        console.error("Error resetting registry:", error);
+        res.status(500).json({
+            error: "An error occurred while resetting the registry. Please try again.",
+        });
+    }
 });
 // Endpoint to interact with a package by ID
 app.route('/package/:id')
