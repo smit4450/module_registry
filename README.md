@@ -1,4 +1,5 @@
-ECE 461 Project Phase 1: Module Rating System
+ECE 461 Project: Module Rating System
+https://github.com/smit4450/module_registry
 
 Phase 2 Group Members: Sam Johnson, Harrison Smith, Sydney Chang, Doha Hafez, Jana Gamal
 
