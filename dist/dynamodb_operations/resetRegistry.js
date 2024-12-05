@@ -51,7 +51,7 @@ export const resetRegistry = async () => {
                     TableName: "Packages",
                     Key: {
                         name: packageName, // Partition key
-                        version: packageVersion, // Sort key (if applicable)
+                        //version: packageVersion, // Sort key (if applicable)
                     },
                 };
                 try {
