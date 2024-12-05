@@ -48,7 +48,9 @@ export const uploadPackage = async (filePath: string, packageName: string, packa
     const packageSize = calculateSize(filePath);
     const fileStream = fs.createReadStream(filePath);
 
-
+    // Generate a unique numeric ID for the package
+    const uniqueId = generateNumericId();
+    console.log(`Generated numeric ID for the package: ${uniqueId}`);
 
     const packageId = path.basename(filePath, path.extname(filePath));
     const s3BucketName = process.env.S3_BUCKET_NAME; // Ensure your bucket name is set in your .env
@@ -62,10 +64,6 @@ export const uploadPackage = async (filePath: string, packageName: string, packa
 
     await s3.send(new PutObjectCommand(s3UploadParams));
     console.log(`Package file uploaded to S3 at key: ${s3Key}`);
-
-    // Generate a unique numeric ID for the package
-    const uniqueId = generateNumericId();
-    console.log(`Generated numeric ID for the package: ${uniqueId}`);
 
     let ratingData;
     try {

@@ -14,7 +14,7 @@ const promptUser = (query: string): Promise<string> => {
     }));
 };
 
-export const retrieveVersions = async (packageName: string): Promise<string> => {
+export const retrieveVersions = async (packageName: string) => {
     try {
         const params = {
             TableName: "Packages",
@@ -31,9 +31,9 @@ export const retrieveVersions = async (packageName: string): Promise<string> => 
 
         if (data.Items && data.Items.length > 0) {
             const versions = data.Items.map((item) => item.version);
-            return JSON.stringify({ packageName, versions });
+            return { packageName, versions };
         } else {
-            return JSON.stringify({ packageName, versions: [] });
+            return { packageName, versions: [] };
         }
     } catch (error) {
         console.error("Error retrieving versions:", error);
