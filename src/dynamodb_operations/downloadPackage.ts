@@ -37,7 +37,7 @@ const streamToString = (stream: Readable): Promise<string> => {
 export const downloadPackage = async (filePath: string, packageName: string) => {
     try {
         const params = {
-            TableName: "Packages",
+            TableName: "packages_new",
             KeyConditionExpression: "#name = :name",
             ExpressionAttributeNames: {
                 "#name": "name", // Use an alias for the reserved keyword "name"

@@ -92,7 +92,7 @@ export const npmIngestion = async (url: string, packageName: string, packageVers
 
   // Save metadata to DynamoDB, including the size
   const dbParams = {
-    TableName: 'Packages',
+    TableName: 'packages_new',
     Item: {
       package_id: packageId,    // Unique ID derived from the file name
       name: packageName,        // User-provided package name

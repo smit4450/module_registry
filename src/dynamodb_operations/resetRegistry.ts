@@ -29,7 +29,7 @@ export const resetRegistry = async () => {
     console.log("Scanning for packages...");
 
     const scanParams = {
-      TableName: "Packages",
+      TableName: "packages_new",
     };
 
     const scanResponse = await dynamodb.send(new ScanCommand(scanParams));
@@ -59,7 +59,7 @@ export const resetRegistry = async () => {
 
         // Step 2: Delete from DynamoDB
         const deleteDbParams = {
-          TableName: "Packages",
+          TableName: "packages_new",
           Key: {
             name: packageName, // Partition key
             //version: packageVersion, // Sort key (if applicable)

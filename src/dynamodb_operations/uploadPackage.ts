@@ -69,7 +69,7 @@ export const uploadPackage = async (filePath: string, packageName: string, packa
 
     // Save metadata to DynamoDB
     const dbParams = {
-      TableName: 'Packages',
+      TableName: 'packages_new',
       Item: {
         package_id: packageId,    // Unique ID derived from the file name
         name: packageName,        // User-provided package name
