@@ -23,15 +23,15 @@ const s3 = new S3Client({
 export const lookupRating = async (packageName: string, packageVersion: string): Promise<string> => {
   try {
     const scanParams = {
-      TableName: "Packages",
+      TableName: "packages_new",
       FilterExpression: "#name = :name AND #version = :version",
       ExpressionAttributeNames: {
-          "#name": "name",
-          "#version": "version",
+        "#name": "name",
+        "#version": "version",
       },
       ExpressionAttributeValues: {
-          ":name": packageName,
-          ":version": packageVersion,
+        ":name": packageName,
+        ":version": packageVersion,
       },
     };
 
@@ -42,7 +42,7 @@ export const lookupRating = async (packageName: string, packageVersion: string):
     }
 
     //console.log(Item); 
-    
+
     const {
       bus_factor,
       correctness,
@@ -62,23 +62,23 @@ export const lookupRating = async (packageName: string, packageVersion: string):
       NetScore: Number(net_score.toFixed(3)) || 0,
       NetScore_Latency: 0,
       RampUp: Number(ramp_up.toFixed(3)) || 0,
-      RampUp_Latency:  0,
+      RampUp_Latency: 0,
       Correctness: Number(correctness.toFixed(3)) || 0,
-      Correctness_Latency:  0,
+      Correctness_Latency: 0,
       BusFactor: Number(bus_factor.toFixed(3)) || 0,
-      BusFactor_Latency:  0,
+      BusFactor_Latency: 0,
       ResponsiveMaintainer: Number(responsiveness.toFixed(3)) || 0,
-      ResponsiveMaintainer_Latency:  0,
+      ResponsiveMaintainer_Latency: 0,
       License: Number(license.toFixed(3)) || 0,
-      License_Latency:  0,
+      License_Latency: 0,
       Depends: Number(dependency.toFixed(3)) || 0,
-      Depends_Latency:  0,
+      Depends_Latency: 0,
       Pull: Number(pull_request.toFixed(3)) || 0,
-      Pull_Latency:  0,
-  }
+      Pull_Latency: 0,
+    }
 
-  const output = JSON.stringify(data);
-  return output;
+    const output = JSON.stringify(data);
+    return output;
 
   } catch (error: any) {
     throw new Error('Error: ' + error);
