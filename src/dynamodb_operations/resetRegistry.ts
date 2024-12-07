@@ -41,6 +41,7 @@ export const resetRegistry = async () => {
         const packageName = item.name;
         const packageVersion = item.version;
         const s3Key = item.s3_key;
+        const package_id = item.package_id;
 
         // Step 1: Delete from S3
         if (s3Key) {
@@ -61,7 +62,7 @@ export const resetRegistry = async () => {
         const deleteDbParams = {
           TableName: "packages_new",
           Key: {
-            name: packageName, // Partition key
+            package_id: package_id, // Partition key
             //version: packageVersion, // Sort key (if applicable)
           },
         };
