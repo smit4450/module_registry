@@ -146,7 +146,7 @@ app.route('/package/:id')
     const { id } = req.params;
     const { packageVersion } = req.body;
     try {
-      await deletePackage(id, packageVersion);
+      await deletePackage(id);
       res.status(200).json({ message: 'Package deleted' });
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
