@@ -13,6 +13,8 @@ import { uploadPackage } from "./dynamodb_operations/uploadPackage.js";
 import readline from "readline";
 import AdmZip from 'adm-zip';
 import { checkPackageJson } from './api_handler/graphql_handler/analyzer_graphql.js';
+import { log } from 'console';
+import { url } from 'inspector';
 
 
 const promptUser = (query: string): Promise<string> => {
@@ -31,13 +33,13 @@ export const checkForURL = (path: string): Promise<string> => {
     const zipEntries = zip.getEntries();
 
     for (const zipEntry of zipEntries) {
-        if (!zipEntry.isDirectory && zipEntry.entryName.split('/').length < 3) {
+        if (!zipEntry.isDirectory && zipEntry.entryName.split('/').length < 4) {
             const fileName = zipEntry.entryName;
             if (fileName.includes('package.json')) {
                 const fileContent = zipEntry.getData().toString('utf8');
                 const lines = fileContent.split('\n');
                 for (const line of lines) {
-                    const urlPattern = /(https?:\/\/(?:www\.)?(github\.com|npmjs\.com)\/[^\s]+)/;
+                    const urlPattern = /(https?:\/\/(?:www\.)?(github\.com|npmjs\.com)\/[^\s",]+)/;
                     const match = line.match(urlPattern);
                     if (match) {
                         return Promise.resolve(match[0]);
@@ -169,6 +171,7 @@ export async function main() {
         else {
             let rating;
             while (true) {
+                console.log("CHECKING RATING OF: " + url);
                 rating = await checkRating_url(url);
                 try {
                 JSON.parse(rating);

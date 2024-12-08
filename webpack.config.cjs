@@ -19,6 +19,11 @@ module.exports = {
         test: /\.css$/,  // For CSS files
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
     ],
   },
   devServer: {
@@ -29,6 +34,6 @@ module.exports = {
     open: false,  // Set to false because there's no browser to open on EC2
   },
   resolve: {
-    extensions: ['.js', '.jsx'],  // Automatically resolve these extensions
+    extensions: ['.ts', '.js', '.jsx'],  // Automatically resolve these extensions
   },
 };

@@ -13,10 +13,16 @@ import { checkRating_url } from './checkRating_url.js';
 import { checkRating } from './checkRating.js';
 import readline from "readline";
 import AdmZip from 'adm-zip';
+import cors from 'cors';
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(cors({
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+})); // Add this line to enable CORS
 app.use(bodyParser.json());
 
 // Example endpoint

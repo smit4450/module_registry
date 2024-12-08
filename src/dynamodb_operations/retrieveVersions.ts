@@ -1,20 +1,8 @@
 import { QueryCommand } from "@aws-sdk/lib-dynamodb";
-import dynamodb from "../dynamodb.js";
+import dynamodb from '../dynamodb.js';
 import readline from "readline";
 
-// Helper function to prompt the user
-const promptUser = (query: string): Promise<string> => {
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-    });
-    return new Promise((resolve) => rl.question(query, (ans) => {
-        rl.close();
-        resolve(ans);
-    }));
-};
-
-export const retrieveVersions = async (packageName: string): Promise<string> => {
+export const retrieveVersions = async (packageName: string) => {
     try {
         const params = {
             TableName: "Packages",
@@ -31,9 +19,11 @@ export const retrieveVersions = async (packageName: string): Promise<string> => 
 
         if (data.Items && data.Items.length > 0) {
             const versions = data.Items.map((item) => item.version);
-            return JSON.stringify({ packageName, versions });
+            // -------- WORKS -------
+            return { packageName, versions };
         } else {
-            return JSON.stringify({ packageName, versions: [] });
+            return { packageName, versions: []};
+            // ----------------------
         }
     } catch (error) {
         console.error("Error retrieving versions:", error);
