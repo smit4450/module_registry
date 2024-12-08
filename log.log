@@ -29,3 +29,413 @@
 [INFO] 2024-11-24T17:17:15.060Z - REVIEWED PULL REQUEST TITLE 3: Use loop for acceptParams
 [INFO] 2024-11-24T17:17:15.060Z - REVIEWED ADDITIONS: 102
 [INFO] 2024-11-24T17:17:15.061Z - UNREVIEWED ADDITIONS: 0
+[INFO] 2024-12-05T20:08:08.923Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-05T20:08:08.926Z - License - Reading license from README.md
+[INFO] 2024-12-05T20:08:08.927Z - License - Extracting license from README.md
+[INFO] 2024-12-05T20:08:36.337Z - DEPENDS accepts ^2.0.0,accepts ,body-parser ^2.0.1,body-parser ,content-disposition ^1.0.0,content-disposition ,content-type ~1.0.4,content-type ,cookie 0.7.1,cookie ,cookie-signature ^1.2.1,cookie-signature ,debug 4.3.6,debug ,depd 2.0.0,depd ,encodeurl ~2.0.0,encodeurl ,escape-html ~1.0.3,escape-html ,etag ~1.8.1,etag ,finalhandler ^2.0.0,finalhandler ,fresh 2.0.0,fresh ,http-errors 2.0.0,http-errors ,merge-descriptors ^2.0.0,merge-descriptors ,methods ~1.1.2,methods ,mime-types ^3.0.0,mime-types ,on-finished 2.4.1,on-finished ,once 1.4.0,once ,parseurl ~1.3.3,parseurl ,proxy-addr ~2.0.7,proxy-addr ,qs 6.13.0,qs ,range-parser ~1.2.1,range-parser ,router ^2.0.0,router ,send ^1.1.0,send ,serve-static ^2.1.0,serve-static ,statuses 2.0.1,statuses ,type-is ^2.0.0,type-is ,utils-merge 1.0.1,utils-merge ,vary ~1.1.2,vary ,after 0.8.2,after ,connect-redis 3.4.2,connect-redis ,cookie-parser 1.4.6,cookie-parser ,cookie-session 2.0.0,cookie-session ,ejs 3.1.9,ejs ,eslint 8.47.0,eslint ,express-session 1.17.2,express-session ,hbs 4.2.0,hbs ,marked 0.7.0,marked ,method-override 3.0.0,method-override ,mocha 10.2.0,mocha ,morgan 1.10.0,morgan ,nyc 15.1.0,nyc ,pbkdf2-password 1.2.1,pbkdf2-password ,supertest 6.3.0,supertest ,vhost ~3.0.2,vhost 
+[INFO] 2024-12-05T20:08:36.343Z - License - Reading license from LICENSE file
+[INFO] 2024-12-05T20:08:36.344Z - License - License is compatible with LGPLv2.1
+[INFO] 2024-12-05T20:09:24.260Z - URL validation successful
+[INFO] 2024-12-05T20:09:24.261Z - Starting Analysis
+[INFO] 2024-12-05T20:09:24.262Z - Link is a GitHub URL
+[INFO] 2024-12-05T20:09:24.263Z - Fetching repository data...
+[INFO] 2024-12-05T20:09:24.263Z - -------------------------https://github.com/lodash/lodash-------------------------
+[CRITICAL] 2024-12-05T20:09:34.615Z - Error calling fetchRepo: Repository data info not found.
+[INFO] 2024-12-05T20:10:24.192Z - URL validation successful
+[INFO] 2024-12-05T20:10:24.193Z - Starting Analysis
+[INFO] 2024-12-05T20:10:24.193Z - Link is a GitHub URL
+[INFO] 2024-12-05T20:10:24.194Z - Fetching repository data...
+[INFO] 2024-12-05T20:10:24.195Z - -------------------------https://github.com/lodash/lodash-------------------------
+[CRITICAL] 2024-12-05T20:10:34.708Z - Error calling fetchRepo: Repository data info not found.
+[INFO] 2024-12-05T20:11:19.555Z - URL validation successful
+[INFO] 2024-12-05T20:11:19.556Z - Starting Analysis
+[INFO] 2024-12-05T20:11:19.556Z - Link is an NPM URL
+[INFO] 2024-12-05T20:11:19.679Z - Fetching repository data...
+[INFO] 2024-12-05T20:11:19.680Z - -------------------------https://github.com/lodash/lodash-------------------------
+[CRITICAL] 2024-12-05T20:11:30.099Z - Error calling fetchRepo: Repository data info not found.
+[INFO] 2024-12-05T20:40:27.605Z - DEPENDS axios ^1.7.7,axios ,dotenv ^16.4.5,dotenv ,node ^22.8.0,node ,bootstrap ^5.3.3,bootstrap ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,@types/minimist ^1.2.5,@types/minimist ,@types/node ^18.19.50,@types/node ,ts-node ^10.9.2,ts-node ,typescript ^5.6.2,typescript ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-05T20:40:27.607Z - License - Reading license from README.md
+[INFO] 2024-12-05T20:40:27.608Z - License - Extracting license from README.md
+[INFO] 2024-12-06T19:28:46.083Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-06T19:28:46.106Z - License - Reading license from README.md
+[INFO] 2024-12-06T19:28:46.106Z - License - Extracting license from README.md
+[INFO] 2024-12-06T19:28:46.107Z - License - Reading license from LICENSE file
+[INFO] 2024-12-06T19:28:46.107Z - License - License is compatible with LGPLv2.1
+[INFO] 2024-12-06T19:30:38.940Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-06T19:30:38.957Z - License - Reading license from README.md
+[INFO] 2024-12-06T19:30:38.957Z - License - Extracting license from README.md
+[INFO] 2024-12-06T19:30:38.958Z - License - Reading license from LICENSE file
+[INFO] 2024-12-06T19:30:38.958Z - License - License is compatible with LGPLv2.1
+[INFO] 2024-12-06T19:33:23.972Z - URL validation successful
+[INFO] 2024-12-06T19:33:23.973Z - Starting Analysis
+[INFO] 2024-12-06T19:33:23.973Z - Link is a GitHub URL
+[INFO] 2024-12-06T19:33:23.974Z - Fetching repository data...
+[INFO] 2024-12-06T19:33:23.974Z - -------------------------https://github.com/smit4450/module_registry",-------------------------
+[CRITICAL] 2024-12-06T19:33:24.130Z - Error calling fetchRepo: Repository data info not found.
+[INFO] 2024-12-06T19:33:53.497Z - URL validation successful
+[INFO] 2024-12-06T19:33:53.498Z - Starting Analysis
+[INFO] 2024-12-06T19:33:53.499Z - Link is a GitHub URL
+[INFO] 2024-12-06T19:33:53.499Z - Fetching repository data...
+[INFO] 2024-12-06T19:33:53.500Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-06T19:33:58.112Z - Parameters Found
+[INFO] 2024-12-06T19:33:58.113Z - Calculating metrics
+[INFO] 2024-12-06T19:33:58.114Z - PACKAGE
+[INFO] 2024-12-06T19:33:58.115Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-06T19:33:58.115Z - PULL REQUESTS
+[INFO] 2024-12-06T19:33:58.116Z - REVIEWED PULL REQUESTS: 13
+[INFO] 2024-12-06T19:33:58.116Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-06T19:33:58.117Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-06T19:33:58.117Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-06T19:33:58.117Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-06T19:33:58.118Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-06T19:33:58.118Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-06T19:33:58.118Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-06T19:33:58.119Z - REVIEWED ADDITIONS: 50920
+[INFO] 2024-12-06T19:33:58.119Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-12-06T19:36:12.796Z - URL validation successful
+[INFO] 2024-12-06T19:36:12.797Z - Starting Analysis
+[INFO] 2024-12-06T19:36:12.797Z - Link is a GitHub URL
+[INFO] 2024-12-06T19:36:12.798Z - Fetching repository data...
+[INFO] 2024-12-06T19:36:12.798Z - -------------------------https://github.com/smit4450/module_registry",-------------------------
+[CRITICAL] 2024-12-06T19:36:12.941Z - Error calling fetchRepo: Repository data info not found.
+[INFO] 2024-12-06T19:36:45.908Z - URL validation successful
+[INFO] 2024-12-06T19:36:45.909Z - Starting Analysis
+[INFO] 2024-12-06T19:36:45.910Z - Link is a GitHub URL
+[INFO] 2024-12-06T19:36:45.911Z - Fetching repository data...
+[INFO] 2024-12-06T19:36:45.911Z - -------------------------https://github.com/smit4450/module_registry",-------------------------
+[CRITICAL] 2024-12-06T19:36:46.074Z - Error calling fetchRepo: Repository data info not found.
+[INFO] 2024-12-06T19:38:12.877Z - URL validation successful
+[INFO] 2024-12-06T19:38:12.877Z - Starting Analysis
+[INFO] 2024-12-06T19:38:12.878Z - Link is a GitHub URL
+[INFO] 2024-12-06T19:38:12.879Z - Fetching repository data...
+[INFO] 2024-12-06T19:38:12.879Z - -------------------------https://github.com/smit4450/module_registry",-------------------------
+[CRITICAL] 2024-12-06T19:38:13.045Z - Error calling fetchRepo: Repository data info not found.
+[INFO] 2024-12-06T19:40:30.774Z - URL validation successful
+[INFO] 2024-12-06T19:40:30.774Z - Starting Analysis
+[INFO] 2024-12-06T19:40:30.775Z - Link is a GitHub URL
+[INFO] 2024-12-06T19:40:30.776Z - Fetching repository data...
+[INFO] 2024-12-06T19:40:30.776Z - -------------------------https://github.com/smit4450/module_registry",-------------------------
+[CRITICAL] 2024-12-06T19:40:30.917Z - Error calling fetchRepo: Repository data info not found.
+[INFO] 2024-12-06T19:43:39.015Z - URL validation successful
+[INFO] 2024-12-06T19:43:39.016Z - Starting Analysis
+[INFO] 2024-12-06T19:43:39.016Z - Link is a GitHub URL
+[INFO] 2024-12-06T19:43:39.017Z - Fetching repository data...
+[INFO] 2024-12-06T19:43:39.017Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-06T19:43:41.689Z - Parameters Found
+[INFO] 2024-12-06T19:43:41.690Z - Calculating metrics
+[INFO] 2024-12-06T19:43:41.691Z - PACKAGE
+[INFO] 2024-12-06T19:43:41.692Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-06T19:43:41.693Z - PULL REQUESTS
+[INFO] 2024-12-06T19:43:41.693Z - REVIEWED PULL REQUESTS: 13
+[INFO] 2024-12-06T19:43:41.694Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-06T19:43:41.694Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-06T19:43:41.694Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-06T19:43:41.695Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-06T19:43:41.695Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-06T19:43:41.696Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-06T19:43:41.696Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-06T19:43:41.696Z - REVIEWED ADDITIONS: 50920
+[INFO] 2024-12-06T19:43:41.697Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-12-08T19:07:05.309Z - URL validation successful
+[INFO] 2024-12-08T19:07:05.310Z - Starting Analysis
+[INFO] 2024-12-08T19:07:05.311Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:07:05.311Z - Fetching repository data...
+[INFO] 2024-12-08T19:07:05.312Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-08T19:07:09.976Z - Parameters Found
+[INFO] 2024-12-08T19:07:09.977Z - Calculating metrics
+[INFO] 2024-12-08T19:07:09.978Z - PACKAGE
+[INFO] 2024-12-08T19:07:09.979Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-08T19:07:09.979Z - PULL REQUESTS
+[INFO] 2024-12-08T19:07:09.980Z - REVIEWED PULL REQUESTS: 14
+[INFO] 2024-12-08T19:07:09.980Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-08T19:07:09.981Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-08T19:07:09.981Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-08T19:07:09.981Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-08T19:07:09.982Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-08T19:07:09.982Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-08T19:07:09.983Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-08T19:07:09.983Z - REVIEWED ADDITIONS: 51010
+[INFO] 2024-12-08T19:07:09.983Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-12-08T19:12:31.138Z - URL validation successful
+[INFO] 2024-12-08T19:12:31.139Z - Starting Analysis
+[INFO] 2024-12-08T19:12:31.139Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:12:31.140Z - Fetching repository data...
+[INFO] 2024-12-08T19:12:31.140Z - -------------------------https://github.com/lodash/lodash-------------------------
+[CRITICAL] 2024-12-08T19:12:41.624Z - Error calling fetchRepo: Repository data info not found.
+[INFO] 2024-12-08T19:13:08.667Z - URL validation successful
+[INFO] 2024-12-08T19:13:08.668Z - Starting Analysis
+[INFO] 2024-12-08T19:13:08.668Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:13:08.669Z - Fetching repository data...
+[INFO] 2024-12-08T19:13:08.669Z - -------------------------https://github.com/expressjs/express-------------------------
+[INFO] 2024-12-08T19:13:14.785Z - Parameters Found
+[INFO] 2024-12-08T19:13:14.786Z - Calculating metrics
+[INFO] 2024-12-08T19:13:14.787Z - PACKAGE2
+[INFO] 2024-12-08T19:13:14.788Z - DEPENDS accepts ^2.0.0,accepts ,body-parser ^2.0.1,body-parser ,content-disposition ^1.0.0,content-disposition ,content-type ~1.0.4,content-type ,cookie 0.7.1,cookie ,cookie-signature ^1.2.1,cookie-signature ,debug 4.3.6,debug ,depd 2.0.0,depd ,encodeurl ~2.0.0,encodeurl ,escape-html ~1.0.3,escape-html ,etag ~1.8.1,etag ,finalhandler ^2.0.0,finalhandler ,fresh 2.0.0,fresh ,http-errors 2.0.0,http-errors ,merge-descriptors ^2.0.0,merge-descriptors ,methods ~1.1.2,methods ,mime-types ^3.0.0,mime-types ,on-finished 2.4.1,on-finished ,once 1.4.0,once ,parseurl ~1.3.3,parseurl ,proxy-addr ~2.0.7,proxy-addr ,qs 6.13.0,qs ,range-parser ~1.2.1,range-parser ,router ^2.0.0,router ,send ^1.1.0,send ,serve-static ^2.1.0,serve-static ,statuses 2.0.1,statuses ,type-is ^2.0.0,type-is ,utils-merge 1.0.1,utils-merge ,vary ~1.1.2,vary ,after 0.8.2,after ,connect-redis 3.4.2,connect-redis ,cookie-parser 1.4.6,cookie-parser ,cookie-session 2.0.0,cookie-session ,ejs 3.1.9,ejs ,eslint 8.47.0,eslint ,express-session 1.17.2,express-session ,hbs 4.2.0,hbs ,marked 0.7.0,marked ,method-override 3.0.0,method-override ,mocha 10.2.0,mocha ,morgan 1.10.0,morgan ,nyc 15.1.0,nyc ,pbkdf2-password 1.2.1,pbkdf2-password ,supertest 6.3.0,supertest ,vhost ~3.0.2,vhost 
+[INFO] 2024-12-08T19:13:14.788Z - PULL REQUESTS
+[INFO] 2024-12-08T19:13:14.789Z - REVIEWED PULL REQUESTS: 9
+[INFO] 2024-12-08T19:13:14.789Z - UNREVIEWED PULL REQUESTS: 0
+[INFO] 2024-12-08T19:13:14.789Z - REVIEWED PULL REQUEST TITLE 1: Release: 4.21.2
+[INFO] 2024-12-08T19:13:14.790Z - REVIEWED PULL REQUEST TITLE 2: cleanup: remove unnecessary require for global Buffer
+[INFO] 2024-12-08T19:13:14.790Z - REVIEWED PULL REQUEST TITLE 3: cleanup: remove AsyncLocalStorage check
+[INFO] 2024-12-08T19:13:14.791Z - REVIEWED ADDITIONS: 51
+[INFO] 2024-12-08T19:13:14.791Z - UNREVIEWED ADDITIONS: 0
+[INFO] 2024-12-08T19:16:54.016Z - URL validation successful
+[INFO] 2024-12-08T19:16:54.017Z - Starting Analysis
+[INFO] 2024-12-08T19:16:54.017Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:16:54.018Z - Fetching repository data...
+[INFO] 2024-12-08T19:16:54.018Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-08T19:16:56.470Z - Parameters Found
+[INFO] 2024-12-08T19:16:56.471Z - Calculating metrics
+[INFO] 2024-12-08T19:16:56.472Z - PACKAGE
+[INFO] 2024-12-08T19:16:56.473Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-08T19:16:56.473Z - PULL REQUESTS
+[INFO] 2024-12-08T19:16:56.474Z - REVIEWED PULL REQUESTS: 14
+[INFO] 2024-12-08T19:16:56.474Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-08T19:16:56.474Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-08T19:16:56.475Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-08T19:16:56.475Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-08T19:16:56.476Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-08T19:16:56.477Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-08T19:16:56.478Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-08T19:16:56.480Z - REVIEWED ADDITIONS: 51010
+[INFO] 2024-12-08T19:16:56.481Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-12-08T19:24:54.456Z - URL validation successful
+[INFO] 2024-12-08T19:24:54.457Z - Starting Analysis
+[INFO] 2024-12-08T19:24:54.457Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:24:54.458Z - Fetching repository data...
+[INFO] 2024-12-08T19:24:54.458Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-08T19:24:58.491Z - Parameters Found
+[INFO] 2024-12-08T19:24:58.492Z - Calculating metrics
+[INFO] 2024-12-08T19:24:58.492Z - PACKAGE
+[INFO] 2024-12-08T19:24:58.493Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-08T19:24:58.494Z - PULL REQUESTS
+[INFO] 2024-12-08T19:24:58.494Z - REVIEWED PULL REQUESTS: 14
+[INFO] 2024-12-08T19:24:58.495Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-08T19:24:58.495Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-08T19:24:58.496Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-08T19:24:58.496Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-08T19:24:58.496Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-08T19:24:58.497Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-08T19:24:58.497Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-08T19:24:58.498Z - REVIEWED ADDITIONS: 51010
+[INFO] 2024-12-08T19:24:58.498Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-12-08T19:26:02.123Z - URL validation successful
+[INFO] 2024-12-08T19:26:02.124Z - Starting Analysis
+[INFO] 2024-12-08T19:26:02.124Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:26:02.125Z - Fetching repository data...
+[INFO] 2024-12-08T19:26:02.125Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-08T19:26:04.684Z - Parameters Found
+[INFO] 2024-12-08T19:26:04.685Z - Calculating metrics
+[INFO] 2024-12-08T19:26:04.686Z - PACKAGE
+[INFO] 2024-12-08T19:26:04.687Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-08T19:26:04.688Z - PULL REQUESTS
+[INFO] 2024-12-08T19:26:04.688Z - REVIEWED PULL REQUESTS: 14
+[INFO] 2024-12-08T19:26:04.688Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-08T19:26:04.689Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-08T19:26:04.689Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-08T19:26:04.690Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-08T19:26:04.690Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-08T19:26:04.690Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-08T19:26:04.691Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-08T19:26:04.691Z - REVIEWED ADDITIONS: 51010
+[INFO] 2024-12-08T19:26:04.691Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-12-08T19:26:51.748Z - URL validation successful
+[INFO] 2024-12-08T19:26:51.749Z - Starting Analysis
+[INFO] 2024-12-08T19:26:51.749Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:26:51.750Z - Fetching repository data...
+[INFO] 2024-12-08T19:26:51.750Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-08T19:26:54.676Z - Parameters Found
+[INFO] 2024-12-08T19:26:54.683Z - Calculating metrics
+[INFO] 2024-12-08T19:26:54.688Z - PACKAGE
+[INFO] 2024-12-08T19:26:54.689Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-08T19:26:54.693Z - PULL REQUESTS
+[INFO] 2024-12-08T19:26:54.693Z - REVIEWED PULL REQUESTS: 14
+[INFO] 2024-12-08T19:26:54.693Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-08T19:26:54.694Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-08T19:26:54.694Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-08T19:26:54.695Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-08T19:26:54.696Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-08T19:26:54.696Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-08T19:26:54.697Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-08T19:26:54.697Z - REVIEWED ADDITIONS: 51010
+[INFO] 2024-12-08T19:26:54.697Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-12-08T19:27:44.996Z - URL validation successful
+[INFO] 2024-12-08T19:27:44.997Z - Starting Analysis
+[INFO] 2024-12-08T19:27:44.997Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:27:44.998Z - Fetching repository data...
+[INFO] 2024-12-08T19:27:44.998Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-08T19:27:47.381Z - Parameters Found
+[INFO] 2024-12-08T19:27:47.382Z - Calculating metrics
+[INFO] 2024-12-08T19:27:47.382Z - PACKAGE
+[INFO] 2024-12-08T19:27:47.383Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-08T19:27:47.384Z - PULL REQUESTS
+[INFO] 2024-12-08T19:27:47.384Z - REVIEWED PULL REQUESTS: 14
+[INFO] 2024-12-08T19:27:47.385Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-08T19:27:47.385Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-08T19:27:47.386Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-08T19:27:47.386Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-08T19:27:47.386Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-08T19:27:47.387Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-08T19:27:47.387Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-08T19:27:47.387Z - REVIEWED ADDITIONS: 51010
+[INFO] 2024-12-08T19:27:47.388Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-12-08T19:28:20.881Z - URL validation successful
+[INFO] 2024-12-08T19:28:20.882Z - Starting Analysis
+[INFO] 2024-12-08T19:28:20.882Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:28:20.883Z - Fetching repository data...
+[INFO] 2024-12-08T19:28:20.883Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-08T19:28:25.812Z - Parameters Found
+[INFO] 2024-12-08T19:28:25.813Z - Calculating metrics
+[INFO] 2024-12-08T19:28:25.814Z - PACKAGE
+[INFO] 2024-12-08T19:28:25.815Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-08T19:28:25.815Z - PULL REQUESTS
+[INFO] 2024-12-08T19:28:25.816Z - REVIEWED PULL REQUESTS: 14
+[INFO] 2024-12-08T19:28:25.816Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-08T19:28:25.816Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-08T19:28:25.817Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-08T19:28:25.817Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-08T19:28:25.818Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-08T19:28:25.818Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-08T19:28:25.818Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-08T19:28:25.819Z - REVIEWED ADDITIONS: 51010
+[INFO] 2024-12-08T19:28:25.819Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-12-08T19:29:38.242Z - URL validation successful
+[INFO] 2024-12-08T19:29:38.243Z - Starting Analysis
+[INFO] 2024-12-08T19:29:38.243Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:29:38.244Z - Fetching repository data...
+[INFO] 2024-12-08T19:29:38.244Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-08T19:29:41.715Z - Parameters Found
+[INFO] 2024-12-08T19:29:41.716Z - Calculating metrics
+[INFO] 2024-12-08T19:29:41.717Z - PACKAGE
+[INFO] 2024-12-08T19:29:41.717Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-08T19:29:41.718Z - PULL REQUESTS
+[INFO] 2024-12-08T19:29:41.718Z - REVIEWED PULL REQUESTS: 14
+[INFO] 2024-12-08T19:29:41.719Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-08T19:29:41.719Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-08T19:29:41.720Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-08T19:29:41.720Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-08T19:29:41.720Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-08T19:29:41.721Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-08T19:29:41.721Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-08T19:29:41.721Z - REVIEWED ADDITIONS: 51010
+[INFO] 2024-12-08T19:29:41.722Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-12-08T19:30:15.920Z - URL validation successful
+[INFO] 2024-12-08T19:30:15.921Z - Starting Analysis
+[INFO] 2024-12-08T19:30:15.921Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:30:15.922Z - Fetching repository data...
+[INFO] 2024-12-08T19:30:15.922Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-08T19:30:18.512Z - Parameters Found
+[INFO] 2024-12-08T19:30:18.513Z - Calculating metrics
+[INFO] 2024-12-08T19:30:18.514Z - PACKAGE
+[INFO] 2024-12-08T19:30:18.514Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-08T19:30:18.515Z - PULL REQUESTS
+[INFO] 2024-12-08T19:30:18.515Z - REVIEWED PULL REQUESTS: 14
+[INFO] 2024-12-08T19:30:18.516Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-08T19:30:18.516Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-08T19:30:18.517Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-08T19:30:18.517Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-08T19:30:18.518Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-08T19:30:18.518Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-08T19:30:18.518Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-08T19:30:18.519Z - REVIEWED ADDITIONS: 51010
+[INFO] 2024-12-08T19:30:18.519Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-12-08T19:31:06.702Z - URL validation successful
+[INFO] 2024-12-08T19:31:06.703Z - Starting Analysis
+[INFO] 2024-12-08T19:31:06.704Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:31:06.704Z - Fetching repository data...
+[INFO] 2024-12-08T19:31:06.705Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-08T19:31:09.600Z - Parameters Found
+[INFO] 2024-12-08T19:31:09.601Z - Calculating metrics
+[INFO] 2024-12-08T19:31:09.602Z - PACKAGE
+[INFO] 2024-12-08T19:31:09.603Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-08T19:31:09.603Z - PULL REQUESTS
+[INFO] 2024-12-08T19:31:09.604Z - REVIEWED PULL REQUESTS: 14
+[INFO] 2024-12-08T19:31:09.604Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-08T19:31:09.605Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-08T19:31:09.605Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-08T19:31:09.605Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-08T19:31:09.606Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-08T19:31:09.606Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-08T19:31:09.607Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-08T19:31:09.607Z - REVIEWED ADDITIONS: 51010
+[INFO] 2024-12-08T19:31:09.607Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-12-08T19:31:31.131Z - URL validation successful
+[INFO] 2024-12-08T19:31:31.131Z - Starting Analysis
+[INFO] 2024-12-08T19:31:31.132Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:31:31.133Z - Fetching repository data...
+[INFO] 2024-12-08T19:31:31.133Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-08T19:31:33.599Z - Parameters Found
+[INFO] 2024-12-08T19:31:33.600Z - Calculating metrics
+[INFO] 2024-12-08T19:31:33.601Z - PACKAGE
+[INFO] 2024-12-08T19:31:33.601Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-08T19:31:33.602Z - PULL REQUESTS
+[INFO] 2024-12-08T19:31:33.603Z - REVIEWED PULL REQUESTS: 14
+[INFO] 2024-12-08T19:31:33.603Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-08T19:31:33.603Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-08T19:31:33.604Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-08T19:31:33.604Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-08T19:31:33.605Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-08T19:31:33.605Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-08T19:31:33.605Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-08T19:31:33.606Z - REVIEWED ADDITIONS: 51010
+[INFO] 2024-12-08T19:31:33.606Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-12-08T19:32:21.577Z - URL validation successful
+[INFO] 2024-12-08T19:32:21.578Z - Starting Analysis
+[INFO] 2024-12-08T19:32:21.578Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:32:21.579Z - Fetching repository data...
+[INFO] 2024-12-08T19:32:21.579Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-08T19:32:24.022Z - Parameters Found
+[INFO] 2024-12-08T19:32:24.023Z - Calculating metrics
+[INFO] 2024-12-08T19:32:24.024Z - PACKAGE
+[INFO] 2024-12-08T19:32:24.024Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-08T19:32:24.025Z - PULL REQUESTS
+[INFO] 2024-12-08T19:32:24.025Z - REVIEWED PULL REQUESTS: 14
+[INFO] 2024-12-08T19:32:24.026Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-08T19:32:24.026Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-08T19:32:24.027Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-08T19:32:24.027Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-08T19:32:24.027Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-08T19:32:24.028Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-08T19:32:24.028Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-08T19:32:24.029Z - REVIEWED ADDITIONS: 51010
+[INFO] 2024-12-08T19:32:24.029Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-12-08T19:33:55.831Z - URL validation successful
+[INFO] 2024-12-08T19:33:55.832Z - Starting Analysis
+[INFO] 2024-12-08T19:33:55.832Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:33:55.833Z - Fetching repository data...
+[INFO] 2024-12-08T19:33:55.833Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-08T19:33:58.687Z - Parameters Found
+[INFO] 2024-12-08T19:33:58.688Z - Calculating metrics
+[INFO] 2024-12-08T19:33:58.689Z - PACKAGE
+[INFO] 2024-12-08T19:33:58.690Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-08T19:33:58.690Z - PULL REQUESTS
+[INFO] 2024-12-08T19:33:58.691Z - REVIEWED PULL REQUESTS: 14
+[INFO] 2024-12-08T19:33:58.691Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-08T19:33:58.691Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-08T19:33:58.692Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-08T19:33:58.692Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-08T19:33:58.693Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-08T19:33:58.693Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-08T19:33:58.693Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-08T19:33:58.694Z - REVIEWED ADDITIONS: 51010
+[INFO] 2024-12-08T19:33:58.694Z - UNREVIEWED ADDITIONS: 3
+[INFO] 2024-12-08T19:38:16.749Z - URL validation successful
+[INFO] 2024-12-08T19:38:16.750Z - Starting Analysis
+[INFO] 2024-12-08T19:38:16.751Z - Link is a GitHub URL
+[INFO] 2024-12-08T19:38:16.751Z - Fetching repository data...
+[INFO] 2024-12-08T19:38:16.752Z - -------------------------https://github.com/smit4450/module_registry-------------------------
+[INFO] 2024-12-08T19:38:19.716Z - Parameters Found
+[INFO] 2024-12-08T19:38:19.718Z - Calculating metrics
+[INFO] 2024-12-08T19:38:19.719Z - PACKAGE
+[INFO] 2024-12-08T19:38:19.720Z - DEPENDS @aws-sdk/client-dynamodb ^3.687.0,@aws-sdk/client-dynamodb ,@aws-sdk/client-s3 ^3.688.0,@aws-sdk/client-s3 ,@aws-sdk/lib-dynamodb ^3.682.0,@aws-sdk/lib-dynamodb ,adm-zip ^0.5.16,adm-zip ,axios ^1.7.7,axios ,body-parser ^1.20.3,body-parser ,bootstrap ^5.3.3,bootstrap ,cors ^2.8.5,cors ,dotenv ^16.4.5,dotenv ,express ^4.21.1,express ,node ^22.8.0,node ,pm2 ^5.4.3,pm2 ,react ^17.0.0,react ,react-dom ^17.0.0,react-dom ,react-router-dom ^6.27.0,react-router-dom ,tar ^7.4.3,tar ,@babel/core ^7.0.0,@babel/core ,@babel/preset-env ^7.0.0,@babel/preset-env ,@babel/preset-react ^7.0.0,@babel/preset-react ,@types/adm-zip ^0.5.6,@types/adm-zip ,@types/aws-sdk ^0.0.42,@types/aws-sdk ,@types/cors ^2.8.17,@types/cors ,@types/express ^4.17.21,@types/express ,@types/node ^18.19.65,@types/node ,babel-loader ^8.0.0,babel-loader ,css-loader ^6.11.0,css-loader ,style-loader ^3.3.4,style-loader ,ts-node ^10.9.2,ts-node ,typescript ^5.7.2,typescript ,webpack ^5.95.0,webpack ,webpack-cli ^4.10.0,webpack-cli ,webpack-dev-server ^4.15.2,webpack-dev-server 
+[INFO] 2024-12-08T19:38:19.720Z - PULL REQUESTS
+[INFO] 2024-12-08T19:38:19.721Z - REVIEWED PULL REQUESTS: 14
+[INFO] 2024-12-08T19:38:19.721Z - UNREVIEWED PULL REQUESTS: 5
+[INFO] 2024-12-08T19:38:19.722Z - REVIEWED PULL REQUEST TITLE 1: pull metric v1
+[INFO] 2024-12-08T19:38:19.722Z - REVIEWED PULL REQUEST TITLE 2: CI v1 npm test
+[INFO] 2024-12-08T19:38:19.723Z - REVIEWED PULL REQUEST TITLE 3: JSON number, LOG_FILE exit
+[INFO] 2024-12-08T19:38:19.723Z - UNREVIEWED PULL REQUEST TITLE 1: cd test 3
+[INFO] 2024-12-08T19:38:19.723Z - UNREVIEWED PULL REQUEST TITLE 2: fixed file path
+[INFO] 2024-12-08T19:38:19.724Z - UNREVIEWED PULL REQUEST TITLE 3: test
+[INFO] 2024-12-08T19:38:19.724Z - REVIEWED ADDITIONS: 51010
+[INFO] 2024-12-08T19:38:19.725Z - UNREVIEWED ADDITIONS: 3

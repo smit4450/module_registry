@@ -265,7 +265,6 @@ async function phase_1(url: string): Promise<string>{
 */
 
 export async function checkRating_url(url:string): Promise<string> {
-    console.log("Checking rating 1...");
     let output = await calculate_factors(url);
     if (output != "Error") {
         return output;

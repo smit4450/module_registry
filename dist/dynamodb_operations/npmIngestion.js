@@ -73,7 +73,7 @@ export const npmIngestion = async (url, packageName, packageVersion, rating) => 
     const dependency = Number(ratingData.Depends) || 0;
     const license = Number(ratingData.License) || 0;
     const pullRequest = Number(ratingData.Pull) || 0;
-    const rampUp = Number(ratingData.RampUp) || 0;
+    const rampUp = Number(ratingData.RampUP) || 0;
     const responsiveness = Number(ratingData.ResponsiveMaintainer) || 0;
     const net_score = Number(ratingData.NetScore) || 0;
     // Save metadata to DynamoDB, including the size
@@ -85,12 +85,12 @@ export const npmIngestion = async (url, packageName, packageVersion, rating) => 
             version: packageVersion, // User-provided version label
             s3_key: s3Key, // Reference to the S3 file location
             size: packageSize, // Package size in bytes
+            ramp_up: rampUp,
             bus_factor: busFactor,
             correctness: correctness,
             dependency: dependency,
             license: license,
             pull_request: pullRequest,
-            ramp_up: rampUp,
             responsiveness: responsiveness,
             net_score: net_score,
         },
