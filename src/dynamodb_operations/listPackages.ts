@@ -1,7 +1,7 @@
 import { ScanCommand } from "@aws-sdk/lib-dynamodb";
 import dynamodb from "../dynamodb.js";
 
-export const listPackages = async (): Promise<string> => {
+export const listPackages = async () => {
     try {
         const params = {
             TableName: "packages_new",
@@ -10,16 +10,16 @@ export const listPackages = async (): Promise<string> => {
 
         if (data.Items && data.Items.length > 0) {
             const packages = data.Items.map((item, index) => ({
-                id: index + 1,
-                name: item.name,
-                version: item.version,
+                Name: item.name,
+                Version: item.version,
+                ID: item.package_id,
             }));
-            return JSON.stringify(packages);
+            return packages;
         } else {
-            return JSON.stringify({ message: "No packages found." });
+            return { message: "No packages found." };
         }
     } catch (error) {
         console.error("Error listing packages:", error);
-        return JSON.stringify({ error: "Error listing packages." });
+        return { error: "Error listing packages." };
     }
 };

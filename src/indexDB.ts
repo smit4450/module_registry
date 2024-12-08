@@ -19,14 +19,14 @@ import { url } from 'inspector';
 
 const promptUser = (query: string): Promise<string> => {
     const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
+        input: process.stdin,
+        output: process.stdout,
     });
     return new Promise((resolve) => rl.question(query, (ans) => {
-      rl.close();
-      resolve(ans);
+        rl.close();
+        resolve(ans);
     }));
-  };
+};
 
 export const checkForURL = (path: string): Promise<string> => {
     const zip = new AdmZip(path);
@@ -65,7 +65,7 @@ export async function main() {
     const mode = await promptUser("Enter mode: ");
 
 
-    if(mode == "check rating") {
+    if (mode == "check rating") {
         const packageName = await promptUser("Enter package name: ");
         const packageVersion = await promptUser("Enter package version: ");
         const rating = await lookupRating(packageName, packageVersion);
@@ -74,9 +74,9 @@ export async function main() {
         } else {
             console.log(rating);
         }
-        
+
     }
-    else if(mode == "check size") {
+    else if (mode == "check size") {
         const packageName = await promptUser("Enter package name: ");
         const packageVersion = await promptUser("Enter package version: ");
         const size = await sizeCost(packageName, packageVersion);
@@ -85,32 +85,31 @@ export async function main() {
         } else {
             console.log("Size: " + size + " bytes");
         }
-        
+
     }
-    else if(mode == "check versions") {
+    else if (mode == "check versions") {
         const packageName = await promptUser("Enter package name: ");
         const versions = await retrieveVersions(packageName);
         console.log(versions);
     }
-    else if(mode == "debloat") {
+    else if (mode == "debloat") {
         //debloat();
         console.log("Not imlpemented yet");
     }
-    else if(mode == "delete") {
-        const packageName = await promptUser("Enter package name: ");
-        const packageVersion = await promptUser("Enter package version: ");
-        deletePackage(packageName, packageVersion);
+    else if (mode == "delete") {
+        const package_id = await promptUser("Enter package name: ");
+        deletePackage(package_id);
     }
-    else if(mode == "download") {
+    else if (mode == "download") {
         const filePath = await promptUser("Enter file path: ");
         const packageName = await promptUser("Enter package name: ");
         downloadPackage(filePath, packageName);
     }
-    else if(mode == "fetch directory") {
+    else if (mode == "fetch directory") {
         const directory = await listPackages();
         console.log(directory);
     }
-    else if(mode == "npm ingestion") {
+    else if (mode == "npm ingestion") {
         const url = await promptUser("Enter url: ");
         const packageName = await promptUser("Enter package name: ");
         const packageVersion = await promptUser("Enter package version: ");
@@ -121,48 +120,48 @@ export async function main() {
             rating = await checkRating_url(url);
             console.log("Rating: " + rating);
             try {
-            JSON.parse(rating);
-            break;
+                JSON.parse(rating);
+                break;
             } catch (e) {
-            console.log("Invalid rating, trying again.");
+                console.log("Invalid rating, trying again.");
             }
         }
 
         console.log(rating);
         let ratingData;
         try {
-        ratingData = JSON.parse(rating);
+            ratingData = JSON.parse(rating);
         } catch (error) {
         }
         const net_score = Number(ratingData.NetScore) || 0;
-        if(net_score >= 0.5) {
+        if (net_score >= 0.5) {
             npmIngestion(url, packageName, packageVersion, rating);
         }
         else {
             console.log("Rating net score " + net_score + " is less than 0.5, package will not be ingested.");
         }
     }
-    else if(mode == "regex search") {
+    else if (mode == "regex search") {
         const pattern = await promptUser("Enter pattern to search for: ");
 
         const matches = await regexSearch(pattern);
         console.log(matches);
     }
-    else if(mode == "upload") {
+    else if (mode == "upload") {
         const filePath = await promptUser("Enter file path: ");
         const packageName = await promptUser("Enter package name: ");
         const packageVersion = await promptUser("Enter package version: ");
 
         const url = await checkForURL(filePath);
-        if(url == "Error") {
+        if (url == "Error") {
             let rating;
             while (true) {
                 rating = await checkRating(filePath);
                 try {
-                JSON.parse(rating);
-                break;
+                    JSON.parse(rating);
+                    break;
                 } catch (e) {
-                console.log("Invalid rating, trying again.");
+                    console.log("Invalid rating, trying again.");
                 }
             }
             console.log(rating);
@@ -174,10 +173,10 @@ export async function main() {
                 console.log("CHECKING RATING OF: " + url);
                 rating = await checkRating_url(url);
                 try {
-                JSON.parse(rating);
-                break;
+                    JSON.parse(rating);
+                    break;
                 } catch (e) {
-                console.log("Invalid rating, trying again.");
+                    console.log("Invalid rating, trying again.");
                 }
             }
             console.log(rating);

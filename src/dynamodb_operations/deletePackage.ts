@@ -23,19 +23,10 @@ const promptUser = (query: string): Promise<string> => {
     }));
 };
 
-export const deletePackage = async (packageName: string, packageVersion: string) => {
+export const deletePackage = async (package_id: string) => {
     try {
         const scanParams = {
-            TableName: "packages_new",
-            FilterExpression: "#name = :name AND #version = :version",
-            ExpressionAttributeNames: {
-                "#name": "name",
-                "#version": "version",
-            },
-            ExpressionAttributeValues: {
-                ":name": packageName,
-                ":version": packageVersion,
-            },
+            TableName: "packages_new"
         };
 
         const scanResponse = await dynamodb.send(new ScanCommand(scanParams));
@@ -58,14 +49,14 @@ export const deletePackage = async (packageName: string, packageVersion: string)
             const deleteDbParams = {
                 TableName: "packages_new",
                 Key: {
-                    name: packageName, // Use only the partition key
+                    package_id: package_id, // Use only the partition key
                 },
             };
 
             await dynamodb.send(new DeleteCommand(deleteDbParams));
-            console.log(`Package with name "${packageName}" and version "${packageVersion}" deleted successfully from DynamoDB.`);
+            console.log(`Package "${package_id}" deleted successfully from DynamoDB.`);
         } else {
-            console.log(`No package found with name "${packageName}" and version "${packageVersion}".`);
+            console.log(`No package "${package_id}".`);
         }
     } catch (error) {
         console.error("Error deleting package:", error);
