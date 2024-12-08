@@ -9,17 +9,14 @@ import { listPackages } from "./dynamodb_operations/listPackages.js";
 import { npmIngestion } from './dynamodb_operations/npmIngestion.js';
 import { regexSearch } from './dynamodb_operations/regexSearch.js';
 import { uploadPackage } from "./dynamodb_operations/uploadPackage.js";
+import { resetRegistry } from './dynamodb_operations/resetRegistry.js';
 import { checkRating_url } from './checkRating_url.js';
 import { checkRating } from './checkRating.js';
 import AdmZip from 'adm-zip';
 import cors from 'cors';
 const app = express();
-const port = process.env.PORT || 3000;
-app.use(cors({
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-})); // Add this line to enable CORS
+const port = process.env.PORT || 8080;
+
 app.use(bodyParser.json());
 // Example endpoint
 app.get('/api/example', (req, res) => {
@@ -56,13 +53,22 @@ app.post('/packages', async (req, res) => {
     }
 });
 // Endpoint to reset the registry
-app.delete('/reset', (req, res) => {
+app.delete('/reset', async (req, res) => {
     // const authHeader = req.headers['x-authorization'];
     // if (!authHeader) {
     //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
     // }
     // Implement logic to reset the registry
-    res.status(200).json({ message: 'Registry reset' });
+    try {
+        await resetRegistry();
+        res.status(200).json({ message: "Registry has been reset successfully." });
+    }
+    catch (error) {
+        console.error("Error resetting registry:", error);
+        res.status(500).json({
+            error: "An error occurred while resetting the registry. Please try again.",
+        });
+    }
 });
 // Endpoint to interact with a package by ID
 app.route('/package/:id')
@@ -143,13 +149,17 @@ app.post('/package', async (req, res) => {
     // if (!authHeader) {
     //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
     // }
-    const { filePath, packageName, packageVersion } = req.body;
+    const { Content, URL, packageName, packageVersion } = req.body;
+    // Validate that exactly one of Content or URL is provided
+    if ((Content && URL) || (!Content && !URL)) {
+        return res.status(400).json({ error: 'Exactly one of Content or URL must be provided.' });
+    }
     try {
-        const url = await checkForURL(filePath);
         let rating;
-        if (url === "Error") {
+        if (Content) {
+            // Handle package creation from Content
             while (true) {
-                rating = await checkRating(filePath);
+                rating = await checkRating(Content);
                 try {
                     JSON.parse(rating);
                     break;
@@ -158,11 +168,12 @@ app.post('/package', async (req, res) => {
                     console.log("Invalid rating, trying again.");
                 }
             }
-            await uploadPackage(filePath, packageName, packageVersion, rating);
+            await uploadPackage(Content, packageName, packageVersion, rating);
         }
-        else {
+        else if (URL) {
+            // Handle package creation from URL
             while (true) {
-                rating = await checkRating_url(url);
+                rating = await checkRating_url(URL);
                 try {
                     JSON.parse(rating);
                     break;
@@ -171,11 +182,12 @@ app.post('/package', async (req, res) => {
                     console.log("Invalid rating, trying again.");
                 }
             }
-            await npmIngestion(url, packageName, packageVersion, rating);
+            await npmIngestion(URL, packageName, packageVersion, rating);
         }
-        res.status(201).json({ message: 'Package created' });
+        res.status(201).json({ message: 'Package created successfully' });
     }
     catch (error) {
+        console.error('Error creating package:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });

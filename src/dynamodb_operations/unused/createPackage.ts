@@ -25,7 +25,7 @@ async function createPackage() {
         //rl.close();
 
         const params = {
-            TableName: "Packages",
+            TableName: "packages_new",
             Item: {
                 package_id: package_id,
                 name: name,

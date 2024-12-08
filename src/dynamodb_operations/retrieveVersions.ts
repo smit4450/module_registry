@@ -5,7 +5,8 @@ import readline from "readline";
 export const retrieveVersions = async (packageName: string) => {
     try {
         const params = {
-            TableName: "Packages",
+            TableName: "packages_new",
+            IndexName: "name-index", // Name of the GSI
             KeyConditionExpression: "#name = :name",
             ExpressionAttributeNames: {
                 "#name": "name" // Alias to avoid conflicts with reserved keyword

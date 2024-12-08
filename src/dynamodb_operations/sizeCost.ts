@@ -35,7 +35,7 @@ const promptUser = (query: string): Promise<string> => {
 // Function to fetch package metadata from DynamoDB
 const fetchPackageMetadata = async (name: string): Promise<any> => {
   const command = new GetCommand({
-    TableName: 'Packages',
+    TableName: 'packages_new',
     Key: { name }, // Use name as the primary key
   });
   const response = await dynamo.send(command);

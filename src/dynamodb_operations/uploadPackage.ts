@@ -39,7 +39,8 @@ export const uploadPackage = async (filePath: string, packageName: string, packa
   try {
     const packageSize = calculateSize(filePath);
     const fileStream = fs.createReadStream(filePath);
-    const packageId = path.basename(filePath, path.extname(filePath));
+
+    const packageId = `${packageName}-${packageVersion}`;
     const s3BucketName = process.env.S3_BUCKET_NAME; // Ensure your bucket name is set in your .env
     const s3Key = `packages/${packageName}-${packageVersion}.tgz`;
 
@@ -68,7 +69,7 @@ export const uploadPackage = async (filePath: string, packageName: string, packa
 
     // Save metadata to DynamoDB
     const dbParams = {
-      TableName: 'Packages',
+      TableName: 'packages_new',
       Item: {
         package_id: packageId,    // Unique ID derived from the file name
         name: packageName,        // User-provided package name

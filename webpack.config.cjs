@@ -31,7 +31,7 @@ module.exports = {
     port: 8080,
     host: '0.0.0.0',  // Listen on all network interfaces
     historyApiFallback: true,
-    open: false,  // Set to false because there's no browser to open on EC2
+    open: true,  // Set to false because there's no browser to open on EC2
   },
   resolve: {
     extensions: ['.ts', '.js', '.jsx'],  // Automatically resolve these extensions

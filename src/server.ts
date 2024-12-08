@@ -9,10 +9,12 @@ import { listPackages } from "./dynamodb_operations/listPackages.js";
 import { npmIngestion } from './dynamodb_operations/npmIngestion.js';
 import { regexSearch } from './dynamodb_operations/regexSearch.js';
 import { uploadPackage } from "./dynamodb_operations/uploadPackage.js";
+import { resetRegistry } from './dynamodb_operations/resetRegistry.js';
 import { checkRating_url } from './checkRating_url.js';
 import { checkRating } from './checkRating.js';
 import readline from "readline";
 import AdmZip from 'adm-zip';
+import fs from 'fs';
 import cors from 'cors';
 
 const app = express();
@@ -24,6 +26,12 @@ app.use(cors({
   credentials: true,
 })); // Add this line to enable CORS
 app.use(bodyParser.json());
+
+app.use(cors({
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}));
 
 // Example endpoint
 app.get('/api/example', (req: Request, res: Response) => {
@@ -60,13 +68,21 @@ app.post('/packages', async (req: Request, res: Response) => {
 });
 
 // Endpoint to reset the registry
-app.delete('/reset', (req: Request, res: Response) => {
+app.delete('/reset', async (req: Request, res: Response) => {
   // const authHeader = req.headers['x-authorization'];
   // if (!authHeader) {
   //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
   // }
   // Implement logic to reset the registry
-  res.status(200).json({ message: 'Registry reset' });
+  try {
+    await resetRegistry();
+    res.status(200).json({ message: "Registry has been reset successfully." });
+  } catch (error) {
+    console.error("Error resetting registry:", error);
+    res.status(500).json({
+      error: "An error occurred while resetting the registry. Please try again.",
+    });
+  }
 });
 
 // Endpoint to interact with a package by ID
@@ -143,13 +159,19 @@ app.post('/package', async (req: Request, res: Response) => {
   // if (!authHeader) {
   //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
   // }
-  const { filePath, packageName, packageVersion } = req.body;
+  const { Content, URL, packageName, packageVersion } = req.body;
+
+  // Validate that exactly one of Content or URL is provided
+  if ((Content && URL) || (!Content && !URL)) {
+    return res.status(400).json({ error: 'Exactly one of Content or URL must be provided.' });
+  }
+
   try {
-    const url = await checkForURL(filePath);
     let rating;
-    if (url === "Error") {
+    if (Content) {
+      // Handle package creation from Content
       while (true) {
-        rating = await checkRating(filePath);
+        rating = await checkRating(Content);
         try {
           JSON.parse(rating);
           break;
@@ -157,10 +179,11 @@ app.post('/package', async (req: Request, res: Response) => {
           console.log("Invalid rating, trying again.");
         }
       }
-      await uploadPackage(filePath, packageName, packageVersion, rating);
-    } else {
+      await uploadPackage(Content, packageName, packageVersion, rating);
+    } else if (URL) {
+      // Handle package creation from URL
       while (true) {
-        rating = await checkRating_url(url);
+        rating = await checkRating_url(URL);
         try {
           JSON.parse(rating);
           break;
@@ -168,13 +191,16 @@ app.post('/package', async (req: Request, res: Response) => {
           console.log("Invalid rating, trying again.");
         }
       }
-      await npmIngestion(url, packageName, packageVersion, rating);
+      await npmIngestion(URL, packageName, packageVersion, rating);
     }
-    res.status(201).json({ message: 'Package created' });
+
+    res.status(201).json({ message: 'Package created successfully' });
   } catch (error) {
+    console.error('Error creating package:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // Endpoint to get package rating
 app.get('/package/:id/rate', async (req: Request, res: Response) => {
@@ -259,20 +285,20 @@ export const checkForURL = (path: string): Promise<string> => {
   const zipEntries = zip.getEntries();
 
   for (const zipEntry of zipEntries) {
-      if (!zipEntry.isDirectory && zipEntry.entryName.split('/').length < 3) {
-          const fileName = zipEntry.entryName;
-          if (fileName.includes('package.json')) {
-              const fileContent = zipEntry.getData().toString('utf8');
-              const lines = fileContent.split('\n');
-              for (const line of lines) {
-                  const urlPattern = /(https?:\/\/(?:www\.)?(github\.com|npmjs\.com)\/[^\s]+)/;
-                  const match = line.match(urlPattern);
-                  if (match) {
-                      return Promise.resolve(match[0]);
-                  }
-              }
+    if (!zipEntry.isDirectory && zipEntry.entryName.split('/').length < 3) {
+      const fileName = zipEntry.entryName;
+      if (fileName.includes('package.json')) {
+        const fileContent = zipEntry.getData().toString('utf8');
+        const lines = fileContent.split('\n');
+        for (const line of lines) {
+          const urlPattern = /(https?:\/\/(?:www\.)?(github\.com|npmjs\.com)\/[^\s]+)/;
+          const match = line.match(urlPattern);
+          if (match) {
+            return Promise.resolve(match[0]);
           }
+        }
       }
+    }
   }
   return Promise.resolve("Error");
 }

@@ -26,7 +26,7 @@ const promptUser = (query: string): Promise<string> => {
 export const deletePackage = async (packageName: string, packageVersion: string) => {
     try {
         const scanParams = {
-            TableName: "Packages",
+            TableName: "packages_new",
             FilterExpression: "#name = :name AND #version = :version",
             ExpressionAttributeNames: {
                 "#name": "name",
@@ -56,7 +56,7 @@ export const deletePackage = async (packageName: string, packageVersion: string)
 
             // Step 3: Delete the item from DynamoDB
             const deleteDbParams = {
-                TableName: "Packages",
+                TableName: "packages_new",
                 Key: {
                     name: packageName, // Use only the partition key
                 },

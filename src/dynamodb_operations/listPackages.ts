@@ -4,7 +4,7 @@ import dynamodb from "../dynamodb.js";
 export const listPackages = async (): Promise<string> => {
     try {
         const params = {
-            TableName: "Packages",
+            TableName: "packages_new",
         };
         const data = await dynamodb.send(new ScanCommand(params));
 
