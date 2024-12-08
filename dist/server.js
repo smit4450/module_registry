@@ -13,8 +13,10 @@ import { resetRegistry } from './dynamodb_operations/resetRegistry.js';
 import { checkRating_url } from './checkRating_url.js';
 import { checkRating } from './checkRating.js';
 import AdmZip from 'adm-zip';
+import cors from 'cors';
 const app = express();
 const port = process.env.PORT || 8080;
+
 app.use(bodyParser.json());
 // Example endpoint
 app.get('/api/example', (req, res) => {

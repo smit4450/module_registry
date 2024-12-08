@@ -134,15 +134,24 @@ export async function getPackageSize(name, version) {
     return await response.json();
 }
 
-// src/api/packageService.js
+//WORKS
 export async function getAvailableVersions(name) {
-    const token = localStorage.getItem('authToken');
-    const response = await fetch(`/package/${name}/versions`, {
-        method: 'GET',
-        headers: { 'X-Authorization': token },
-    });
-    if (!response.ok) throw new Error('Failed to fetch versions');
-    return await response.json();
+    try {
+        const response = await fetch(`http://54.163.22.181:3000/package/byName/${name}`, {
+            method: 'GET',
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status} ${response.statusText}`);
+        }
+        return response;
+    } catch (error) {
+        if (error.message.includes('ECONNREFUSED')) {
+            console.error('Connection refused. Please make sure the server is running.');
+        } else {
+            console.error('Fetch error:', error.message);
+        }
+        throw error;
+    }
 }
 
 // src/api/packageService.js
@@ -169,13 +178,22 @@ export async function downloadPackageZip(name, version) {
 
 // src/api/packageService.js
 export async function fetchEntireDirectory() {
-    const token = localStorage.getItem('authToken');
-    const response = await fetch(`/package/directory`, {
-        method: 'GET',
-        headers: { 'X-Authorization': token },
-    });
-    if (!response.ok) throw new Error('Failed to fetch package directory');
-    return await response.json();
+    try {
+        const response = await fetch(`http://54.163.22.181:3000/packages`, {
+            method: 'POST',
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
+    } catch (error) {
+        if (error.message.includes('ECONNREFUSED')) {
+            console.error('Connection refused. Please make sure the server is running.');
+        } else {
+            console.error('Fetch error:', error.message);
+        }
+        throw error;
+    }
 }
 
 // src/api/packageService.js
@@ -190,20 +208,29 @@ export async function getPackageScore(packageId) {
 }
 
 // src/api/packageService.js
-export async function ingestNpmPackage(version) {
-    const token = localStorage.getItem('authToken');
-    const response = await fetch(`/package/ingest`, {
-        method: 'POST',
-        headers: { 
+export async function ingestNpmPackage(url, name, version) {
+    try {
+        const response = await fetch('http://54.163.22.181:3000/package', {
+            method: 'POST',
+            headers: {
             'Content-Type': 'application/json',
-            'X-Authorization': token 
-        },
-        body: JSON.stringify({ version }),
-    });
-    if (!response.ok) throw new Error('Failed to ingest package');
-    return await response.json();
+            },
+            body: JSON.stringify({
+            URL: url,
+            packageName: name,
+            packageVersion: version
+            })
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status} ${response.statusText}`);
+        }
+        return await response.json();
+    } catch (error) {
+        if (error.message.includes('ECONNREFUSED')) {
+            console.error('Connection refused. Please make sure the server is running.');
+        } else {
+            console.error('Fetch error:', error.message);
+        }
+        throw error;
+    }
 }
-
-
-
-// Add other package-related functions similarly

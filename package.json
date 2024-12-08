@@ -7,8 +7,8 @@
   "scripts": {
     "start": "webpack serve --config webpack.config.cjs",
     "build": "tsc && webpack --config webpack.config.cjs",
-    "test": "node dist/indexDB.js --trace-warnings",
-    "dev": "npm run build && node dist/index.js",
+    "test": "node dist/indexDB.js",
+    "dev": "node src/fetchTest.js",
     "path": "node dist/api_handler/npm_handler/analyzer_npm.js",
     "path2": "node dist/metrics/validation.js"
   },
@@ -24,9 +24,11 @@
     "axios": "^1.7.7",
     "body-parser": "^1.20.3",
     "bootstrap": "^5.3.3",
+    "browserify": "^17.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "https-browserify": "^1.0.0",
     "node": "^22.8.0",
     "pm2": "^5.4.3",
     "react": "^17.0.0",

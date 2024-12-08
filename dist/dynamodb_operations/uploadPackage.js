@@ -76,12 +76,12 @@ export const uploadPackage = async (filePath, packageName, packageVersion, ratin
                 version: packageVersion, // User-provided version label
                 s3_key: s3Key, // Reference to the S3 file location
                 size: packageSize, // Package size in bytes
+                ramp_up: rampUp,
                 bus_factor: busFactor,
                 correctness: correctness,
                 dependency: dependency,
                 license: license,
                 pull_request: pullRequest,
-                ramp_up: rampUp,
                 responsiveness: responsiveness,
                 net_score: net_score,
             },
