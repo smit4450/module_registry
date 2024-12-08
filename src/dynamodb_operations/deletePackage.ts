@@ -26,7 +26,14 @@ const promptUser = (query: string): Promise<string> => {
 export const deletePackage = async (package_id: string) => {
     try {
         const scanParams = {
-            TableName: "packages_new"
+            TableName: "packages_new",
+            FilterExpression: "#id = :id",
+            ExpressionAttributeNames: {
+                "#id": "package_id",
+            },
+            ExpressionAttributeValues: {
+                ":id": package_id,
+            },
         };
 
         const scanResponse = await dynamodb.send(new ScanCommand(scanParams));

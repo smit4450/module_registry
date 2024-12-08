@@ -133,7 +133,7 @@ app.route('/package/:id')
         }
         await npmIngestion(url, packageName, packageVersion, rating);
       }
-      res.status(200).json({ message: 'Package updated' });
+      res.status(201).json({ message: 'Package updated' });
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -210,7 +210,7 @@ app.get('/package/:id/rate', async (req: Request, res: Response) => {
   // }
   const { id } = req.params;
   try {
-    const rating = await lookupRating(id, 'latest'); // Assuming 'latest' version
+    const rating = await lookupRating(id); // Assuming 'latest' version
     res.status(200).json(rating);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });

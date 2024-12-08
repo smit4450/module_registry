@@ -20,18 +20,16 @@ const s3 = new S3Client({
   },
 });
 
-export const lookupRating = async (packageName: string, packageVersion: string): Promise<string> => {
+export const lookupRating = async (package_id: string) => {
   try {
     const scanParams = {
       TableName: "packages_new",
-      FilterExpression: "#name = :name AND #version = :version",
+      FilterExpression: "#id = :id",
       ExpressionAttributeNames: {
-        "#name": "name",
-        "#version": "version",
+        "#id": "package_id",
       },
       ExpressionAttributeValues: {
-        ":name": packageName,
-        ":version": packageVersion,
+        ":id": package_id,
       },
     };
 
@@ -52,32 +50,28 @@ export const lookupRating = async (packageName: string, packageVersion: string):
       pull_request,
       ramp_up,
       responsiveness,
-      s3_key,
-      size,
-      version,
     } = Item;
 
     let data = {
-      URL: "",
-      NetScore: Number(net_score.toFixed(3)) || 0,
-      NetScore_Latency: 0,
-      RampUp: Number(ramp_up.toFixed(3)) || 0,
-      RampUp_Latency: 0,
-      Correctness: Number(correctness.toFixed(3)) || 0,
-      Correctness_Latency: 0,
-      BusFactor: Number(bus_factor.toFixed(3)) || 0,
-      BusFactor_Latency: 0,
-      ResponsiveMaintainer: Number(responsiveness.toFixed(3)) || 0,
-      ResponsiveMaintainer_Latency: 0,
-      License: Number(license.toFixed(3)) || 0,
-      License_Latency: 0,
-      Depends: Number(dependency.toFixed(3)) || 0,
-      Depends_Latency: 0,
-      Pull: Number(pull_request.toFixed(3)) || 0,
-      Pull_Latency: 0,
+      BusFactor: Number(bus_factor.toFixed(3)) || -1,
+      BusFactorLatency: -1,
+      Correctness: Number(correctness.toFixed(3)) || -1,
+      CorrectnessLatency: -1,
+      RampUp: Number(ramp_up.toFixed(3)) || -1,
+      RampUpLatency: -1,
+      ResponsiveMaintainer: Number(responsiveness.toFixed(3)) || -1,
+      ResponsiveMaintainerLatency: -1,
+      LicenseScore: Number(license.toFixed(3)) || -1,
+      LicenseScoreLatency: -1,
+      GoodPinningPractice: Number(dependency.toFixed(3)) || -1,
+      GoodPinningPracticeLatency: -1,
+      PullRequest: Number(pull_request.toFixed(3)) || -1,
+      PullRequestLatency: -1,
+      NetScore: Number(net_score.toFixed(3)) || -1,
+      NetScoreLatency: -1,
     }
 
-    const output = JSON.stringify(data);
+    const output = data;
     return output;
 
   } catch (error: any) {
