@@ -177,8 +177,8 @@ export class Metrics {
 
         var c_act = sum / contr_i;
 
-        var contr_m = ver_bounds((contr / this.parameters.years) / 40); //CHANGE 40
-        var cact_m = ver_bounds(c_act / 100); //CHANGE 100
+        var contr_m = ver_bounds((contr / this.parameters.years) / 35); //CHANGE 40
+        var cact_m = ver_bounds(c_act / 80); //CHANGE 100
         var doc = 0;
         doc = str_exists(metrics.contributingGuidelines, doc, true);
         doc = str_exists(metrics.codeOfConduct, doc, true);
@@ -224,7 +224,7 @@ export class Metrics {
         }
 
         var open_m = ver_bounds(this.parameters.open / this.parameters.len_i); //WEIGHT
-        var update_m = ver_bounds(1 - (daysbetween(this.parameters.update, this.parameters.start) / 30)); //CHANGE 30
+        var update_m = ver_bounds(1 - (daysbetween(this.parameters.update, this.parameters.start) / 25)); //CHANGE 30
         var vul_m = ver_bounds(1 - (vul / 0.001));
 
         var cor = (open_m * 65 + update_m * 55 + vul_m * 70) / COR_TOTAL;
@@ -245,11 +245,11 @@ export class Metrics {
         var fs = exists(metrics.fcount.totalCount);
         var stars = exists(metrics.stargazerCount);
         var ws = exists(metrics.watchers.totalCount);
-        var icount_m = ver_bounds((is / this.parameters.years) / 730); //CHANGE 730
-        var prcount_m = ver_bounds((prs / this.parameters.years) / 365); //CHANGE 365
-        var fcount_m = ver_bounds((fs / this.parameters.years) / 1000); //CHANGE 1000
-        var scount_m = ver_bounds((stars / this.parameters.years) / 10000); //CHANGE 10000
-        var wcount_m = ver_bounds((ws / this.parameters.years) / 100); //CHANGE 100
+        var icount_m = ver_bounds((is / this.parameters.years) / 650); //CHANGE 730
+        var prcount_m = ver_bounds((prs / this.parameters.years) / 340); //CHANGE 365
+        var fcount_m = ver_bounds((fs / this.parameters.years) / 800); //CHANGE 1000
+        var scount_m = ver_bounds((stars / this.parameters.years) / 8000); //CHANGE 10000
+        var wcount_m = ver_bounds((ws / this.parameters.years) / 80); //CHANGE 100
 
         var ram = (icount_m * 65 + prcount_m * 65 + fcount_m * 55 + scount_m * 35 + wcount_m * 45 + this.parameters.update_m * 65) / RAM_TOTAL;
         this.url.ramp_up = ram;
@@ -282,11 +282,11 @@ export class Metrics {
         var ipar_m = ver_bounds(this.parameters.partic / 5);
         var itime_m = 0;
         if (issue_time) {
-            itime_m = ver_bounds(1 - ((daysbetween(issue_time, this.parameters.start) - 10) / 365)); //CHANGE 365
+            itime_m = ver_bounds(1 - ((daysbetween(issue_time, this.parameters.start) - 10) / 300)); //CHANGE 365
         }
         var prtime_m = 0;
         if (pr_time) {
-            prtime_m = ver_bounds(1 - ((daysbetween(pr_time, this.parameters.start) - 10) / 365)); //CHANGE 365
+            prtime_m = ver_bounds(1 - ((daysbetween(pr_time, this.parameters.start) - 10) / 300)); //CHANGE 365
         }
 
         var res = (ipar_m * 50 + itime_m * 55 + prtime_m * 45 + this.parameters.update_m * 45 + this.parameters.depend_m * 35) / RES_TOTAL;
