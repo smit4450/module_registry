@@ -225,7 +225,7 @@ app.get('/package/:id/cost', async (req: Request, res: Response) => {
   // }
   const { id } = req.params;
   try {
-    const cost = await sizeCost(id, 'latest'); // Assuming 'latest' version
+    const cost = await sizeCost(id); // Assuming 'latest' version
     res.status(200).json({ size: cost });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });

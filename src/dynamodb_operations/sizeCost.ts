@@ -33,10 +33,10 @@ const promptUser = (query: string): Promise<string> => {
 };
 
 // Function to fetch package metadata from DynamoDB
-const fetchPackageMetadata = async (name: string): Promise<any> => {
+const fetchPackageMetadata = async (package_id: string): Promise<any> => {
   const command = new GetCommand({
     TableName: 'packages_new',
-    Key: { name }, // Use name as the primary key
+    Key: { package_id },
   });
   const response = await dynamo.send(command);
   return response.Item;
@@ -81,16 +81,15 @@ const createCombinedArchive = async (
 };
 
 // Main Function
-export const sizeCost = async (packageName: string, packageVersion: string): Promise<string> => {
+export const sizeCost = async (package_id: string) => {
   try {
-    const metadata = await fetchPackageMetadata(packageName);
+    const metadata = await fetchPackageMetadata(package_id);
     if (!metadata) {
       throw new Error('Package not found in the database.');
     }
-
     // Check if the version exists in the metadata
-    if (metadata.version !== packageVersion) {
-      throw new Error(`Version ${packageVersion} not found for package ${packageName}.`);
+    if (metadata.package_id !== package_id) {
+      throw new Error(`${package_id} not found.`);
     }
 
     //console.log(`S3 key found for package: ${metadata.s3_key}`);
