@@ -36,7 +36,7 @@ function DatabaseSearch() {
         <button type="submit">Search</button>
       </form>
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: '#a60000' }}>{error}</p>}
       <ul>
         {results.map((result, index) => (
           <li key={index}>{result.name}</li>

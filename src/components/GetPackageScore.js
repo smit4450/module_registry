@@ -36,7 +36,7 @@ function GetPackageScore() {
         <button type="submit">Get Score</button>
       </form>
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: '#a60000' }}>{error}</p>}
       {score && (
         <div>
           <p>Net Score: {score.netScore}</p>

@@ -38,7 +38,7 @@ function Home() {
             <Link to="/fetch-directory" state={{ url }}><button>Fetch Directory</button></Link>
           </>
         ) : (
-          <p style={{ color: 'red' }}>Please enter a valid URL to proceed.</p>
+          <p style={{ color: '#a60000' }}>Please enter a valid URL to proceed.</p>
         )}
       </div>
     </div>

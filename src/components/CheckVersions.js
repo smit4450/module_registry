@@ -36,7 +36,7 @@ function CheckVersions() {
         <button type="submit">Check Versions</button>
       </form>
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: '#a60000' }}>{error}</p>}
       <ul>
         {versions.map((version, index) => (
           <li key={index}>{version}</li>

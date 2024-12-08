@@ -37,7 +37,7 @@ function NpmIngestion() {
         <button type="submit" disabled={loading}>Ingest Package</button>
       </form>
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: '#a60000' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>{success}</p>}
     </div>
   );

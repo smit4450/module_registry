@@ -43,7 +43,7 @@ function LoginSignup() {
         />
         <button type="submit">Submit</button>
       </form>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {errorMessage && <p style={{ color: '#a60000' }}>{errorMessage}</p>}
     </div>
   );
 }

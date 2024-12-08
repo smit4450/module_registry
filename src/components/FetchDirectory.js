@@ -28,7 +28,7 @@ function FetchDirectory() {
     <div className="container">
       <h2>Fetch Package Directory</h2>
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: '#a60000' }}>{error}</p>}
       <ul>
         {packages.map((pkg, index) => (
           <li key={index}>{pkg.name} - Version: {pkg.version}</li>

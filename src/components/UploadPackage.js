@@ -72,7 +72,7 @@ function UploadPackage() {
       </form>
       <button onClick={handleDebloat} disabled={loading}>Debloat Package</button>
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: '#a60000' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>{success}</p>}
     </div>
   );
