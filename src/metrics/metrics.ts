@@ -356,7 +356,7 @@ export class Metrics {
     }
 
     calc_net_score() {
-        var net = (this.url.bus_factor + this.url.correctness + this.url.ramp_up + this.url.responsive_maintainer * 2 + this.url.license + this.url.pull + this.url.depends) / 8.
+        var net = (this.url.bus_factor + this.url.correctness + this.url.ramp_up + this.url.responsive_maintainer * 2 + this.url.license + this.url.pull + this.url.depends) / 8;
         var end = new Date();
         this.url.net_score = net
         var net_lat = latency_calc(this.parameters.start, end);
