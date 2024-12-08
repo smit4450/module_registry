@@ -48,7 +48,7 @@ function CheckSize() {
         <button type="submit" disabled={loading}>Check Size</button>
       </form>
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: '#a60000' }}>{error}</p>}
       {size && <p>Package Size: {size} KB</p>}
     </div>
   );

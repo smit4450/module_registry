@@ -32,7 +32,7 @@ function Directory() {
   return (
     <div className="container">
       <h2>Package Directory</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: '#a60000' }}>{error}</p>}
       <ul>
         {packages.map((pkg, index) => (
           <li key={index}>{pkg.name} - Version: {pkg.version}</li>

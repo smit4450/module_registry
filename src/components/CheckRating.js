@@ -49,7 +49,7 @@ function CheckRating() {
         <button type="submit">Check Rating</button>
       </form>
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: '#a60000' }}>{error}</p>}
       {rating && <p>Rating: {rating}</p>}
     </div>
   );

@@ -1,74 +1,100 @@
 /* Global styles for a purple theme */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f2e6ff;  /* Light purple background */
-    color: #4b0082;  /* Dark purple text */
-  }
-  
-  h1, h2 {
-    color: #4b0082;  /* Dark purple */
-  }
-  
-  nav ul {
-    display: flex;
-    list-style: none;
-    background-color: #6a0dad;  /* Rich purple/navy for the header */
-    padding: 10px;
-    margin: 0;
-  }
-  
-  nav ul li {
-    margin-right: 20px;
-  }
-  
-  nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  nav ul li a:hover {
-    text-decoration: underline;
-  }
-  
-  .container {
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #e6ccff;  /* Light purple for the form boxes */
-    border: 1px solid #b366ff;
-    border-radius: 10px;
-    max-width: 700px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  }
-  
-  button {
-    background-color: #7a00cc;  /* Deep purple button */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #a64dff;
-  }
-  
-  input {
-    padding: 10px;
-    width: 100%;
-    margin-bottom: 10px;
-    border: 1px solid #b366ff;
-    border-radius: 5px;
-  }
-  
-  a {
-    color: #7a00cc;
-  }
-  
-  a:hover {
-    color: #b366ff;
-  }
-  
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f2e6ff;  /* Light purple background */
+  color: #2c004b;  /* Darker purple text for better contrast */
+}
+
+h1, h2 {
+  color: #2c004b;  /* Darker purple */
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  background-color: #4b0082;  /* Darker rich purple/navy for the header */
+  padding: 10px;
+  margin: 0;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav ul li a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #d4bfff;  /* Slightly darker light purple for the form boxes */
+  border: 1px solid #7a33cc;  /* Darker purple for better border contrast */
+  border-radius: 10px;
+  max-width: 700px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  background-color: #5e009e;  /* Darker deep purple button */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #7d4dff;  /* Accessible hover color */
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+  border: 1px solid #7a33cc;  /* Darker border for better contrast */
+  border-radius: 5px;
+}
+
+a {
+  color: #5e009e;  /* Darker link purple for better contrast */
+}
+
+a:hover {
+  color: #7a33cc;  /* Adjusted hover color */
+}
+
+.input-container {
+  margin-bottom: 20px;  /* Increased space between input fields */
+  width: 100%;
+}
+
+/* Styling for the input fields */
+input {
+  padding: 10px;
+  width: calc(100% - 20px); /* Adjust the width so the inputs fit within the container */
+  margin-bottom: 10px;
+  border: 1px solid #7a33cc; /* Darker border for better contrast */
+  border-radius: 5px;
+  background-color: white;
+  color: #2c004b;
+}
+
+input.error {
+  border-color: #a60000; /* Red border on error */
+  background-color: #fff0f0; /* Light red background to indicate error */
+}
+
+/* Error message styling */
+.error-message {
+  color: #a60000;
+  font-size: 14px;
+}
