@@ -61,22 +61,22 @@ export const lookupRating = async (package_id: string) => {
     } = Item;
 
     let data = {
-      BusFactor: Number(bus_factor.toFixed(3)) || -1,
-      BusFactorLatency: Number(bus_factor_lat.toFixed(3)) || -1,
-      Correctness: Number(correctness.toFixed(3)) || -1,
-      CorrectnessLatency: Number(correctness_lat.toFixed(3)) || -1,
-      RampUp: Number(ramp_up.toFixed(3)) || -1,
-      RampUpLatency: Number(ramp_up_lat.toFixed(3)) || -1,
-      ResponsiveMaintainer: Number(responsiveness.toFixed(3)) || -1,
-      ResponsiveMaintainerLatency: Number(responsiveness_lat.toFixed(3)) || -1,
-      LicenseScore: Number(license.toFixed(3)) || -1,
-      LicenseScoreLatency: Number(license_lat.toFixed(3)) || -1,
-      GoodPinningPractice: Number(dependency.toFixed(3)) || -1,
-      GoodPinningPracticeLatency: Number(dependency_lat.toFixed(3)) || -1,
-      PullRequest: Number(pull_request.toFixed(3)) || -1,
-      PullRequestLatency: Number(pull_request_lat.toFixed(3)) || -1,
-      NetScore: Number(net_score.toFixed(3)) || -1,
-      NetScoreLatency: Number(net_score_lat.toFixed(3)) || -1,
+      BusFactor: Number(bus_factor.toFixed(3)) || 0,
+      BusFactorLatency: Number(bus_factor_lat.toFixed(3)) || 0,
+      Correctness: Number(correctness.toFixed(3)) || 0,
+      CorrectnessLatency: Number(correctness_lat.toFixed(3)) || 0,
+      RampUp: Number(ramp_up.toFixed(3)) || 0,
+      RampUpLatency: Number(ramp_up_lat.toFixed(3)) || 0,
+      ResponsiveMaintainer: Number(responsiveness.toFixed(3)) || 0,
+      ResponsiveMaintainerLatency: Number(responsiveness_lat.toFixed(3)) || 0,
+      LicenseScore: Number(license.toFixed(3)) || 0,
+      LicenseScoreLatency: Number(license_lat.toFixed(3)) || 0,
+      GoodPinningPractice: Number(dependency.toFixed(3)) || 0,
+      GoodPinningPracticeLatency: Number(dependency_lat.toFixed(3)) || 0,
+      PullRequest: Number(pull_request.toFixed(3)) || 0,
+      PullRequestLatency: Number(pull_request_lat.toFixed(3)) || 0,
+      NetScore: Number(net_score.toFixed(3)) || 0,
+      NetScoreLatency: Number(net_score_lat.toFixed(3)) || 0,
     }
 
     const output = data;
