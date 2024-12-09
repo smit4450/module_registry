@@ -18,7 +18,7 @@ import fs from 'fs';
 import cors from 'cors';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 app.use(cors({
   origin: '*',
@@ -224,8 +224,10 @@ app.get('/package/:id/cost', async (req: Request, res: Response) => {
   //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
   // }
   const { id } = req.params;
+  const { dependency } = req.query;
+  //console.log(id, dependency);
   try {
-    const cost = await sizeCost(id); // Assuming 'latest' version
+    const cost = await sizeCost(id);
     res.status(200).json({ size: cost });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });

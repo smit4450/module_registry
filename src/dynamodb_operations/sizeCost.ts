@@ -111,7 +111,7 @@ export const sizeCost = async (package_id: string) => {
     const totalSize = metadata.size + dependenciesPaths.reduce((sum, depPath) => sum + calculateSize(depPath), 0);
     //console.log(`Total size including dependencies: ${totalSize} bytes`);
 
-    return totalSize;
+    return { totalCost: totalSize };
 
   } catch (error) {
     if (error instanceof Error) {
