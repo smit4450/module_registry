@@ -8,7 +8,7 @@ import { checkcompatible, checkRequirementsTxt, checkPackageJson, checkGemfile }
 import { log } from '../logger.js';
 
 const NUM = 10;
-const easiness = 0.8;
+const easiness = 0.5;
 
 export class Metrics {
     private url: url_interface;
