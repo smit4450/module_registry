@@ -65,10 +65,10 @@ export async function get_url_interface(urlInput: string): Promise<url_interface
         metrics.calculate_correctness();
         metrics.calculate_rampup();
         metrics.calc_responsive_maintainer();
-        metrics.calc_net_score();
         metrics.calc_license();
         metrics.calculate_depends();
         metrics.calculate_pull();
+        metrics.calc_net_score();
 
     } catch (error) {
         if (error instanceof Error) {
