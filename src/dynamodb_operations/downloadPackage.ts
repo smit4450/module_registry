@@ -34,20 +34,20 @@ const streamToString = (stream: Readable): Promise<string> => {
     });
 };
 
-export const downloadPackage = async (filePath: string, packageName: string) => {
+export const downloadPackage = async (package_id: string) => {
     try {
-        const params = {
+        const scanParams = {
             TableName: "packages_new",
-            KeyConditionExpression: "#name = :name",
+            FilterExpression: "#id = :id",
             ExpressionAttributeNames: {
-                "#name": "name", // Use an alias for the reserved keyword "name"
+                "#id": "package_id",
             },
             ExpressionAttributeValues: {
-                ":name": packageName,
+                ":id": package_id,
             },
         };
 
-        const data = await dynamodb.send(new QueryCommand(params));
+        const data = await dynamodb.send(new QueryCommand(scanParams));
 
         if (data.Items && data.Items.length > 0) {
             console.log("Available versions for the package:");
@@ -66,7 +66,7 @@ export const downloadPackage = async (filePath: string, packageName: string) => 
             }));
 
             // Step 3: Save the file locally
-            const localFilePath = path.join(filePath, path.basename(s3Key));
+            const localFilePath = path.join(package_id, path.basename(s3Key));
             if (fileContent.Body) {
                 const stream = fileContent.Body as Readable;
                 const fileData = await streamToString(stream);

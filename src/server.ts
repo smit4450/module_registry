@@ -133,7 +133,7 @@ app.route('/package/:id')
         }
         await npmIngestion(url, packageName, packageVersion, rating);
       }
-      res.status(200).json({ message: 'Package updated' });
+      res.status(201).json({ message: 'Package updated' });
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -210,7 +210,7 @@ app.get('/package/:id/rate', async (req: Request, res: Response) => {
   // }
   const { id } = req.params;
   try {
-    const rating = await lookupRating(id, 'latest'); // Assuming 'latest' version
+    const rating = await lookupRating(id); // Assuming 'latest' version
     res.status(200).json(rating);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
@@ -224,8 +224,10 @@ app.get('/package/:id/cost', async (req: Request, res: Response) => {
   //   return res.status(403).json({ error: 'Authentication failed due to invalid or missing AuthenticationToken.' });
   // }
   const { id } = req.params;
+  const { dependency } = req.query;
+  //console.log(id, dependency);
   try {
-    const cost = await sizeCost(id, 'latest'); // Assuming 'latest' version
+    const cost = await sizeCost(id);
     res.status(200).json({ size: cost });
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
