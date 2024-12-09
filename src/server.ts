@@ -191,6 +191,11 @@ app.post('/package', async (req: Request, res: Response) => {
           console.log("Invalid rating, trying again.");
         }
       }
+      const ratingData = JSON.parse(rating);
+      const net_score = Number(ratingData.NetScore) || 1;
+      if(net_score < 0.5) {
+        return res.status(424).json({ error: 'Package is not uploaded due to the disqualified rating.' });
+      }
       await npmIngestion(URL, packageName, packageVersion, rating);
     }
 

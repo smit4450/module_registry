@@ -43,32 +43,40 @@ export const lookupRating = async (package_id: string) => {
 
     const {
       bus_factor,
+      bus_factor_lat,
       correctness,
+      correctness_lat,
       dependency,
+      dependency_lat,
       license,
+      license_lat,
       net_score,
+      net_score_lat,
       pull_request,
+      pull_request_lat,
       ramp_up,
+      ramp_up_lat,
       responsiveness,
+      responsiveness_lat,
     } = Item;
 
     let data = {
       BusFactor: Number(bus_factor.toFixed(3)) || -1,
-      BusFactorLatency: -1,
+      BusFactorLatency: Number(bus_factor_lat.toFixed(3)) || -1,
       Correctness: Number(correctness.toFixed(3)) || -1,
-      CorrectnessLatency: -1,
+      CorrectnessLatency: Number(correctness_lat.toFixed(3)) || -1,
       RampUp: Number(ramp_up.toFixed(3)) || -1,
-      RampUpLatency: -1,
+      RampUpLatency: Number(ramp_up_lat.toFixed(3)) || -1,
       ResponsiveMaintainer: Number(responsiveness.toFixed(3)) || -1,
-      ResponsiveMaintainerLatency: -1,
+      ResponsiveMaintainerLatency: Number(responsiveness_lat.toFixed(3)) || -1,
       LicenseScore: Number(license.toFixed(3)) || -1,
-      LicenseScoreLatency: -1,
+      LicenseScoreLatency: Number(license_lat.toFixed(3)) || -1,
       GoodPinningPractice: Number(dependency.toFixed(3)) || -1,
-      GoodPinningPracticeLatency: -1,
+      GoodPinningPracticeLatency: Number(dependency_lat.toFixed(3)) || -1,
       PullRequest: Number(pull_request.toFixed(3)) || -1,
-      PullRequestLatency: -1,
+      PullRequestLatency: Number(pull_request_lat.toFixed(3)) || -1,
       NetScore: Number(net_score.toFixed(3)) || -1,
-      NetScoreLatency: -1,
+      NetScoreLatency: Number(net_score_lat.toFixed(3)) || -1,
     }
 
     const output = data;
