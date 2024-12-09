@@ -30,7 +30,7 @@ const promptUser = (query) => {
 // Function to fetch package metadata from DynamoDB
 const fetchPackageMetadata = async (name) => {
     const command = new GetCommand({
-        TableName: 'Packages',
+        TableName: 'packages_new',
         Key: { name }, // Use name as the primary key
     });
     const response = await dynamo.send(command);

@@ -23,7 +23,7 @@ export const resetRegistry = async () => {
     try {
         console.log("Scanning for packages...");
         const scanParams = {
-            TableName: "Packages",
+            TableName: "packages_new",
         };
         const scanResponse = await dynamodb.send(new ScanCommand(scanParams));
         if (scanResponse.Items && scanResponse.Items.length > 0) {
@@ -32,6 +32,7 @@ export const resetRegistry = async () => {
                 const packageName = item.name;
                 const packageVersion = item.version;
                 const s3Key = item.s3_key;
+                const package_id = item.package_id;
                 // Step 1: Delete from S3
                 if (s3Key) {
                     const deleteS3Params = {
@@ -48,9 +49,9 @@ export const resetRegistry = async () => {
                 }
                 // Step 2: Delete from DynamoDB
                 const deleteDbParams = {
-                    TableName: "Packages",
+                    TableName: "packages_new",
                     Key: {
-                        name: packageName, // Partition key
+                        package_id: package_id, // Partition key
                         //version: packageVersion, // Sort key (if applicable)
                     },
                 };

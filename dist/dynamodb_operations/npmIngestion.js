@@ -51,7 +51,7 @@ export const npmIngestion = async (url, packageName, packageVersion, rating) => 
     let packageSize = calculateSize(filePath);
     const fileStream = fs.createReadStream(filePath);
     // Automatically derive package ID from the file name
-    const packageId = path.basename(filePath, path.extname(filePath));
+    const packageId = `${packageName}-${packageVersion}`;
     // Upload file to S3
     const s3BucketName = process.env.S3_BUCKET_NAME;
     const s3Key = `packages/${packageName}-${packageVersion}.tgz`;
@@ -76,9 +76,17 @@ export const npmIngestion = async (url, packageName, packageVersion, rating) => 
     const rampUp = Number(ratingData.RampUP) || 0;
     const responsiveness = Number(ratingData.ResponsiveMaintainer) || 0;
     const net_score = Number(ratingData.NetScore) || 0;
+    const busFactor_lat = Number(ratingData.BusFactor_Latency) || 0;
+    const correctness_lat = Number(ratingData.Correctness_Latency) || 0;
+    const dependency_lat = Number(ratingData.Depends_Latency) || 0;
+    const license_lat = Number(ratingData.License_Latency) || 0;
+    const pullRequest_lat = Number(ratingData.Pull_Latency) || 0;
+    const rampUp_lat = Number(ratingData.RampUp_Latency) || 0;
+    const responsiveness_lat = Number(ratingData.ResponsiveMaintainer_Latency) || 0;
+    const net_score_lat = Number(ratingData.NetScore_Latency) || 0;
     // Save metadata to DynamoDB, including the size
     const dbParams = {
-        TableName: 'Packages',
+        TableName: 'packages_new',
         Item: {
             package_id: packageId, // Unique ID derived from the file name
             name: packageName, // User-provided package name
@@ -93,6 +101,14 @@ export const npmIngestion = async (url, packageName, packageVersion, rating) => 
             pull_request: pullRequest,
             responsiveness: responsiveness,
             net_score: net_score,
+            ramp_up_lat: rampUp_lat,
+            bus_factor_lat: busFactor_lat,
+            correctness_lat: correctness_lat,
+            dependency_lat: dependency_lat,
+            license_lat: license_lat,
+            pull_request_lat: pullRequest_lat,
+            responsiveness_lat: responsiveness_lat,
+            net_score_lat: net_score_lat,
         },
     };
     await dynamodb.send(new PutCommand(dbParams));

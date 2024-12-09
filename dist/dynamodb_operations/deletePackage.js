@@ -19,19 +19,10 @@ const promptUser = (query) => {
         resolve(ans);
     }));
 };
-export const deletePackage = async (packageName, packageVersion) => {
+export const deletePackage = async (package_id) => {
     try {
         const scanParams = {
-            TableName: "Packages",
-            FilterExpression: "#name = :name AND #version = :version",
-            ExpressionAttributeNames: {
-                "#name": "name",
-                "#version": "version",
-            },
-            ExpressionAttributeValues: {
-                ":name": packageName,
-                ":version": packageVersion,
-            },
+            TableName: "packages_new"
         };
         const scanResponse = await dynamodb.send(new ScanCommand(scanParams));
         if (scanResponse.Items && scanResponse.Items.length > 0) {
@@ -47,16 +38,16 @@ export const deletePackage = async (packageName, packageVersion) => {
             console.log(`Package file deleted from S3: ${s3Key}`);
             // Step 3: Delete the item from DynamoDB
             const deleteDbParams = {
-                TableName: "Packages",
+                TableName: "packages_new",
                 Key: {
-                    name: packageName, // Use only the partition key
+                    package_id: package_id, // Use only the partition key
                 },
             };
             await dynamodb.send(new DeleteCommand(deleteDbParams));
-            console.log(`Package with name "${packageName}" and version "${packageVersion}" deleted successfully from DynamoDB.`);
+            console.log(`Package "${package_id}" deleted successfully from DynamoDB.`);
         }
         else {
-            console.log(`No package found with name "${packageName}" and version "${packageVersion}".`);
+            console.log(`No package "${package_id}".`);
         }
     }
     catch (error) {

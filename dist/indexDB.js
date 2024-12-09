@@ -86,9 +86,8 @@ export async function main() {
         console.log("Not imlpemented yet");
     }
     else if (mode == "delete") {
-        const packageName = await promptUser("Enter package name: ");
-        const packageVersion = await promptUser("Enter package version: ");
-        deletePackage(packageName, packageVersion);
+        const package_id = await promptUser("Enter package name: ");
+        deletePackage(package_id);
     }
     else if (mode == "download") {
         const filePath = await promptUser("Enter file path: ");

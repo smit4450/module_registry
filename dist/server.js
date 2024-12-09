@@ -15,9 +15,18 @@ import { checkRating } from './checkRating.js';
 import AdmZip from 'adm-zip';
 import cors from 'cors';
 const app = express();
-const port = process.env.PORT || 8080;
-
+const port = process.env.PORT || 3000;
+app.use(cors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+})); // Add this line to enable CORS
 app.use(bodyParser.json());
+app.use(cors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+}));
 // Example endpoint
 app.get('/api/example', (req, res) => {
     res.send('Hello, this is an example endpoint!');
@@ -136,7 +145,7 @@ app.route('/package/:id')
     const { id } = req.params;
     const { packageVersion } = req.body;
     try {
-        await deletePackage(id, packageVersion);
+        await deletePackage(id);
         res.status(200).json({ message: 'Package deleted' });
     }
     catch (error) {

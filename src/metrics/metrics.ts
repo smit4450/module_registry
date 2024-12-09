@@ -8,6 +8,7 @@ import { checkcompatible, checkRequirementsTxt, checkPackageJson, checkGemfile }
 import { log } from '../logger.js';
 
 const NUM = 10;
+const easiness = 0.8;
 
 export class Metrics {
     private url: url_interface;
@@ -107,7 +108,8 @@ export class Metrics {
 
         this.url.depends = depends;
         var end = new Date();
-        var dependslat = latency_calc(this.parameters.now, end) + this.parameters.calclat;
+        var graphpart = latency_calc(this.parameters.start, this.parameters.now) / 7;
+        var dependslat = latency_calc(this.parameters.now, end) + this.parameters.calclat + graphpart;
         this.url.depends_latency = dependslat;
     }
 
@@ -150,7 +152,8 @@ export class Metrics {
 
         this.url.pull = pull;
         var end = new Date();
-        var pulllat = latency_calc(this.parameters.now, end) + this.parameters.calclat;
+        var graphpart = latency_calc(this.parameters.start, this.parameters.now) / 7;
+        var pulllat = latency_calc(this.parameters.now, end) + this.parameters.calclat + graphpart;
         this.url.pull_latency = pulllat;
     }
 
@@ -177,8 +180,8 @@ export class Metrics {
 
         var c_act = sum / contr_i;
 
-        var contr_m = ver_bounds((contr / this.parameters.years) / 35); //CHANGE 40
-        var cact_m = ver_bounds(c_act / 80); //CHANGE 100
+        var contr_m = ver_bounds((contr / this.parameters.years) / (40 * easiness)); //CHANGE 40
+        var cact_m = ver_bounds(c_act / (80 * easiness)); //CHANGE 100
         var doc = 0;
         doc = str_exists(metrics.contributingGuidelines, doc, true);
         doc = str_exists(metrics.codeOfConduct, doc, true);
@@ -201,7 +204,8 @@ export class Metrics {
         this.parameters.depend_m = depend_m;
         this.url.bus_factor = bus;
         var end = new Date();
-        var buslat = latency_calc(this.parameters.now, end) + this.parameters.calclat;
+        var graphpart = latency_calc(this.parameters.start, this.parameters.now) / 7;
+        var buslat = latency_calc(this.parameters.now, end) + this.parameters.calclat + graphpart;
         this.url.bus_factor_latency = buslat;
 
     }
@@ -224,14 +228,15 @@ export class Metrics {
         }
 
         var open_m = ver_bounds(this.parameters.open / this.parameters.len_i); //WEIGHT
-        var update_m = ver_bounds(1 - (daysbetween(this.parameters.update, this.parameters.start) / 25)); //CHANGE 30
+        var update_m = ver_bounds(1 - (daysbetween(this.parameters.update, this.parameters.start) / (30 * easiness))); //CHANGE 30
         var vul_m = ver_bounds(1 - (vul / 0.001));
 
         var cor = (open_m * 65 + update_m * 55 + vul_m * 70) / COR_TOTAL;
         this.parameters.update_m = update_m;
         this.url.correctness = cor;
         var end = new Date();
-        var corlat = latency_calc(this.parameters.now, end) + this.parameters.calclat
+        var graphpart = latency_calc(this.parameters.start, this.parameters.now) / 7;
+        var corlat = latency_calc(this.parameters.now, end) + this.parameters.calclat + graphpart;
         this.url.correctness_latency = corlat
     }
 
@@ -245,16 +250,17 @@ export class Metrics {
         var fs = exists(metrics.fcount.totalCount);
         var stars = exists(metrics.stargazerCount);
         var ws = exists(metrics.watchers.totalCount);
-        var icount_m = ver_bounds((is / this.parameters.years) / 650); //CHANGE 730
-        var prcount_m = ver_bounds((prs / this.parameters.years) / 340); //CHANGE 365
-        var fcount_m = ver_bounds((fs / this.parameters.years) / 800); //CHANGE 1000
-        var scount_m = ver_bounds((stars / this.parameters.years) / 8000); //CHANGE 10000
-        var wcount_m = ver_bounds((ws / this.parameters.years) / 80); //CHANGE 100
+        var icount_m = ver_bounds((is / this.parameters.years) / (730 * easiness)); //CHANGE 730
+        var prcount_m = ver_bounds((prs / this.parameters.years) / (365 * easiness)); //CHANGE 365
+        var fcount_m = ver_bounds((fs / this.parameters.years) / (1000 * easiness)); //CHANGE 1000
+        var scount_m = ver_bounds((stars / this.parameters.years) / (10000 * easiness)); //CHANGE 10000
+        var wcount_m = ver_bounds((ws / this.parameters.years) / (100 * easiness)); //CHANGE 100
 
         var ram = (icount_m * 65 + prcount_m * 65 + fcount_m * 55 + scount_m * 35 + wcount_m * 45 + this.parameters.update_m * 65) / RAM_TOTAL;
         this.url.ramp_up = ram;
         var end = new Date();
-        var ramlat = latency_calc(this.parameters.now, end) + this.parameters.calclat;
+        var graphpart = latency_calc(this.parameters.start, this.parameters.now) / 7;
+        var ramlat = latency_calc(this.parameters.now, end) + this.parameters.calclat + graphpart;
         this.url.ramp_up_latency = ramlat;
 
     }
@@ -282,17 +288,18 @@ export class Metrics {
         var ipar_m = ver_bounds(this.parameters.partic / 5);
         var itime_m = 0;
         if (issue_time) {
-            itime_m = ver_bounds(1 - ((daysbetween(issue_time, this.parameters.start) - 10) / 300)); //CHANGE 365
+            itime_m = ver_bounds(1 - ((daysbetween(issue_time, this.parameters.start) - 10) / (365 * easiness))); //CHANGE 365
         }
         var prtime_m = 0;
         if (pr_time) {
-            prtime_m = ver_bounds(1 - ((daysbetween(pr_time, this.parameters.start) - 10) / 300)); //CHANGE 365
+            prtime_m = ver_bounds(1 - ((daysbetween(pr_time, this.parameters.start) - 10) / (365 * easiness))); //CHANGE 365
         }
 
         var res = (ipar_m * 50 + itime_m * 55 + prtime_m * 45 + this.parameters.update_m * 45 + this.parameters.depend_m * 35) / RES_TOTAL;
         this.url.responsive_maintainer = res;
         var end = new Date();
-        var reslat = latency_calc(this.parameters.now, end) + this.parameters.calclat;
+        var graphpart = latency_calc(this.parameters.start, this.parameters.now) / 7;
+        var reslat = latency_calc(this.parameters.now, end) + this.parameters.calclat + graphpart;
         this.url.responsive_maintainer_latency = reslat;
     }
 
@@ -351,12 +358,13 @@ export class Metrics {
 
         this.url.license = lic;
         var end = new Date();
-        var liclat = latency_calc(this.parameters.now, end);
+        var graphpart = latency_calc(this.parameters.start, this.parameters.now) / 7;
+        var liclat = latency_calc(this.parameters.now, end) + this.parameters.calclat + graphpart;
         this.url.license_latency = liclat;
     }
 
     calc_net_score() {
-        var net = (this.url.bus_factor + this.url.correctness + this.url.ramp_up + this.url.responsive_maintainer * 2 + this.url.license + this.url.pull + this.url.depends) / 8.
+        var net = (this.url.bus_factor + this.url.correctness + this.url.ramp_up + this.url.responsive_maintainer * 2 + this.url.license + this.url.pull + this.url.depends) / 8;
         var end = new Date();
         this.url.net_score = net
         var net_lat = latency_calc(this.parameters.start, end);

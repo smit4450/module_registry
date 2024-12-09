@@ -14,7 +14,7 @@ const s3 = new S3Client({
 export const lookupRating = async (packageName, packageVersion) => {
     try {
         const scanParams = {
-            TableName: "Packages",
+            TableName: "packages_new",
             FilterExpression: "#name = :name AND #version = :version",
             ExpressionAttributeNames: {
                 "#name": "name",

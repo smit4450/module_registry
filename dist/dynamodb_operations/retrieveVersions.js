@@ -3,7 +3,8 @@ import dynamodb from '../dynamodb.js';
 export const retrieveVersions = async (packageName) => {
     try {
         const params = {
-            TableName: "Packages",
+            TableName: "packages_new",
+            IndexName: "name-index", // Name of the GSI
             KeyConditionExpression: "#name = :name",
             ExpressionAttributeNames: {
                 "#name": "name" // Alias to avoid conflicts with reserved keyword

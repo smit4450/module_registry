@@ -1,5 +1,4 @@
 import fs from 'fs';
-import path from 'path';
 import readline from 'readline';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { PutCommand } from '@aws-sdk/lib-dynamodb';
@@ -30,20 +29,11 @@ const calculateSize = (filePath) => {
     const stats = fs.statSync(filePath);
     return stats.size; // Size in bytes
 };
-// Generate a numeric ID based on timestamp and random number
-const generateNumericId = () => {
-    const timestamp = Date.now(); // Current timestamp in milliseconds
-    const randomNum = Math.floor(Math.random() * 100000); // Generate a random number between 0 and 99999
-    return `${timestamp}-${randomNum}`; // Combine timestamp and random number to create a unique ID
-};
 export const uploadPackage = async (filePath, packageName, packageVersion, rating) => {
     try {
         const packageSize = calculateSize(filePath);
         const fileStream = fs.createReadStream(filePath);
-        // Generate a unique numeric ID for the package
-        const uniqueId = generateNumericId();
-        console.log(`Generated numeric ID for the package: ${uniqueId}`);
-        const packageId = path.basename(filePath, path.extname(filePath));
+        const packageId = `${packageName}-${packageVersion}`;
         const s3BucketName = process.env.S3_BUCKET_NAME; // Ensure your bucket name is set in your .env
         const s3Key = `packages/${packageName}-${packageVersion}.tgz`;
         const s3UploadParams = {
@@ -69,9 +59,9 @@ export const uploadPackage = async (filePath, packageName, packageVersion, ratin
         const net_score = Number(ratingData.NetScore) || 0;
         // Save metadata to DynamoDB
         const dbParams = {
-            TableName: 'Packages',
+            TableName: 'packages_new',
             Item: {
-                package_id: uniqueId, // Unique ID derived from the file name
+                package_id: packageId, // Unique ID derived from the file name
                 name: packageName, // User-provided package name
                 version: packageVersion, // User-provided version label
                 s3_key: s3Key, // Reference to the S3 file location
