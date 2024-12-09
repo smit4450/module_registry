@@ -18,8 +18,16 @@ function CheckSize() {
     setSize(null);
 
     try {
-      const data = await getPackageSize(packageName, packageVersion);
-      setSize(data.size);
+      const packageId = `${packageName}-${packageVersion}`;
+      const response = await fetch(`http://54.163.22.181:3000/package/${packageId}/cost`, {
+        method: 'GET',
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setSize(data.size); // Expecting size to be an object with keys and values.
     } catch (err) {
       setError(err.message);
     } finally {
@@ -49,9 +57,21 @@ function CheckSize() {
       </form>
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: '#a60000' }}>{error}</p>}
-      {size && <p>Package Size: {size} KB</p>}
+      {size && (
+        <div>
+          <h3>Package Details:</h3>
+          <ul>
+            {Object.entries(size).map(([key, value]) => (
+              <li key={key}>
+                {key}: {value}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
+
 
 export default CheckSize;

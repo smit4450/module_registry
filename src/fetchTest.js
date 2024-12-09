@@ -20,7 +20,16 @@ const response = await fetch(`http://54.163.22.181:3000/package/byName/${input}`
   }
 */
 
+/*
 const response = await fetch(`http://54.163.22.181:3000/package/${input}/rate`, {
+    method: 'GET',
+  });
+if (!response.ok) {
+throw new Error(`HTTP error! status: ${response.status}`);
+}
+*/
+
+const response = await fetch(`http://54.163.22.181:3000/package/${input}/cost`, {
     method: 'GET',
   });
 if (!response.ok) {
@@ -34,7 +43,7 @@ console.log(data);
 console.log("data type: ", typeof response);
 console.log("data type: ", typeof data);
 console.log(keys);
-console.log(data.versions);
+console.log(data.size.totalCost);
 console.log(data.packages);
 console.log(data.Items);
 
