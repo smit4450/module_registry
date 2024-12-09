@@ -7,7 +7,7 @@ function CheckRating() {
   const url = location.state?.url || '';
   const [packageName, setPackageName] = useState('');
   const [version, setVersion] = useState('');
-  const [rating, setRating] = useState(null);
+  const [ratings, setRatings] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -17,10 +17,18 @@ function CheckRating() {
     setError(null);
 
     try {
-      // Construct the package ID (you may need to adjust this if the ID is formatted differently)
       const packageId = `${packageName}-${version}`;
-      const data = await getPackageRating(packageId);
-      setRating(data.NetScore); // Assuming 'NetScore' is the main rating
+
+      const response = await fetch(`http://54.163.22.181:3000/package/${packageId}/rate`, {
+        method: 'GET',
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      setRatings(data); // Set the entire response object
     } catch (err) {
       setError(err.message);
     } finally {
@@ -30,7 +38,7 @@ function CheckRating() {
 
   return (
     <div className="container">
-      <h2>Check Package Rating</h2>
+      <h2>Check Package Ratings</h2>
       <form onSubmit={handleSubmit}>
         <label>Package Name: </label>
         <input
@@ -46,13 +54,25 @@ function CheckRating() {
           onChange={(e) => setVersion(e.target.value)}
           placeholder="Enter version"
         />
-        <button type="submit">Check Rating</button>
+        <button type="submit">Check Ratings</button>
       </form>
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: '#a60000' }}>{error}</p>}
-      {rating && <p>Rating: {rating}</p>}
+      {ratings && (
+        <div>
+          <h3>Ratings:</h3>
+          <ul>
+            {Object.entries(ratings).map(([key, value]) => (
+              <li key={key}>
+                <strong>{key}:</strong> {value}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
+
 
 export default CheckRating;
