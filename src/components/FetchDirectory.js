@@ -12,9 +12,25 @@ function FetchDirectory() {
       setError(null);
 
       try {
-        const data = await fetchEntireDirectory();
-        setPackages(data.packages);
-      } catch (err) {
+        const response = await fetch(`http://54.163.22.181:3000/packages`, {
+          method: 'POST',
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        const output = [];
+        if (Array.isArray(data)) {
+          data.forEach((pkg) => {
+            output.push({ Name: pkg.Name, Version: pkg.Version, ID: pkg.ID });
+          });
+          setPackages(output);
+        } else if (data.message) {
+          setError(data.message);
+        } else if (data.error) {
+          setError(data.error);
+        }
+            } catch (err) {
         setError(err.message);
       } finally {
         setLoading(false);
@@ -30,8 +46,10 @@ function FetchDirectory() {
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: '#a60000' }}>{error}</p>}
       <ul>
-        {packages.map((pkg, index) => (
-          <li key={index}>{pkg.name} - Version: {pkg.version}</li>
+        {packages.map((pkg) => (
+          <li key={pkg.ID}>
+            Name: {pkg.Name}, Version: {pkg.Version}, ID: {pkg.ID}
+          </li>
         ))}
       </ul>
     </div>

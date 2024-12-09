@@ -6,7 +6,7 @@ function UploadPackage() {
   const location = useLocation();
   const url = location.state?.url || '';
   const [packageName, setPackageName] = useState('');
-  const [packageInput, setPackageInput] = useState('');
+  const [base64Content, setBase64Content] = useState('');
   const [packageVersion, setPackageVersion] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -19,7 +19,8 @@ function UploadPackage() {
     setSuccess(null);
 
     try {
-      await uploadPackage({ name: packageName, input: packageInput, version: packageVersion });
+      //await uploadPackage({ name: packageName, input: base64Content, version: packageVersion });
+      
       setSuccess('Package uploaded successfully');
     } catch (err) {
       setError(err.message);
@@ -34,7 +35,7 @@ function UploadPackage() {
     setSuccess(null);
 
     try {
-      await debloatPackage({ name: packageName, input: packageInput, version: packageVersion });
+      await debloatPackage({ name: packageName, input: base64Content, version: packageVersion });
       setSuccess('Package debloated successfully');
     } catch (err) {
       setError(err.message);
@@ -54,12 +55,12 @@ function UploadPackage() {
           onChange={(e) => setPackageName(e.target.value)}
           placeholder="Enter package name"
         />
-        <label>Package Input: </label>
+        <label>Package Base64 Content: </label>
         <input
           type="text"
-          value={packageInput}
-          onChange={(e) => setPackageInput(e.target.value)}
-          placeholder="Enter package input"
+          value={base64Content}
+          onChange={(e) => setBase64Content(e.target.value)}
+          placeholder="Enter package base64 content"
         />
         <label>Package Version: </label>
         <input

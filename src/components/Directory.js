@@ -1,32 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { fetchPackagesDirectory } from '../api_services/packageService.js';
+
+//THIS FILE DOES NOTHING DO NOT USE
 
 function Directory() {
   const [packages, setPackages] = useState([]);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [output, setOutput] = useState('');
 
-  useEffect(() => {
-    const fetchPackages = async () => {
-      setLoading(true);
-      setError(null);
+  const fetchPackages = async () => {
+    setLoading(true);
+    setError(null);
 
-      try {
-        const data = await fetchPackagesDirectory(page);
-        setPackages((prevPackages) => [...prevPackages, ...data]);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
+    try {
+
+      //------- WORKS -------
+      const response = await fetch(`http://54.163.22.181:3000/packages`, {
+        method: 'POST',
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
+      const data = await response.json();
+      // --------------------
 
+
+      setOutput('Packages fetched successfully');
+    } catch (error) {
+      setError(error.message);
+      setOutput('Failed to fetch packages');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleButtonClick = () => {
     fetchPackages();
-  }, [page]);
-
-  const loadMore = () => {
-    setPage((prevPage) => prevPage + 1);
   };
 
   return (
@@ -39,7 +49,8 @@ function Directory() {
         ))}
       </ul>
       {loading && <p>Loading...</p>}
-      <button onClick={loadMore} disabled={loading}>Load More</button>
+      <button onClick={handleButtonClick} disabled={loading}>Fetch Packages</button>
+      {output && <p>{output}</p>}
     </div>
   );
 }
