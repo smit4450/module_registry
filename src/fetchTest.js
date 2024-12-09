@@ -2,13 +2,14 @@
 const args = process.argv.slice(2);
 const input = args[0];
 
-
+/*
 const response = await fetch(`http://54.163.22.181:3000/packages`, {
     method: 'POST',
   });
 if (!response.ok) {
 throw new Error(`HTTP error! status: ${response.status}`);
 }
+*/
 
 /*
 const response = await fetch(`http://54.163.22.181:3000/package/byName/${input}`, {
@@ -17,7 +18,15 @@ const response = await fetch(`http://54.163.22.181:3000/package/byName/${input}`
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
-    */
+*/
+
+const response = await fetch(`http://54.163.22.181:3000/package/${input}/rate`, {
+    method: 'GET',
+  });
+if (!response.ok) {
+throw new Error(`HTTP error! status: ${response.status}`);
+}
+
 const data = await response.json();
 const keys = Object.keys(data);
 
