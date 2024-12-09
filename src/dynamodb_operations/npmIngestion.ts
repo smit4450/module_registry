@@ -53,9 +53,47 @@ const calculateSize = (filePath: string): number => {
   return stats.size; // Size in bytes
 };
 
-export const npmIngestion = async (url: string, packageName: string, packageVersion: string, rating: string) => {
-  let filePath: string = await handleNpmPackage(url)
+const fetchPackageJsonFromGitHubAPI = async (githubUrl: string): Promise<{ name: string; version: string }> => {
+  try {
+    // Extract owner and repo name from the GitHub URL
+    const match = githubUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
+    if (!match) {
+      throw new Error('Invalid GitHub URL format.');
+    }
 
+    const [_, owner, repo] = match;
+
+    // GitHub API URL to fetch the contents of package.json
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/package.json`;
+
+    // Make an API request to get the package.json file
+    const response = await axios.get(apiUrl, {
+      headers: {
+        Accept: 'application/vnd.github.v3+json',
+        Authorization: `token ${process.env.GITHUB_TOKEN}`, // Optional, if you have a GitHub personal access token
+      },
+    });
+
+    const fileContentBase64 = response.data.content; // The content is base64 encoded
+    const fileContent = Buffer.from(fileContentBase64, 'base64').toString('utf-8');
+    const packageJson = JSON.parse(fileContent);
+
+    if (!packageJson.name || !packageJson.version) {
+      throw new Error('Invalid package.json: Missing name or version.');
+    }
+
+    return {
+      name: packageJson.name,
+      version: packageJson.version,
+    };
+  } catch (error) {
+    throw new Error(`Failed to fetch package.json from GitHub API: ${error}`);
+  }
+};
+
+export const npmIngestion = async (url: string, rating: string) => {
+  let filePath: string = await handleNpmPackage(url)
+  const { name: packageName, version: packageVersion } = await fetchPackageJsonFromGitHubAPI(url);
   // Calculate the size of the package
   let packageSize: number = calculateSize(filePath);
   const fileStream = fs.createReadStream(filePath);

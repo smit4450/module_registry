@@ -131,7 +131,7 @@ app.route('/package/:id')
             console.log("Invalid rating, trying again.");
           }
         }
-        await npmIngestion(url, packageName, packageVersion, rating);
+        await npmIngestion(url, rating);
       }
       res.status(201).json({ message: 'Package updated' });
     } catch (error) {
@@ -193,10 +193,10 @@ app.post('/package', async (req: Request, res: Response) => {
       }
       const ratingData = JSON.parse(rating);
       const net_score = Number(ratingData.NetScore) || 1;
-      if(net_score < 0.5) {
+      if (net_score < 0.5) {
         return res.status(424).json({ error: 'Package is not uploaded due to the disqualified rating.' });
       }
-      await npmIngestion(URL, packageName, packageVersion, rating);
+      await npmIngestion(URL, rating);
     }
 
     res.status(201).json({ message: 'Package created successfully' });
